@@ -1,0 +1,21 @@
+import 'prismjs/themes/prism.css';
+import Hello from 'docs/src/Hello';
+
+# Hello
+
+```jsx
+import React from 'react';
+
+export default WrappedComponent => props => {
+  const { box } = props;
+
+  const style = { position: 'absolute', left: box.x, top: box.y };
+  return (
+    <span style={style}>
+      <WrappedComponent {...props} />
+    </span>
+  );
+};
+```
+
+<Hello title={'world'} />

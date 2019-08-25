@@ -5,7 +5,12 @@ module.exports = {
     browser: true,
     node: true,
   },
-  extends: ['plugin:import/recommended', 'airbnb', 'prettier', 'prettier/react'],
+  extends: [
+    'plugin:import/recommended',
+    'airbnb',
+    'prettier',
+    'prettier/react',
+  ],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 7,
@@ -13,12 +18,11 @@ module.exports = {
   },
   plugins: ['babel', 'react-hooks'],
   settings: {
-    'import/resolver': {
-    },
+    'import/resolver': {},
   },
   rules: {
     'no-alert': 'error',
-//    'no-console': 'error',
+    //    'no-console': 'error',
     'no-constant-condition': 'error',
     'no-prototype-builtins': 'off',
     'prefer-arrow-callback': ['error', { allowNamedFunctions: true }],
@@ -49,7 +53,9 @@ module.exports = {
     'import/order': [
       'error',
       {
-        groups: [['index', 'sibling', 'parent', 'internal', 'external', 'builtin']],
+        groups: [
+          ['index', 'sibling', 'parent', 'internal', 'external', 'builtin'],
+        ],
         'newlines-between': 'never',
       },
     ],
@@ -57,4 +63,12 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
   },
+  overrides: [
+    {
+      files: ['**/docs/**/*.jsx'],
+      rules: {
+        'react/prop-types': off,
+      },
+    },
+  ],
 };
