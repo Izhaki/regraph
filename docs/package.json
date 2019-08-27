@@ -8,9 +8,12 @@
   },
   "dependencies": {
     "@mapbox/rehype-prism": "^0.3.1",
+    "@regraph/graph": "0.0.1",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-mdx": "^1.2.0",
     "next": "^9.0.5",
+    "next-compose-plugins": "^2.2.0",
+    "next-transpile-modules": "^2.3.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   }

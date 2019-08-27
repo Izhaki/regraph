@@ -1,3 +1,6 @@
+const aliasesResolver = path.resolve('./eslintAliasesResolver.js');
+const aliases = require('./aliases.config');
+
 module.exports = {
   root: true, // So parent files don't get applied
   env: {
@@ -18,7 +21,9 @@ module.exports = {
   },
   plugins: ['babel', 'react-hooks'],
   settings: {
-    'import/resolver': {},
+    'import/resolver': {
+      [aliasesResolver]: aliases,
+    },
   },
   rules: {
     'no-alert': 'error',
@@ -67,7 +72,7 @@ module.exports = {
     {
       files: ['**/docs/**/*.jsx'],
       rules: {
-        'react/prop-types': off,
+        'react/prop-types': 'off',
       },
     },
   ],
