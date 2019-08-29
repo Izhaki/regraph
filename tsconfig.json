@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "docs/*": ["docs/*"],
+      "@regraph/*": ["packages/*"]
+    }
+  }
+}

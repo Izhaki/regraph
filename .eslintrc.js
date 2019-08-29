@@ -1,4 +1,5 @@
-const aliasesResolver = path.resolve('./eslintAliasesResolver.js');
+const { resolve } = require('path');
+const aliasesResolver = resolve('./eslintAliasesResolver.js');
 const aliases = require('./aliases.config');
 
 module.exports = {
@@ -73,6 +74,7 @@ module.exports = {
       files: ['**/docs/**/*.jsx'],
       rules: {
         'react/prop-types': 'off',
+        'react/jsx-props-no-spreading': 'off',
       },
     },
   ],
