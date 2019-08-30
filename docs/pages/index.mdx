@@ -1,21 +1,122 @@
-import 'prismjs/themes/prism.css';
+import 'prismjs/themes/prism-solarizedlight.css';
 import Graph from 'docs/src/getting-started/Minimal';
 
-# Hello
+# Quick Tour
 
 <Graph />
 
+## imports
+
 ```jsx
 import React from 'react';
+import { Graph } from '@regraph/graph';
+import { Line } from '@regraph/connections';
+```
 
-export default WrappedComponent => props => {
-  const { box } = props;
+## width and height
 
-  const style = { position: 'absolute', left: box.x, top: box.y };
-  return (
-    <span style={style}>
-      <WrappedComponent {...props} />
-    </span>
-  );
+```jsx
+const [width, height] = [200, 50];
+```
+
+For now, we manually specify the size of our graph. Both properties are required to ensure correct rendering and scroll behaviour.
+
+## nodes
+
+```jsx
+const nodes = [{ id: 'ping' }, { id: 'pong' }];
+```
+
+Note that nodes _must_ have an `id` property.
+
+## boxes
+
+```jsx
+const boxes = {
+  ping: { x: 10, y: 10, width: 20, height: 20 },
+  pong: { x: 100, y: 10, width: 20, height: 20 },
 };
+```
+
+The bounding rectangle of various grpahical elements is stored in the boxes dictionary, with the element `id` as key.
+
+Boxes are pivotal for many graphical tasks like positioning, layouting, and efficient hit detection.
+
+## renderSvgNode
+
+```jsx
+const renderSvgNode = React.memo(({ id, box }) => (
+  <rect key={id} {...box} fill="chocolate" />
+));
+```
+
+The `graph` component can render both SVG and HTML nodes. The corresponding [render props](https://reactjs.org/docs/render-props.html) for these are `renderSvgNode` and `renderHtmlNode`.
+
+Note two things in the code above:
+
+- We use `React.memo` to denote that our component is pure.
+- We set the `key` property of our node.
+
+<details><summary>A note on purity</summary>
+The `Graph` component supports rendering of mutated data.
+
+That's because in some use cases, like the rendering of a force-directed layout, data mutation is preferable.
+
+</details>
+
+## connections
+
+```jsx
+const connections = [
+  {
+    id: 'ping->pong',
+    src: { x: 20, y: 20 },
+    dst: { x: 110, y: 20 },
+  },
+];
+```
+
+For now we have one connection. We provide the required `id` property and both the source and destination points.
+
+## renderConnection
+
+```jsx
+const renderConnection = props => <Line key={props.id} {...props} />;
+```
+
+## All together
+
+In a slightly more compact form:
+
+```jsx
+import React from 'react';
+import { Graph } from '@regraph/graph';
+import { Line } from '@regraph/connections';
+
+const renderSvgNode = ({ id, box }) => (
+  <rect key={id} {...box} fill="Chocolate" />
+);
+
+const renderConnection = props => <Line key={props.id} {...props} />;
+
+export default () => (
+  <Graph
+    width={200}
+    height={50}
+    nodes={[{ id: 'ping' }, { id: 'pong' }]}
+    boxes={{
+      ping: { x: 10, y: 10, width: 20, height: 20 },
+      pong: { x: 100, y: 10, width: 20, height: 20 },
+    }}
+    renderSvgNode={renderSvgNode}
+    connections={[
+      {
+        id: 'ping->pong',
+        src: { x: 20, y: 20 },
+        dst: { x: 110, y: 20 },
+      },
+    ]}
+    renderConnection={renderConnection}
+  />
+);
 ```
