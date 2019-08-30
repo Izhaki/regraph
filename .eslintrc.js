@@ -30,6 +30,7 @@ module.exports = {
     'no-alert': 'error',
     //    'no-console': 'error',
     'no-constant-condition': 'error',
+    'no-param-reassign': 'off',
     'no-prototype-builtins': 'off',
     'prefer-arrow-callback': ['error', { allowNamedFunctions: true }],
 

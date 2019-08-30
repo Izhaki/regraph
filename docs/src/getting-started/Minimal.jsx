@@ -1,12 +1,12 @@
 import React from 'react';
 import { Graph } from '@regraph/graph';
-import { Straight } from '@regraph/connections';
+import { Line } from '@regraph/connections';
 
 const renderSvgNode = ({ id, box }) => (
   <rect key={id} {...box} fill="Chocolate" />
 );
 
-const renderConnection = props => <Straight key={props.id} {...props} />;
+const renderConnection = props => <Line key={props.id} {...props} />;
 
 export default () => (
   <Graph
