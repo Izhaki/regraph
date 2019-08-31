@@ -2,7 +2,7 @@ const withPlugins = require('next-compose-plugins');
 const rehypePrism = require('@mapbox/rehype-prism');
 const withTM = require('next-transpile-modules');
 const withCSS = require('@zeit/next-css');
-const withMDX = require('@zeit/next-mdx')({
+const withMDX = require('@next/mdx')({
   options: {
     rehypePlugins: [rehypePrism],
   },
