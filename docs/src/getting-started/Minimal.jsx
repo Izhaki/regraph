@@ -2,29 +2,23 @@ import React from 'react';
 import { Graph } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 
-const renderSvgNode = ({ id, box }) => (
-  <rect key={id} {...box} fill="Chocolate" />
-);
-
-const renderConnection = props => <Line key={props.id} {...props} />;
-
 export default () => (
   <Graph
-    width={200}
-    height={50}
+    width={220}
+    height={100}
     nodes={[{ id: 'ping' }, { id: 'pong' }]}
     boxes={{
-      ping: { x: 10, y: 10, width: 20, height: 20 },
-      pong: { x: 100, y: 10, width: 20, height: 20 },
+      ping: { x: 50, y: 40, width: 20, height: 20 },
+      pong: { x: 150, y: 40, width: 20, height: 20 },
     }}
-    renderSvgNode={renderSvgNode}
+    renderSvgNode={({ id, box }) => <rect key={id} {...box} fill="Chocolate" />}
     connections={[
       {
         id: 'ping->pong',
-        src: { x: 20, y: 20 },
-        dst: { x: 110, y: 20 },
+        src: { x: 60, y: 50 },
+        dst: { x: 160, y: 50 },
       },
     ]}
-    renderConnection={renderConnection}
+    renderConnection={props => <Line key={props.id} {...props} />}
   />
 );

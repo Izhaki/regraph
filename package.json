@@ -6,6 +6,9 @@
     "packages/*",
     "docs"
   ],
+  "scripts": {
+    "lint": "eslint ."
+  },
   "description": "React graph components",
   "repository": "git@github.com:Izhaki/regraph.git",
   "author": "Izhaki <roey@gefri.org>",

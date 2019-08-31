@@ -5,17 +5,7 @@ import { ThemeProvider, withStyles } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/theme';
 import { Container } from '@material-ui/core';
-
-const styles = {
-  '@global': {
-    ':not(pre) code': {
-      padding: [[2, 6]],
-      backgroundColor: '#fdf6e3',
-      fontFamily: 'Consolas, "Liberation Mono", Menlo, Courier, monospace',
-      borderRadius: 2,
-    },
-  },
-};
+import globalStyles from '../src/global.styles';
 
 class MyApp extends App {
   componentDidMount() {
@@ -46,4 +36,4 @@ class MyApp extends App {
   }
 }
 
-export default withStyles(styles)(MyApp);
+export default withStyles(globalStyles)(MyApp);
