@@ -1,7 +1,8 @@
 const aliases = require('./aliases.config');
+const resolveAlias = require('./resolveAlias');
 
 module.exports = {
-  presets: ['@babel/preset-env'],
+  presets: ['@babel/preset-env', '@babel/preset-react'],
   plugins: [
     [
       'module-resolver',
@@ -10,11 +11,9 @@ module.exports = {
         // There seem to be a bug with module-resolver under mono-repo setup:
         // It doesn't resolve paths correctly when using root/alias combo, so we
         // use this function instead.
-        resolvePath(sourcePath) {
-          // This will return undefined if aliases has no key for the sourcePath,
-          // in which case module-resolver will fallback on its default behaviour.
-          return aliases[sourcePath];
-        },
+        // Will return undefined if not found in which case module-resolver will
+        // fallback on its default behaviour.
+        resolvePath: source => resolveAlias(source, aliases),
       },
     ],
   ],
