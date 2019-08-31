@@ -55,6 +55,7 @@ module.exports = {
     'react/no-find-dom-node': 'off',
     'react/require-default-props': 'off',
     'react/sort-prop-types': 'error',
+    'react/jsx-props-no-spreading': 'off',
 
     'import/namespace': ['error', { allowComputed: true }],
     'import/order': [
@@ -75,7 +76,6 @@ module.exports = {
       files: ['**/docs/**/*.jsx'],
       rules: {
         'react/prop-types': 'off',
-        'react/jsx-props-no-spreading': 'off',
       },
     },
   ],
