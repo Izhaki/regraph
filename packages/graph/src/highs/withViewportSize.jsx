@@ -27,15 +27,15 @@ const getPadding = (viewportBox, padding) => {
 };
 
 const useSize = (boxes, { padding }) => {
+  const box = useMemo(() => getViewportBox(boxes), [boxes]);
   return useMemo(() => {
-    const box = getViewportBox(boxes);
     const [width, height] = [getRight(box), getBottom(box)];
     const { right, bottom } = getPadding(box, padding);
     return {
       width: width + right,
       height: height + bottom,
     };
-  }, [boxes, padding]);
+  }, [box, padding]);
 };
 
 export default (options = {}) => {
