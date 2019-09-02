@@ -1,7 +1,7 @@
 module.exports = (source, aliases) => {
   // For require('alias')
   if (aliases[source]) {
-    return { found: true, path: aliases[source] };
+    return aliases[source];
   }
 
   // For require('alias/x')

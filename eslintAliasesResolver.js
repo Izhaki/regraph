@@ -4,8 +4,5 @@ const resolveAlias = require('./resolveAlias');
 
 module.exports.resolve = (source, file, aliases) => {
   const resolution = resolveAlias(source, aliases);
-  if (resolveAlias(source, aliases)) {
-    return { found: true, path: resolution };
-  }
-  return { found: false };
+  return resolution ? { found: true, path: resolution } : { found: false };
 };
