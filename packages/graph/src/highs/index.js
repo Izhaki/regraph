@@ -1,2 +1,2 @@
-// eslint-disable-next-line import/prefer-default-export
 export { default as withViewportSize } from './withViewportSize';
+export { default as withLayout } from './withLayout';
