@@ -3,11 +3,30 @@ import Nodes from './Nodes';
 import Connections from './Connections';
 import PropTypes from 'prop-types';
 
+/* eslint-disable react/prop-types */
+
+const renderConnections = props => (
+  <Connections
+    connections={props.connections}
+    renderConnection={props.renderConnection}
+    graphProps={props}
+  />
+);
+
+const renderNodes = (renderNode, props, isHtml = false) => (
+  <Nodes
+    nodes={props.nodes}
+    boxes={props.boxes}
+    renderNode={renderNode}
+    graphProps={props}
+    isHtml={isHtml}
+  />
+);
+
+/* eslint-enable react/prop-types */
+
 const Graph = props => {
   const {
-    nodes,
-    connections,
-    boxes,
     renderSvgNode,
     renderHtmlNode,
     renderConnection,
@@ -24,35 +43,18 @@ const Graph = props => {
   return (
     <div style={style} data-regraph-graph>
       <svg style={{ position: 'relative', width, height }}>
-        <Connections
-          connections={connections}
-          renderConnection={renderConnection}
-          graphProps={props}
-        />
-        {renderSvgNode && (
-          <Nodes
-            nodes={nodes}
-            boxes={boxes}
-            renderNode={renderSvgNode}
-            graphProps={props}
-          />
-        )}
+        {renderConnection && renderConnections(props)}
+        {renderSvgNode && renderNodes(renderSvgNode, props)}
       </svg>
-      {renderHtmlNode && (
-        <Nodes
-          nodes={nodes}
-          boxes={boxes}
-          renderNode={renderHtmlNode}
-          graphProps={props}
-          isHtml
-        />
-      )}
+      {renderHtmlNode && renderNodes(renderHtmlNode, props, true)}
     </div>
   );
 };
 
+/* eslint-disable react/no-unused-prop-types */
+
 Graph.propTypes = {
-  boxes: PropTypes.object.isRequired,
+  boxes: PropTypes.object,
   connections: PropTypes.array,
   height: PropTypes.number.isRequired,
   nodes: PropTypes.array,
