@@ -5,7 +5,9 @@
     "baseUrl": ".",
     "paths": {
       "docs/*": ["docs/*"],
-      "@regraph/*": ["packages/*"]
+      "@regraph/graph/*": ["packages/graph/src/*"],
+      "@regraph/geo/*": ["packages/geo/src/*"],
+      "@regraph/connections/*": ["packages/connections/src/*"]
     }
   }
 }

@@ -57,6 +57,10 @@ module.exports = {
     'react/sort-prop-types': 'error',
     'react/jsx-props-no-spreading': 'off',
 
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['scripts/*.js'] },
+    ],
     'import/namespace': ['error', { allowComputed: true }],
     'import/order': [
       'error',

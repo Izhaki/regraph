@@ -4,7 +4,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "next"
+    "dev": "next",
+    "build": "rimraf .next && cross-env NODE_ENV=production next build"
   },
   "dependencies": {
     "@mapbox/rehype-prism": "^0.3.1",
@@ -18,7 +19,8 @@
     "next-compose-plugins": "^2.2.0",
     "next-transpile-modules": "^2.3.1",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "rimraf": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^12.7.3",

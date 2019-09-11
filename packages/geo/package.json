@@ -2,11 +2,9 @@
   "name": "@regraph/geo",
   "version": "0.0.1",
   "license": "MIT",
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
-  },
-  "dependencies": {
-    "prop-types": "^15.7.2"
+  "scripts": {
+    "build": "yarn build:cjs && yarn build:frank-dist",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel --config-file ../../babel.config.js --extensions \".ts,.tsx\" ./src --out-dir ./dist",
+    "build:frank-dist": "node ../../scripts/frank-dist.js"
   }
 }
