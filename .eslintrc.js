@@ -2,6 +2,14 @@ const { resolve } = require('path');
 const aliasesResolver = resolve('./eslintAliasesResolver.js');
 const aliases = require('./aliases.config');
 
+const defaultPlugins = ['babel', 'react-hooks'];
+const defaultExtends = [
+  'plugin:import/recommended',
+  'airbnb',
+  'prettier',
+  'prettier/react',
+];
+
 module.exports = {
   root: true, // So parent files don't get applied
   env: {
@@ -9,18 +17,13 @@ module.exports = {
     browser: true,
     node: true,
   },
-  extends: [
-    'plugin:import/recommended',
-    'airbnb',
-    'prettier',
-    'prettier/react',
-  ],
+  extends: defaultExtends,
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 7,
     sourceType: 'module',
   },
-  plugins: ['babel', 'react-hooks'],
+  plugins: defaultPlugins,
   settings: {
     'import/resolver': {
       [aliasesResolver]: aliases,
@@ -76,6 +79,23 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'error',
   },
   overrides: [
+    {
+      files: ['**/*.ts'],
+      parser: '@typescript-eslint/parser',
+      extends: [
+        ...defaultExtends,
+        'prettier/@typescript-eslint',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:import/typescript',
+      ],
+      plugins: [...defaultPlugins, '@typescript-eslint'],
+    },
+    {
+      files: ['packages/geo/**'],
+      rules: {
+        'no-param-reassign': 'off',
+      },
+    },
     {
       files: ['**/docs/**/*.jsx'],
       rules: {

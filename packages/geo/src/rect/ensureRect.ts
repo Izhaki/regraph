@@ -1,8 +1,9 @@
+import { Rect } from './types';
 import isRect from './isRect';
 
 const nullRect = { x: 0, y: 0, width: 0, height: 0 };
 
-export default (rect, fill = nullRect) => {
+export default (rect, fill = nullRect): Rect => {
   if (!isRect(rect)) {
     rect.x = rect.x || fill.x;
     rect.y = rect.y || fill.y;

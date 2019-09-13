@@ -1,12 +1,12 @@
-import { IRect, IRects } from './types';
+import { Rect, Rects } from './types';
 import fromSides from './fromSides';
 import { getTop, getRight, getBottom, getLeft } from './corners';
 
-const apply = fn => (args: any[]): number => fn(...args);
+const apply = fn => (args): number => fn(...args);
 const min = apply(Math.min);
 const max = apply(Math.max);
 
-export default (rects: IRects): IRect =>
+export default (rects: Rects): Rect =>
   fromSides(
     min(rects.map(getTop)),
     max(rects.map(getRight)),

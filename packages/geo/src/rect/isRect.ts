@@ -1,4 +1,4 @@
-const isNumber = (x: number) => typeof x === 'number';
+const isNumber = (x: number): boolean => typeof x === 'number';
 export default (rect): boolean =>
   rect &&
   isNumber(rect.x) &&

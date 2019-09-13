@@ -7,7 +7,7 @@
     "docs"
   ],
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint . --ext .js,.jsx,.ts",
     "build": "yarn build:geo && yarn build:graph && yarn build:connections",
     "build:geo": "yarn workspace @regraph/geo build",
     "build:graph": "yarn workspace @regraph/graph build",
@@ -24,6 +24,8 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.6.0",
+    "@typescript-eslint/eslint-plugin": "^2.2.0",
+    "@typescript-eslint/parser": "^2.2.0",
     "babel-eslint": "^10.0.2",
     "babel-plugin-module-resolver": "^3.2.0",
     "cross-env": "^5.2.1",

@@ -1,27 +1,27 @@
-import { IPoint } from '../point';
-import { IRect } from './types';
+import { Point } from '../point';
+import { Rect } from './types';
 
-export const getTop = (rect: IRect) => rect.y;
-export const getRight = (rect: IRect) => rect.x + rect.width;
-export const getBottom = (rect: IRect) => rect.y + rect.height;
-export const getLeft = (rect: IRect) => rect.x;
+export const getTop = (rect: Rect): number => rect.y;
+export const getRight = (rect: Rect): number => rect.x + rect.width;
+export const getBottom = (rect: Rect): number => rect.y + rect.height;
+export const getLeft = (rect: Rect): number => rect.x;
 
-export const getTopLeft = (rect: IRect): IPoint => ({
+export const getTopLeft = (rect: Rect): Point => ({
   x: getLeft(rect),
   y: getTop(rect),
 });
 
-export const getTopRight = (rect: IRect): IPoint => ({
+export const getTopRight = (rect: Rect): Point => ({
   x: getRight(rect),
   y: getTop(rect),
 });
 
-export const getBottomRight = (rect: IRect): IPoint => ({
+export const getBottomRight = (rect: Rect): Point => ({
   x: getRight(rect),
   y: getBottom(rect),
 });
 
-export const getBottomLeft = (rect: IRect): IPoint => ({
+export const getBottomLeft = (rect: Rect): Point => ({
   x: getLeft(rect),
   y: getBottom(rect),
 });

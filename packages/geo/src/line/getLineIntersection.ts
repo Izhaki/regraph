@@ -1,4 +1,6 @@
-export default ({ p1: a1, p2: a2 }, { p1: b1, p2: b2 }) => {
+import { Point } from '../point';
+
+export default ({ p1: a1, p2: a2 }, { p1: b1, p2: b2 }): Point => {
   const uB = (b2.y - b1.y) * (a2.x - a1.x) - (b2.x - b1.x) * (a2.y - a1.y);
 
   if (uB !== 0) {

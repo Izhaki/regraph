@@ -1,11 +1,11 @@
-import { IRect } from './types';
+import { Rect } from './types';
 
 export default (
   top: number,
   right: number,
   bottom: number,
   left: number
-): IRect => ({
+): Rect => ({
   x: left,
   y: top,
   width: right - left,
