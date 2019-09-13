@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "next",
-    "build": "rimraf .next && cross-env NODE_ENV=production next build"
+    "build": "rimraf .next && cross-env NODE_ENV=production next build",
+    "export": "yarn run build && next export",
+    "release": "yarn export && touch out/.nojekyll && gh-pages -t -d out"
   },
   "dependencies": {
     "@mapbox/rehype-prism": "^0.3.1",
@@ -23,7 +25,9 @@
     "rimraf": "^3.0.0"
   },
   "devDependencies": {
+    "@babel/plugin-transform-object-assign": "^7.2.0",
     "@types/node": "^12.7.3",
+    "gh-pages": "^2.1.1",
     "typescript": "^3.6.2"
   }
 }
