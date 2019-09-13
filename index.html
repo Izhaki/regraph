@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"/><meta name="theme-color" content="#556cd6"/><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"/><meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1"/><meta charSet="utf-8"/><title>Regraph</title><meta name="next-head-count" content="3"/><link rel="preload" href="/_next/static/IlNtuB2xDvkY_FEKp5GCY/pages/index.js" as="script"/><link rel="preload" href="/_next/static/IlNtuB2xDvkY_FEKp5GCY/pages/_app.js" as="script"/><link rel="preload" href="/_next/static/runtime/webpack-4b444dab214c6491079c.js" as="script"/><link rel="preload" href="/_next/static/chunks/commons.dde337b94c5f3fe8eb4f.js" as="script"/><link rel="preload" href="/_next/static/chunks/styles.6e2d4849137353acb333.js" as="script"/><link rel="preload" href="/_next/static/runtime/main-c970dbe7f2545d7799ce.js" as="script"/><link rel="stylesheet" href="/_next/static/css/styles.a922b6f3.chunk.css"/><style id="jss-server-side">html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+strong, b {
+  font-weight: bolder;
+}
+body {
+  color: rgba(0, 0, 0, 0.87);
+  margin: 0;
+  font-size: 1rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  background-color: #fff;
+}
+@media print {
+  body {
+    background-color: #fff;
+  }
+}
+body::backdrop {
+  background-color: #fff;
+}
+.MuiContainer-root {
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+@media (min-width:600px) {
+  .MuiContainer-root {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+@media (min-width:960px) {
+  .MuiContainer-root {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+@media (min-width:600px) {
+  .MuiContainer-fixed {
+    max-width: 600px;
+  }
+}
+@media (min-width:960px) {
+  .MuiContainer-fixed {
+    max-width: 960px;
+  }
+}
+@media (min-width:1280px) {
+  .MuiContainer-fixed {
+    max-width: 1280px;
+  }
+}
+@media (min-width:1920px) {
+  .MuiContainer-fixed {
+    max-width: 1920px;
+  }
+}
+@media (min-width:0px) {
+  .MuiContainer-maxWidthXs {
+    max-width: 444px;
+  }
+}
+@media (min-width:600px) {
+  .MuiContainer-maxWidthSm {
+    max-width: 600px;
+  }
+}
+@media (min-width:960px) {
+  .MuiContainer-maxWidthMd {
+    max-width: 960px;
+  }
+}
+@media (min-width:1280px) {
+  .MuiContainer-maxWidthLg {
+    max-width: 1280px;
+  }
+}
+@media (min-width:1920px) {
+  .MuiContainer-maxWidthXl {
+    max-width: 1920px;
+  }
+}
+:not(pre) code {
+  padding: 2px 0;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  border-radius: 2px;
+  background-color: #fdf6e3;
+}
+blockquote {
+  margin: 20px 0 30px 0;
+  padding: 1px 45px 1px 26px;
+  background-color: rgba(255, 229, 100, 0.3);
+  border-left-color: #ffe564;
+  border-left-style: solid;
+  border-left-width: 9px;
+}
+details {
+  padding: 10px;
+  background-color: #ffe564;
+  padding-inline-start: 24;
+}
+[data-regraph-graph] {
+  margin: 0 auto;
+  border-radius: 6px;
+  background-color: #fdf6e3;
+}</style></head><body><div id="__next"><div class="MuiContainer-root MuiContainer-maxWidthMd"><h1>Graph Properties</h1><div style="position:relative;width:220px;height:100px" data-regraph-graph="true"><svg style="position:relative;width:220px;height:100px"><g id="ping-&gt;pong"><line class="connection" x1="60" y1="50" x2="160" y2="50" stroke="#777"></line></g><rect x="50" y="40" width="20" height="20" fill="Chocolate"></rect><rect x="150" y="40" width="20" height="20" fill="Chocolate"></rect></svg></div><pre class="language-jsx"><code class="language-jsx"><span class="token keyword module">import</span> <span class="token maybe-class-name">React</span> <span class="token keyword module">from</span> <span class="token string">&#x27;react&#x27;</span><span class="token punctuation">;</span>
+<span class="token keyword module">import</span> <span class="token punctuation">{</span> <span class="token maybe-class-name">Graph</span> <span class="token punctuation">}</span> <span class="token keyword module">from</span> <span class="token string">&#x27;@regraph/graph&#x27;</span><span class="token punctuation">;</span>
+<span class="token keyword module">import</span> <span class="token punctuation">{</span> <span class="token maybe-class-name">Line</span> <span class="token punctuation">}</span> <span class="token keyword module">from</span> <span class="token string">&#x27;@regraph/connections&#x27;</span><span class="token punctuation">;</span>
+
+<span class="token keyword module">export</span> <span class="token keyword module">default</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Graph</span></span>
+    <span class="token attr-name">width</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token number">220</span><span class="token punctuation">}</span></span>
+    <span class="token attr-name">height</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token number">100</span><span class="token punctuation">}</span></span>
+    <span class="token attr-name">nodes</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token string">&#x27;ping&#x27;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token string">&#x27;pong&#x27;</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span>
+    <span class="token attr-name">boxes</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span>
+      ping<span class="token punctuation">:</span> <span class="token punctuation">{</span> x<span class="token punctuation">:</span> <span class="token number">50</span><span class="token punctuation">,</span> y<span class="token punctuation">:</span> <span class="token number">40</span><span class="token punctuation">,</span> width<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span> height<span class="token punctuation">:</span> <span class="token number">20</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      pong<span class="token punctuation">:</span> <span class="token punctuation">{</span> x<span class="token punctuation">:</span> <span class="token number">150</span><span class="token punctuation">,</span> y<span class="token punctuation">:</span> <span class="token number">40</span><span class="token punctuation">,</span> width<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span> height<span class="token punctuation">:</span> <span class="token number">20</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">}</span></span>
+    <span class="token attr-name">renderSvgNode</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> id<span class="token punctuation">,</span> box <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rect</span> <span class="token attr-name">key</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>id<span class="token punctuation">}</span></span> <span class="token spread"><span class="token punctuation">{</span><span class="token punctuation">...</span><span class="token attr-value">box</span><span class="token punctuation">}</span></span> <span class="token attr-name">fill</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Chocolate<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span><span class="token punctuation">}</span></span>
+    <span class="token attr-name">connections</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        id<span class="token punctuation">:</span> <span class="token string">&#x27;ping-&gt;pong&#x27;</span><span class="token punctuation">,</span>
+        src<span class="token punctuation">:</span> <span class="token punctuation">{</span> x<span class="token punctuation">:</span> <span class="token number">60</span><span class="token punctuation">,</span> y<span class="token punctuation">:</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        dst<span class="token punctuation">:</span> <span class="token punctuation">{</span> x<span class="token punctuation">:</span> <span class="token number">160</span><span class="token punctuation">,</span> y<span class="token punctuation">:</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
+    <span class="token attr-name">renderConnection</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token parameter">props</span> <span class="token arrow operator">=&gt;</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Line</span></span> <span class="token attr-name">key</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>props<span class="token punctuation">.</span><span class="token property-access">id</span><span class="token punctuation">}</span></span> <span class="token spread"><span class="token punctuation">{</span><span class="token punctuation">...</span><span class="token attr-value">props</span><span class="token punctuation">}</span></span> <span class="token punctuation">/&gt;</span></span><span class="token punctuation">}</span></span>
+  <span class="token punctuation">/&gt;</span></span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><h2>width &amp; height</h2><p>Define the size of the graph.</p><blockquote><p>🐞 The <code>width</code> and <code>height</code> properties ensure correct rendering, scroll behaviour and SVG exports.</p></blockquote><p><strong>Related</strong></p><ul><li>withViewportSize</li></ul><h2>nodes</h2><p>An array containing node objects.</p><blockquote><p>🐞 Each node must have an <code>id</code> property.</p></blockquote><h2>boxes</h2><p>A dictionary (ie, object), with the element <code>id</code> as key and its bounding rectangle as value.</p><blockquote><p>Boxes are pivotal for many graphical tasks like:</p><ul><li>Positioning</li><li>Layouting</li><li>Hit detection</li></ul></blockquote><h2>renderSvgNode &amp; renderHtmlNode</h2><p><a href="https://reactjs.org/docs/render-props.html">Render props</a> for SVG or HTML nodes.</p><h2>connections</h2><p>An array of object, each has an <code>id</code> property and both the source and destination points.</p><blockquote><p>💡 To use node IDs as the connection source/destination, see <code>withLayout</code> below.</p></blockquote><blockquote><p>🐞 A connection must have an <code>id</code> property.</p></blockquote><p><strong>Related</strong></p><ul><li>withLayout</li></ul><h2>renderConnection</h2><p><a href="https://reactjs.org/docs/render-props.html">Render prop</a> for connections.</p><h1>Higher-Order Components</h1><h2>withViewportSize</h2><p>Automatically calculates the width and height of the graph based on the <code>boxes</code> property.</p><p><strong>Options</strong></p><ul><li><code>padding</code><ul><li>an object with the <code>right</code> and <code>bottom</code> padding</li><li>a function that takes the calulated viewport box and return <code>right</code> and <code>bottom</code> padding.</li></ul></li></ul><p>In the following example, we use the <code>x</code> and <code>y</code> values of the viewport as the <code>right</code> and <code>bottom</code> padding, so the graph have equal padding on each axis.</p><pre class="language-jsx"><code class="language-jsx"><span class="token keyword">const</span> <span class="token maybe-class-name">MyGraph</span> <span class="token operator">=</span> <span class="token function">withViewportSize</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token function-variable function">padding</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> x<span class="token punctuation">,</span> y <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> right<span class="token punctuation">:</span> x<span class="token punctuation">,</span> bottom<span class="token punctuation">:</span> y <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token maybe-class-name">Graph</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword module">export</span> <span class="token keyword module">default</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">MyGraph</span></span>
+    <span class="token attr-name">nodes</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token string">&#x27;ping&#x27;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token string">&#x27;pong&#x27;</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span>
+    <span class="token attr-name">boxes</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span>
+      ping<span class="token punctuation">:</span> <span class="token punctuation">{</span> x<span class="token punctuation">:</span> <span class="token number">50</span><span class="token punctuation">,</span> y<span class="token punctuation">:</span> <span class="token number">40</span><span class="token punctuation">,</span> width<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span> height<span class="token punctuation">:</span> <span class="token number">20</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      pong<span class="token punctuation">:</span> <span class="token punctuation">{</span> x<span class="token punctuation">:</span> <span class="token number">150</span><span class="token punctuation">,</span> y<span class="token punctuation">:</span> <span class="token number">40</span><span class="token punctuation">,</span> width<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span> height<span class="token punctuation">:</span> <span class="token number">20</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">}</span></span>
+    <span class="token attr-name">renderSvgNode</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> id<span class="token punctuation">,</span> box <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rect</span> <span class="token attr-name">key</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>id<span class="token punctuation">}</span></span> <span class="token spread"><span class="token punctuation">{</span><span class="token punctuation">...</span><span class="token attr-value">box</span><span class="token punctuation">}</span></span> <span class="token attr-name">fill</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Chocolate<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span><span class="token punctuation">}</span></span>
+  <span class="token punctuation">/&gt;</span></span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><h2>withLayout</h2><p>Applies the provided layout to the graph.</p><p>A layout is a function that takes graph properties (boxes, connections, etc.) and returns modified graph properties.</p><h3>connectionLayout</h3><p>Very often node IDs are used as the connection&#x27;s source and destination:</p><pre class="language-jsx"><code class="language-jsx"><span class="token keyword">const</span> connections<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token string">&#x27;ping-&gt;pong&#x27;</span><span class="token punctuation">,</span> src<span class="token punctuation">:</span> <span class="token string">&#x27;ping&#x27;</span><span class="token punctuation">,</span> dst<span class="token punctuation">:</span> <span class="token string">&#x27;pong&#x27;</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span>
+</code></pre><p>The <code>connectionLayout</code> use the <code>boxes</code> to transform those IDs to points:</p><pre class="language-jsx"><code class="language-jsx"><span class="token keyword module">import</span> <span class="token maybe-class-name">React</span> <span class="token keyword module">from</span> <span class="token string">&#x27;react&#x27;</span><span class="token punctuation">;</span>
+<span class="token keyword module">import</span> <span class="token punctuation">{</span>
+  <span class="token maybe-class-name">Graph</span><span class="token punctuation">,</span>
+  compose<span class="token punctuation">,</span>
+  withViewportSize<span class="token punctuation">,</span>
+  withLayout<span class="token punctuation">,</span>
+  connectionLayout<span class="token punctuation">,</span>
+<span class="token punctuation">}</span> <span class="token keyword module">from</span> <span class="token string">&#x27;@regraph/graph&#x27;</span><span class="token punctuation">;</span>
+<span class="token keyword module">import</span> <span class="token punctuation">{</span> <span class="token maybe-class-name">Line</span> <span class="token punctuation">}</span> <span class="token keyword module">from</span> <span class="token string">&#x27;@regraph/connections&#x27;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token maybe-class-name">MyGraph</span> <span class="token operator">=</span> <span class="token function">compose</span><span class="token punctuation">(</span>
+  <span class="token function">withLayout</span><span class="token punctuation">(</span><span class="token function">connectionLayout</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token function">withViewportSize</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token function-variable function">padding</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> x<span class="token punctuation">,</span> y <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> right<span class="token punctuation">:</span> x<span class="token punctuation">,</span> bottom<span class="token punctuation">:</span> y <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token maybe-class-name">Graph</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword module">export</span> <span class="token keyword module">default</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">MyGraph</span></span>
+    <span class="token attr-name">nodes</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span><span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token string">&#x27;ping&#x27;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token string">&#x27;pong&#x27;</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span></span>
+    <span class="token attr-name">boxes</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span>
+      ping<span class="token punctuation">:</span> <span class="token punctuation">{</span> x<span class="token punctuation">:</span> <span class="token number">50</span><span class="token punctuation">,</span> y<span class="token punctuation">:</span> <span class="token number">40</span><span class="token punctuation">,</span> width<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span> height<span class="token punctuation">:</span> <span class="token number">20</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      pong<span class="token punctuation">:</span> <span class="token punctuation">{</span> x<span class="token punctuation">:</span> <span class="token number">150</span><span class="token punctuation">,</span> y<span class="token punctuation">:</span> <span class="token number">40</span><span class="token punctuation">,</span> width<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span> height<span class="token punctuation">:</span> <span class="token number">20</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">}</span></span>
+    <span class="token attr-name">renderSvgNode</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> id<span class="token punctuation">,</span> box <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rect</span> <span class="token attr-name">key</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>id<span class="token punctuation">}</span></span> <span class="token spread"><span class="token punctuation">{</span><span class="token punctuation">...</span><span class="token attr-value">box</span><span class="token punctuation">}</span></span> <span class="token attr-name">fill</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>Chocolate<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span><span class="token punctuation">}</span></span>
+    <span class="token attr-name">connections</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        id<span class="token punctuation">:</span> <span class="token string">&#x27;ping-&gt;pong&#x27;</span><span class="token punctuation">,</span>
+        src<span class="token punctuation">:</span> <span class="token string">&#x27;ping&#x27;</span><span class="token punctuation">,</span>
+        dst<span class="token punctuation">:</span> <span class="token string">&#x27;pong&#x27;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">}</span></span>
+    <span class="token attr-name">renderConnection</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span><span class="token parameter">props</span> <span class="token arrow operator">=&gt;</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Line</span></span> <span class="token attr-name">key</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>props<span class="token punctuation">.</span><span class="token property-access">id</span><span class="token punctuation">}</span></span> <span class="token spread"><span class="token punctuation">{</span><span class="token punctuation">...</span><span class="token attr-value">props</span><span class="token punctuation">}</span></span> <span class="token punctuation">/&gt;</span></span><span class="token punctuation">}</span></span>
+  <span class="token punctuation">/&gt;</span></span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></div><script id="__NEXT_DATA__" type="application/json">{"dataManager":"[]","props":{"pageProps":{}},"page":"/","query":{},"buildId":"IlNtuB2xDvkY_FEKp5GCY","nextExport":true}</script><script async="" data-next-page="/" src="/_next/static/IlNtuB2xDvkY_FEKp5GCY/pages/index.js"></script><script async="" data-next-page="/_app" src="/_next/static/IlNtuB2xDvkY_FEKp5GCY/pages/_app.js"></script><script src="/_next/static/runtime/webpack-4b444dab214c6491079c.js" async=""></script><script src="/_next/static/chunks/commons.dde337b94c5f3fe8eb4f.js" async=""></script><script src="/_next/static/chunks/styles.6e2d4849137353acb333.js" async=""></script><script src="/_next/static/runtime/main-c970dbe7f2545d7799ce.js" async=""></script></body></html>
