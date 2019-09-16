@@ -3,6 +3,6 @@ module.exports.interfaceVersion = 2;
 const resolveAlias = require('./resolveAlias');
 
 module.exports.resolve = (source, file, aliases) => {
-  const resolution = resolveAlias(source, aliases);
-  return resolution ? { found: true, path: resolution } : { found: false };
+  const path = resolveAlias(source, aliases);
+  return path ? { found: true, path } : { found: false };
 };

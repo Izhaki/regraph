@@ -1,3 +1,5 @@
+const resolve = require('resolve');
+
 module.exports = (source, aliases) => {
   // For require('alias')
   if (aliases[source]) {
@@ -10,7 +12,8 @@ module.exports = (source, aliases) => {
   for (let i = 0; i < aliasNames.length; i++) {
     const alias = aliasNames[i];
     if (source.startsWith(alias)) {
-      return source.replace(alias, aliases[alias]);
+      const path = source.replace(alias, aliases[alias]);
+      return resolve.sync(path, { extensions: ['.js', '.jsx', '.ts', '.tsx'] });
     }
   }
 

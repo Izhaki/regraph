@@ -62,7 +62,7 @@ module.exports = {
 
     'import/no-extraneous-dependencies': [
       'error',
-      { devDependencies: ['scripts/*.js'] },
+      { devDependencies: ['scripts/*.js', 'resolveAlias.js'] },
     ],
     'import/namespace': ['error', { allowComputed: true }],
     'import/order': [
