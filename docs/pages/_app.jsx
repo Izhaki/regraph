@@ -4,8 +4,8 @@ import Head from 'next/head';
 import { ThemeProvider, withStyles } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from 'docs/src/theme';
-import { Container } from '@material-ui/core';
 import globalStyles from 'docs/src/global.styles';
+import Drawer from 'docs/src/components/Drawer';
 
 class MyApp extends App {
   componentDidMount() {
@@ -27,9 +27,9 @@ class MyApp extends App {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <Container maxWidth={'md'}>
+          <Drawer>
             <Component {...pageProps} />
-          </Container>
+          </Drawer>
         </ThemeProvider>
       </>
     );
