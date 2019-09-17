@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import pages from '../pages';
 import renderNavItems from './renderNavItems';
+import GithubIcon from './GithubIcon';
 
 const drawerWidth = 240;
 
@@ -29,6 +30,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
     },
+  },
+  title: {
+    flexGrow: 1,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -76,9 +80,17 @@ function ResponsiveDrawer(props) {
             className={classes.menuButton}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" className={classes.title} noWrap>
             Regraph
           </Typography>
+          <IconButton
+            edge="end"
+            component="a"
+            color="inherit"
+            href="https://github.com/Izhaki/regraph"
+            aria-label={'github'}>
+            <GithubIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
