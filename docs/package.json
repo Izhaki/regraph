@@ -11,15 +11,15 @@
   },
   "dependencies": {
     "@mapbox/rehype-prism": "^0.3.1",
-    "@material-ui/core": "^4.3.3",
+    "@material-ui/core": "^4.4.2",
     "@material-ui/icons": "^4.4.1",
-    "@material-ui/styles": "^4.3.3",
+    "@material-ui/styles": "^4.4.1",
     "@mdx-js/loader": "^1.4.5",
-    "@next/mdx": "^9.0.5",
+    "@next/mdx": "^9.0.6",
     "@regraph/graph": "0.0.1",
     "@zeit/next-css": "^1.0.1",
     "clsx": "^1.0.4",
-    "next": "^9.0.5",
+    "next": "^9.0.6",
     "next-compose-plugins": "^2.2.0",
     "next-transpile-modules": "^2.3.1",
     "prop-types": "^15.7.2",
@@ -29,8 +29,8 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-object-assign": "^7.2.0",
-    "@types/node": "^12.7.3",
+    "@types/node": "^12.7.5",
     "gh-pages": "^2.1.1",
-    "typescript": "^3.6.2"
+    "typescript": "^3.6.3"
   }
 }
