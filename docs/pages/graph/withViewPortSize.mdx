@@ -1,0 +1,32 @@
+import 'prismjs/themes/prism-solarizedlight.css';
+
+# withViewportSize
+
+Automatically calculates the width and height of the graph based on the `boxes` property.
+
+## Options
+
+- `padding`
+  - an object with the `right` and `bottom` padding
+  - a function that takes the calculated viewport box and return `right` and `bottom` padding.
+
+In the following example, we use the `x` and `y` values of the viewport as the `right` and `bottom` padding, so the graph have equal padding on each axis.
+
+## Example
+
+```jsx
+const MyGraph = withViewportSize({
+  padding: ({ x, y }) => ({ right: x, bottom: y }),
+})(Graph);
+
+export default () => (
+  <MyGraph
+    nodes={[{ id: 'ping' }, { id: 'pong' }]}
+    boxes={{
+      ping: { x: 50, y: 40, width: 20, height: 20 },
+      pong: { x: 150, y: 40, width: 20, height: 20 },
+    }}
+    renderSvgNode={({ id, box }) => <rect key={id} {...box} fill="Chocolate" />}
+  />
+);
+```

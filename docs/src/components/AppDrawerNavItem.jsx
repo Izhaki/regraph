@@ -47,7 +47,6 @@ function AppDrawerNavItem(props) {
     href,
     onClick,
     openImmediately = false,
-    topLevel = false,
     title,
     linkProps,
     ...other
@@ -87,7 +86,6 @@ function AppDrawerNavItem(props) {
       <Button
         classes={{
           root: classes.button,
-          label: topLevel ? 'algolia-lvl0' : '',
         }}
         onClick={handleClick}
         style={style}>
@@ -108,7 +106,6 @@ AppDrawerNavItem.propTypes = {
   onClick: PropTypes.func,
   openImmediately: PropTypes.bool,
   title: PropTypes.string.isRequired,
-  topLevel: PropTypes.bool,
 };
 
 export default AppDrawerNavItem;

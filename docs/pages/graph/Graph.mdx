@@ -1,0 +1,47 @@
+# Graph API
+
+## width & height
+
+Define the size of the graph.
+
+> 🐞 The `width` and `height` properties ensure correct rendering, scroll behaviour and SVG exports.
+
+**Related**
+
+- [withViewportSize](/graph/withViewportSize)
+
+## nodes
+
+An array containing node objects.
+
+> 🐞 Each node must have an `id` property.
+
+## boxes
+
+A dictionary (ie, object), with the element `id` as key and its bounding rectangle as value.
+
+> Boxes are pivotal for many graphical tasks like:
+>
+> - Positioning
+> - Layouting
+> - Hit detection
+
+## renderSvgNode & renderHtmlNode
+
+[Render props](https://reactjs.org/docs/render-props.html) for SVG or HTML nodes.
+
+## connections
+
+An array of object, each has an `id` property and both the source and destination points.
+
+> 💡 To use node IDs as the connection source/destination, see `withLayout` below.
+
+> 🐞 A connection must have an `id` property.
+
+**Related**
+
+- withLayout
+
+## renderConnection
+
+[Render prop](https://reactjs.org/docs/render-props.html) for connections.

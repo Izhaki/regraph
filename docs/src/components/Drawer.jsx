@@ -5,12 +5,12 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import AppDrawerNavItem from './AppDrawerNavItem';
+import pages from '../pages';
+import renderNavItems from './renderNavItems';
 
 const drawerWidth = 240;
 
@@ -59,10 +59,7 @@ function ResponsiveDrawer(props) {
     <div>
       <div className={classes.toolbar} />
       <Divider />
-      <List>
-        <AppDrawerNavItem href="/demos/diy" depth={0} title="DIY" />
-        <AppDrawerNavItem href="/demos/nodiy" depth={0} title="No DIY" />
-      </List>
+      {renderNavItems({ props, pages, depth: 0 })}
     </div>
   );
 
