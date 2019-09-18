@@ -5,6 +5,7 @@ import useMarkers from './useMarkers';
 
 const defaultStyle = {
   stroke: '#777',
+  strokeWidth: 2,
 };
 
 const Line = React.memo(

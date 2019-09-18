@@ -5,6 +5,7 @@ export default [
     children: [
       { pathname: '/demos/bare-bones', title: 'Bare Bones' },
       { pathname: '/demos/some-flesh', title: 'Some Flesh' },
+      { pathname: '/demos/arrowheads', title: 'Arrowheads' },
     ],
   },
   {

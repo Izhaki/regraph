@@ -7,7 +7,8 @@
       "docs/*": ["docs/*"],
       "@regraph/graph/*": ["packages/graph/src/*"],
       "@regraph/geo/*": ["packages/geo/src/*"],
-      "@regraph/connections/*": ["packages/connections/src/*"]
+      "@regraph/connections/*": ["packages/connections/src/*"],
+      "@regraph/arrowheads/*": ["packages/arrowheads/src/*"]
     }
   }
 }
