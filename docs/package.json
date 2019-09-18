@@ -7,7 +7,7 @@
     "dev": "next",
     "build": "rimraf .next && cross-env NODE_ENV=production next build",
     "export": "yarn run build && next export",
-    "release": "yarn export && touch out/.nojekyll && 'regraph.js.org' > out/CNAME && gh-pages -t -d out"
+    "release": "yarn export && touch out/.nojekyll && echo 'regraph.js.org' > out/CNAME && gh-pages -t -d out"
   },
   "dependencies": {
     "@mapbox/rehype-prism": "^0.3.1",
