@@ -1,5 +1,10 @@
-export { default as withMarker } from './withMarker';
+import withMarker from './withMarker';
+import Triangle from './Triangle';
+import Chevy from './Chevy';
+import Perp from './Perp';
 
-export { default as Triangle } from './Triangle';
-export { default as Chevy } from './Chevy';
-export { default as Perp } from './Perp';
+export const TriangleMarker = withMarker(Triangle);
+export const ChevyMarker = withMarker(Chevy);
+export const PerpMarker = withMarker(Perp);
+
+export { withMarker, Triangle, Chevy, Perp };

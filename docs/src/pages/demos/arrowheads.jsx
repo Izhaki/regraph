@@ -8,15 +8,12 @@ import {
   chopBox,
 } from '@regraph/graph';
 import { Line } from '@regraph/connections';
-import { Triangle, Perp, withMarker } from '@regraph/arrowheads';
+import { TriangleMarker, PerpMarker } from '@regraph/arrowheads';
 
 const MyGraph = compose(
   withLayout(connectionLayout(chopBox)),
   withViewportSize({ padding: ({ x, y }) => ({ right: x, bottom: y }) })
 )(Graph);
-
-const PerpMarker = withMarker(Perp);
-const TriangleMarker = withMarker(Triangle);
 
 export default () => (
   <MyGraph
