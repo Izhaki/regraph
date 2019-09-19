@@ -1,6 +1,6 @@
 export default {
   '@global': {
-    ':not(pre) code': {
+    ':not(pre) > code': {
       padding: [[2, 0]],
       backgroundColor: '#fdf6e3',
       fontFamily: 'Consolas, "Liberation Mono", Menlo, Courier, monospace',

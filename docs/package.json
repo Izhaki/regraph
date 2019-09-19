@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-object-assign": "^7.2.0",
+    "@babel/plugin-transform-react-constant-elements": "^7.6.0",
     "@types/node": "^12.7.5",
     "gh-pages": "^2.1.1",
     "typescript": "^3.6.3"

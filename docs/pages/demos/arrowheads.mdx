@@ -53,3 +53,24 @@ export default () => (
   />
 );
 ```
+
+> ⚠️ The markers in this example are constants, so React will call `createElement` on every render:
+>
+> ```jsx
+> markerEnd={<TriangleMarker width={6} height={6} />}
+> ```
+>
+> To prevent this, either:
+>
+> - Use [@babel/plugin-transform-react-constant-elements](https://babeljs.io/docs/en/babel-plugin-transform-react-constant-elements) in production builds.
+> - Define it as const outside the render function:
+>
+> ```jsx
+> const markerEnd = <TriangleMarker width={6} height={6} />;
+> ```
+>
+> Then:
+>
+> ```jsx
+> markerEnd = { markerEnd };
+> ```

@@ -13,4 +13,9 @@ module.exports = {
     ],
   ],
   ignore: [/@babel[\\|/]runtime/], // Fix a Windows issue.
+  env: {
+    production: {
+      plugins: ['"@babel/plugin-transform-react-constant-elements"'],
+    },
+  },
 };
