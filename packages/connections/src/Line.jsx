@@ -1,12 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import useMarkers from './useMarkers';
-
-const defaultStyle = {
-  stroke: '#777',
-  strokeWidth: 2,
-};
 
 const Line = React.memo(
   ({
@@ -16,8 +12,9 @@ const Line = React.memo(
     markerStart,
     markerEnd,
     selectable,
-    styleAttrs,
-    overlayStyleAttrs,
+    className,
+    presentation,
+    overlayPresentation,
   }) => {
     const { MarkerStart, MarkerEnd, markerStartId, markerEndId } = useMarkers(
       id,
@@ -27,27 +24,32 @@ const Line = React.memo(
 
     return (
       <g id={id}>
+        {MarkerStart}
+        {MarkerEnd}
         <line
-          className="connection"
           x1={src.x}
           y1={src.y}
           x2={dst.x}
           y2={dst.y}
           markerStart={markerStart && `url(#${markerStartId})`}
           markerEnd={markerEnd && `url(#${markerEndId})`}
-          {...defaultStyle}
-          {...styleAttrs}
+          className={clsx(
+            'regraph-connection',
+            'regraph-connection-line',
+            className
+          )}
+          stroke="#777"
+          strokeWidth={2}
+          {...presentation}
         />
-        {MarkerStart && MarkerStart}
-        {MarkerEnd && MarkerEnd}
         {selectable && (
           <line
-            className="connection-overlay"
+            className="regraph-connection-overlay"
             x1={src.x}
             y1={src.y}
             x2={dst.x}
             y2={dst.y}
-            {...overlayStyleAttrs}
+            {...overlayPresentation}
           />
         )}
       </g>
@@ -55,21 +57,21 @@ const Line = React.memo(
   }
 );
 
+const PointPropTypes = PropTypes.shape({
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+}).isRequired;
+
 Line.propTypes = {
-  dst: PropTypes.shape({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-  }),
+  className: PropTypes.string,
+  dst: PointPropTypes,
   id: PropTypes.string.isRequired,
   markerEnd: PropTypes.element,
   markerStart: PropTypes.element,
-  overlayStyleAttrs: PropTypes.object,
+  overlayPresentation: PropTypes.object,
+  presentation: PropTypes.object,
   selectable: PropTypes.bool,
-  src: PropTypes.shape({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-  }),
-  styleAttrs: PropTypes.object,
+  src: PointPropTypes,
 };
 
 export default Line;
