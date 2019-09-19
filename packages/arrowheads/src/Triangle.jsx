@@ -11,7 +11,7 @@ const triangle = (width, height, flip) => {
   const top = { x: base, y: -halfHeight };
   const tipPoint = { x: tip, y: 0 };
   const btm = { x: base, y: halfHeight };
-  return [tipPoint, btm, top].map(toSvg);
+  return [top, tipPoint, btm];
 };
 
 const Triangle = ({ id, width, height, flip }) => {
@@ -21,7 +21,7 @@ const Triangle = ({ id, width, height, flip }) => {
     width,
   ]);
 
-  return <polyline id={id} points={points} fill="#777" />;
+  return <polygon id={id} points={points.map(toSvg)} fill="#777" />;
 };
 
 Triangle.propTypes = {
