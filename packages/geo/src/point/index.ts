@@ -1,7 +1,2 @@
-export interface Point {
-  x: number;
-  y: number;
-}
-
-// eslint-disable-next-line import/prefer-default-export
+export { Point } from './Point';
 export const toSvg = ({ x, y }): string => `${x},${y}`;

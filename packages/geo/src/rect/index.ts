@@ -1,3 +1,5 @@
+export { Rect } from './Rect';
+
 export { default as ensureRect } from './ensureRect';
 export { default as fromSides } from './fromSides';
 export { default as getCenter } from './getCenter';

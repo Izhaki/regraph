@@ -1,4 +1,4 @@
-import { Rect } from './types';
+import { Rect } from './Rect';
 
 export default (
   top: number,

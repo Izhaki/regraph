@@ -1,5 +1,5 @@
 import { Point } from '../point';
-import { Rect } from './types';
+import { Rect } from './Rect';
 
 export const getTop = (rect: Rect): number => rect.y;
 export const getRight = (rect: Rect): number => rect.x + rect.width;

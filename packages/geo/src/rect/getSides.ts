@@ -1,3 +1,4 @@
+import { Rect } from './Rect';
 import { Line } from '../line';
 
 import {
@@ -7,26 +8,25 @@ import {
   getBottomLeft,
 } from './corners';
 
-export const getTopSide = (rect): Line => ({
+export const getTopSide = (rect: Rect): Line => ({
   src: getTopLeft(rect),
   dst: getTopRight(rect),
 });
 
-export const getRightSide = (rect): Line => ({
+export const getRightSide = (rect: Rect): Line => ({
   src: getTopRight(rect),
   dst: getBottomRight(rect),
 });
 
-export const getBottomSide = (rect): Line => ({
+export const getBottomSide = (rect: Rect): Line => ({
   src: getBottomLeft(rect),
   dst: getBottomRight(rect),
 });
 
-export const getLefSide = (rect): Line => ({
+export const getLefSide = (rect: Rect): Line => ({
   src: getTopLeft(rect),
   dst: getBottomLeft(rect),
 });
-
 
 export interface Sides {
   top: Line;
@@ -35,7 +35,7 @@ export interface Sides {
   left: Line;
 }
 
-export const getSides = (rect): Sides => ({
+export const getSides = (rect: Rect): Sides => ({
   top: getTopSide(rect),
   right: getRightSide(rect),
   bottom: getBottomSide(rect),

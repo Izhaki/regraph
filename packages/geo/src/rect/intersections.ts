@@ -1,10 +1,14 @@
+import { Rect } from './Rect';
 import { Point } from '../point';
 import { getLineIntersection } from '../line';
 import { getSides } from './getSides';
 import getCenter from './getCenter';
 
 // eslint-disable-next-line import/prefer-default-export
-export const getIntersectionCenterToPoint = (rect, point): Point => {
+export const getIntersectionCenterToPoint = (
+  rect: Rect,
+  point: Point
+): Point => {
   const { x: px, y: py } = point;
   const center = getCenter(rect);
   const { x: cx, y: cy } = center;

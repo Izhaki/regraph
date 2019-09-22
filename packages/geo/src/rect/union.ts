@@ -1,4 +1,4 @@
-import { Rect, Rects } from './types';
+import { Rect, Rects } from './Rect';
 import fromSides from './fromSides';
 import { getTop, getRight, getBottom, getLeft } from './corners';
 

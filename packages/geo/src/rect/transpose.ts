@@ -1,4 +1,4 @@
-import { Rect } from './types';
+import { Rect } from './Rect';
 import { Point } from '../point';
 
 export default (rect: Rect, offset: Point): Rect => {
