@@ -26,7 +26,7 @@ export const getIntersectionCenterToPoint = (rect, point): Point => {
     delete sides.bottom;
   }
 
-  const line = { p1: center, p2: point };
+  const line = { src: center, dst: point };
 
   // eslint-disable-next-line guard-for-in, no-restricted-syntax
   for (const side in sides) {

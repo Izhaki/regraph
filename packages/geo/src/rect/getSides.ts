@@ -8,23 +8,23 @@ import {
 } from './corners';
 
 export const getTopSide = (rect): Line => ({
-  p1: getTopLeft(rect),
-  p2: getTopRight(rect),
+  src: getTopLeft(rect),
+  dst: getTopRight(rect),
 });
 
 export const getRightSide = (rect): Line => ({
-  p1: getTopRight(rect),
-  p2: getBottomRight(rect),
+  src: getTopRight(rect),
+  dst: getBottomRight(rect),
 });
 
 export const getBottomSide = (rect): Line => ({
-  p1: getBottomLeft(rect),
-  p2: getBottomRight(rect),
+  src: getBottomLeft(rect),
+  dst: getBottomRight(rect),
 });
 
 export const getLefSide = (rect): Line => ({
-  p1: getTopLeft(rect),
-  p2: getBottomLeft(rect),
+  src: getTopLeft(rect),
+  dst: getBottomLeft(rect),
 });
 
 

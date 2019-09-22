@@ -1,8 +1,8 @@
 import { Point } from '../point';
 
 export interface Line {
-  p1: Point;
-  p2: Point;
+  src: Point;
+  dst: Point;
 }
 
 // eslint-disable-next-line import/prefer-default-export
