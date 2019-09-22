@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import useMarkers from './useMarkers';
+import { getSvgCoordinates } from '@regraph/geo/line';
 
 const Line = React.memo(
   ({
@@ -22,15 +23,17 @@ const Line = React.memo(
       markerEnd
     );
 
+    const coordinates = useMemo(() => getSvgCoordinates({ src, dst }), [
+      src,
+      dst,
+    ]);
+
     return (
       <g id={id}>
         {MarkerStart}
         {MarkerEnd}
         <line
-          x1={src.x}
-          y1={src.y}
-          x2={dst.x}
-          y2={dst.y}
+          {...coordinates}
           markerStart={markerStart && `url(#${markerStartId})`}
           markerEnd={markerEnd && `url(#${markerEndId})`}
           className={clsx(
