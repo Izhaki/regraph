@@ -1,16 +1,22 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import flipIf from './flipIf';
 import clsx from 'clsx';
 
 const { ceil } = Math;
 
-const prep = (width, height) => {
+const prep = (width, height, flip) => {
+  const [x] = flipIf(flip, [0], width);
   const halfHeight = ceil(height / 2);
-  return { x1: width, y1: -halfHeight, x2: width, y2: halfHeight };
+  return { x1: x, y1: -halfHeight, x2: x, y2: halfHeight };
 };
 
-const Perp = ({ id, width, height, className, presentation }) => {
-  const points = useMemo(() => prep(width, height), [height, width]);
+const Perp = ({ id, width, height, flip, className, presentation }) => {
+  const points = useMemo(() => prep(width, height, flip), [
+    height,
+    width,
+    flip,
+  ]);
 
   return (
     <line
@@ -26,6 +32,7 @@ const Perp = ({ id, width, height, className, presentation }) => {
 
 Perp.propTypes = {
   className: PropTypes.string,
+  flip: PropTypes.bool,
   height: PropTypes.number.isRequired,
   id: PropTypes.string,
   presentation: PropTypes.object,
