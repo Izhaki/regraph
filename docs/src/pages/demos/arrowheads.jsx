@@ -34,7 +34,7 @@ export default () => (
       <Line
         key={props.id}
         {...props}
-        markerStart={<PerpMarker width={6} height={6} flip />}
+        markerStart={<PerpMarker width={6} height={6} />}
         markerEnd={<TriangleMarker width={6} height={6} />}
       />
     )}
