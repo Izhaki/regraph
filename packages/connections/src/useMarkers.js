@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
 
 const useTrim = (marker, strokeWidth) => {
-  // If the marker was produced by `withMarker`, we'll have `getTrim` on it.
-  // Since markers are provided as elements, we use `marker.type`.
-  const getTrim = marker && marker.type.getTrim;
-  return useMemo(() => (getTrim ? getTrim(marker.props, strokeWidth) : 0), [
-    getTrim,
-    marker.props,
-    strokeWidth,
-  ]);
+  return useMemo(() => {
+    // If the marker was produced by `withMarker`, we'll have `getTrim` on it.
+    // Since markers are provided as elements, we use `marker.type`.
+    if (marker && marker.type.getTrim) {
+      marker.type.getTrim(marker.props, strokeWidth);
+    }
+    return 0;
+  }, [marker, strokeWidth]);
 };
 
 export default (id, markerStart, markerEnd, strokeWidth) => {
