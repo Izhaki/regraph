@@ -60,11 +60,21 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const handleDrawerClose = () => {
+    setMobileOpen(false);
+  };
+
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
-      {renderNavItems({ props, pages, depth: 0 })}
+      {renderNavItems({
+        props: {
+          onClose: handleDrawerClose,
+        },
+        pages,
+        depth: 0,
+      })}
     </div>
   );
 
