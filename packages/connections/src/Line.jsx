@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import useMarkers from './useMarkers';
-import { getSvgCoordinates } from '@regraph/geo/line';
+import { getSvgCoordinates, getPointAtLength } from '@regraph/geo/line';
 
 const Line = React.memo(
   ({
@@ -14,19 +14,29 @@ const Line = React.memo(
     markerEnd,
     selectable,
     className,
+    strokeWidth,
     presentation,
     overlayPresentation,
   }) => {
-    const { MarkerStart, MarkerEnd, markerStartId, markerEndId } = useMarkers(
+    const { MarkerStart, MarkerEnd, startTrim, endTrim } = useMarkers(
       id,
       markerStart,
-      markerEnd
+      markerEnd,
+      strokeWidth
     );
 
-    const coordinates = useMemo(() => getSvgCoordinates({ src, dst }), [
-      src,
-      dst,
-    ]);
+    const coordinates = useMemo(() => {
+      const line = { src, dst };
+
+      if (startTrim) {
+        line.src = getPointAtLength(line, startTrim);
+      }
+      if (endTrim) {
+        line.dst = getPointAtLength(line, endTrim, false);
+      }
+
+      return getSvgCoordinates(line);
+    }, [src, dst, startTrim, endTrim]);
 
     return (
       <g id={id}>
@@ -34,15 +44,15 @@ const Line = React.memo(
         {MarkerEnd}
         <line
           {...coordinates}
-          markerStart={markerStart && `url(#${markerStartId})`}
-          markerEnd={markerEnd && `url(#${markerEndId})`}
+          markerStart={MarkerStart && `url(#${MarkerStart.props.id})`}
+          markerEnd={MarkerEnd && `url(#${MarkerEnd.props.id})`}
           className={clsx(
             'regraph-connection',
             'regraph-connection-line',
             className
           )}
           stroke="#777"
-          strokeWidth={2}
+          strokeWidth={strokeWidth}
           {...presentation}
         />
         {selectable && (
@@ -75,6 +85,7 @@ Line.propTypes = {
   presentation: PropTypes.object,
   selectable: PropTypes.bool,
   src: PointPropTypes,
+  strokeWidth: PropTypes.number,
 };
 
 export default Line;

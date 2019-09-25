@@ -38,6 +38,10 @@ const Triangle = ({ id, width, height, flip, className, presentation }) => {
   );
 };
 
+Triangle.getMarkerProps = ({ width }) => ({
+  trim: width,
+});
+
 Triangle.propTypes = {
   className: PropTypes.string,
   flip: PropTypes.bool,

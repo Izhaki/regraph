@@ -7,4 +7,4 @@ export const TriangleMarker = withMarker(Triangle);
 export const ChevyMarker = withMarker(Chevy);
 export const PerpMarker = withMarker(Perp);
 
-export { withMarker, Triangle, Chevy, Perp };
+export { Triangle, Chevy, Perp };
