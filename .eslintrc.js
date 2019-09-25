@@ -102,5 +102,17 @@ module.exports = {
         'react/prop-types': 'off',
       },
     },
+    {
+      files: ['**/docs/pages/**/*.jsx'],
+      settings: {
+        'import/resolver': {
+          webpack: {},
+          [aliasesResolver]: aliases,
+        },
+      },
+      rules: {
+        'import/no-webpack-loader-syntax': 'off',
+      },
+    },
   ],
 };

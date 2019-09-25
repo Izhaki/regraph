@@ -6,6 +6,9 @@ export default {
       fontFamily: 'Consolas, "Liberation Mono", Menlo, Courier, monospace',
       borderRadius: 2,
     },
+    '.prism-code > .token-line:not(:last-child)': {
+      minHeight: '1rem',
+    },
     blockquote: {
       backgroundColor: `rgba(255, 229, 100, 0.3)`,
       borderLeftColor: '#ffe564',
