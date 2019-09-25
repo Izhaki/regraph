@@ -36,7 +36,7 @@ export default () => (
         {...props}
         strokeWidth={2}
         markerStart={<PerpMarker width={6} height={6} />}
-        markerEnd={<TriangleMarker width={6} height={6} markerAnchor={0} />}
+        markerEnd={<TriangleMarker width={6} height={6} />}
       />
     )}
   />

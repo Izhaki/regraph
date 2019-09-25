@@ -38,8 +38,8 @@ const Triangle = ({ id, width, height, flip, className, presentation }) => {
   );
 };
 
-Triangle.getMarkerProps = ({ width }) => ({
-  trim: width,
+Triangle.getMarkerProps = () => ({
+  anchor: 0,
 });
 
 Triangle.propTypes = {

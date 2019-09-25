@@ -31,7 +31,7 @@ const Perp = ({ id, width, height, flip, className, presentation }) => {
 };
 
 Perp.getMarkerProps = () => ({
-  trim: 0,
+  anchor: 1,
 });
 
 Perp.propTypes = {

@@ -5,12 +5,12 @@ import flipIf from './flipIf';
 const { ceil } = Math;
 
 export default WrappedComponent => {
-  const withMarker = ({ id, markerAnchor, ...others }) => {
-    const { width, height, tip = 1, flip } = others;
+  const withMarker = ({ id, ...others }) => {
+    const { width, height, flip } = others;
 
-    const anchor = flipIf(flip, [
-      markerAnchor !== undefined ? markerAnchor : tip,
-    ]);
+    const { anchor: markerAnchor } = WrappedComponent.getMarkerProps(others);
+
+    const anchor = flipIf(flip, [markerAnchor]);
 
     const halfHeight = ceil(height / 2);
     return (
@@ -29,8 +29,8 @@ export default WrappedComponent => {
   };
 
   withMarker.getTrim = (props, strokeWidth) => {
-    const { trim } = WrappedComponent.getMarkerProps(props);
-    return trim * strokeWidth;
+    const { anchor } = WrappedComponent.getMarkerProps(props);
+    return (1 - anchor) * props.width * strokeWidth;
   };
 
   withMarker.propTypes = {

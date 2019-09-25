@@ -39,7 +39,7 @@ const Chevy = ({ id, width, height, flip, className, presentation }) => {
 };
 
 Chevy.getMarkerProps = () => ({
-  trim: 0,
+  anchor: 1,
 });
 
 Chevy.propTypes = {
