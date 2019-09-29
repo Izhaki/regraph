@@ -43,7 +43,7 @@ const Line = React.memo(
             className
           )}
           stroke="#777"
-          strokeWidth={strokeWidth}
+          style={{ strokeWidth }}
           {...others}
         />
         {selectable && (
