@@ -1,16 +1,15 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import flipIf from './flipIf';
 import { toSvg } from '@regraph/geo/point';
 
 const { ceil } = Math;
 
 const chevy = (width, height, flip) => {
-  const [base, tip] = flipIf(flip, [0, width], width);
+  const base = flip ? width : -width;
   const halfHeight = ceil(height / 2);
   const top = { x: base, y: -halfHeight };
-  const tipPoint = { x: tip, y: 0 };
+  const tipPoint = { x: 0, y: 0 };
   const btm = { x: base, y: halfHeight };
   return [top, tipPoint, btm];
 };
@@ -39,7 +38,7 @@ const Chevy = ({ id, width, height, flip, className, ...others }) => {
 };
 
 Chevy.getMarkerProps = () => ({
-  anchor: 1,
+  anchor: 0,
 });
 
 Chevy.propTypes = {

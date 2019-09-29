@@ -1,12 +1,11 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import flipIf from './flipIf';
 import clsx from 'clsx';
 
 const { ceil } = Math;
 
 const prep = (width, height, flip) => {
-  const [x] = flipIf(flip, [0], width);
+  const x = flip ? width : -width;
   const halfHeight = ceil(height / 2);
   return { x1: x, y1: -halfHeight, x2: x, y2: halfHeight };
 };
@@ -31,7 +30,7 @@ const Perp = ({ id, width, height, flip, className, ...others }) => {
 };
 
 Perp.getMarkerProps = () => ({
-  anchor: 1,
+  anchor: 0,
 });
 
 Perp.propTypes = {
