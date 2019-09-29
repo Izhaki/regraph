@@ -30,7 +30,13 @@ export default WrappedComponent => {
 
   withMarker.getTrim = (props, strokeWidth) => {
     const { anchor } = WrappedComponent.getMarkerProps(props);
-    return (1 - anchor) * props.width * strokeWidth;
+    const trim = (1 - anchor) * props.width * (strokeWidth || 1);
+    if (trim !== 0 && !strokeWidth) {
+      console.warn(
+        `Regraph: a ${WrappedComponent.name} marker may not render correctly as no 'strokeWidth' property was provided to the connection.`
+      );
+    }
+    return trim;
   };
 
   withMarker.propTypes = {

@@ -31,7 +31,7 @@ module.exports = {
   },
   rules: {
     'no-alert': 'error',
-    //    'no-console': 'error',
+    'no-console': ['error', { allow: ['warn', 'error'] }],
     'no-constant-condition': 'error',
     'no-param-reassign': 'off',
     'no-prototype-builtins': 'off',
