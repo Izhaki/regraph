@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import useMarkers from './useMarkers';
-import { getSvgCoordinates, getPointAtLength } from '@regraph/geo/line';
+import { getSvgCoordinates, trim } from '@regraph/geo/line';
 
 const Line = React.memo(
   ({
@@ -25,15 +25,7 @@ const Line = React.memo(
     );
 
     const coordinates = useMemo(() => {
-      const line = { src, dst };
-
-      if (startTrim) {
-        line.src = getPointAtLength(line, startTrim);
-      }
-      if (endTrim) {
-        line.dst = getPointAtLength(line, endTrim, false);
-      }
-
+      const line = trim({ src, dst }, startTrim, endTrim);
       return getSvgCoordinates(line);
     }, [src, dst, startTrim, endTrim]);
 
