@@ -5,7 +5,7 @@ const useTrim = (marker, strokeWidth) => {
     // If the marker was produced by `withMarker`, we'll have `getTrim` on it.
     // Since markers are provided as elements, we use `marker.type`.
     if (marker && marker.type.getTrim) {
-      marker.type.getTrim(marker.props, strokeWidth);
+      return marker.type.getTrim(marker.props, strokeWidth);
     }
     return 0;
   }, [marker, strokeWidth]);
