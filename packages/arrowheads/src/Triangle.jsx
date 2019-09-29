@@ -15,7 +15,7 @@ const triangle = (width, height, flip) => {
   return [top, tipPoint, btm];
 };
 
-const Triangle = ({ id, width, height, flip, className, presentation }) => {
+const Triangle = ({ id, width, height, flip, className, others }) => {
   const points = useMemo(() => triangle(width, height, flip), [
     height,
     flip,
@@ -33,7 +33,7 @@ const Triangle = ({ id, width, height, flip, className, presentation }) => {
       )}
       stroke="none"
       fill="#777"
-      {...presentation}
+      {...others}
     />
   );
 };
@@ -47,7 +47,7 @@ Triangle.propTypes = {
   flip: PropTypes.bool,
   height: PropTypes.number.isRequired,
   id: PropTypes.string,
-  presentation: PropTypes.object,
+  others: PropTypes.object,
   width: PropTypes.number.isRequired,
 };
 

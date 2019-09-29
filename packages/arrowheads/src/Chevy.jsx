@@ -15,7 +15,7 @@ const chevy = (width, height, flip) => {
   return [top, tipPoint, btm];
 };
 
-const Chevy = ({ id, width, height, flip, className, presentation }) => {
+const Chevy = ({ id, width, height, flip, className, ...others }) => {
   const points = useMemo(() => chevy(width, height, flip), [
     height,
     flip,
@@ -33,7 +33,7 @@ const Chevy = ({ id, width, height, flip, className, presentation }) => {
       )}
       stroke="#777"
       fill="none"
-      {...presentation}
+      {...others}
     />
   );
 };
@@ -47,7 +47,6 @@ Chevy.propTypes = {
   flip: PropTypes.bool,
   height: PropTypes.number.isRequired,
   id: PropTypes.string,
-  presentation: PropTypes.object,
   width: PropTypes.number.isRequired,
 };
 

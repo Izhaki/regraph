@@ -15,8 +15,7 @@ const Line = React.memo(
     selectable,
     className,
     strokeWidth,
-    presentation,
-    overlayPresentation,
+    ...others
   }) => {
     const { MarkerStart, MarkerEnd, startTrim, endTrim } = useMarkers(
       id,
@@ -53,7 +52,7 @@ const Line = React.memo(
           )}
           stroke="#777"
           strokeWidth={strokeWidth}
-          {...presentation}
+          {...others}
         />
         {selectable && (
           <line
@@ -62,7 +61,6 @@ const Line = React.memo(
             y1={src.y}
             x2={dst.x}
             y2={dst.y}
-            {...overlayPresentation}
           />
         )}
       </g>
@@ -81,8 +79,6 @@ Line.propTypes = {
   id: PropTypes.string.isRequired,
   markerEnd: PropTypes.element,
   markerStart: PropTypes.element,
-  overlayPresentation: PropTypes.object,
-  presentation: PropTypes.object,
   selectable: PropTypes.bool,
   src: PointPropTypes,
   strokeWidth: PropTypes.number,
