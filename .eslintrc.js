@@ -91,18 +91,6 @@ module.exports = {
       plugins: [...defaultPlugins, '@typescript-eslint'],
     },
     {
-      files: ['packages/geo/**'],
-      rules: {
-        'no-param-reassign': 'off',
-      },
-    },
-    {
-      files: ['**/docs/**/*.jsx'],
-      rules: {
-        'react/prop-types': 'off',
-      },
-    },
-    {
       files: ['**/docs/pages/**/*.jsx'],
       settings: {
         'import/resolver': {
