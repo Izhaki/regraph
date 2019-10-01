@@ -23,7 +23,9 @@ const getPadding = (viewportBox, padding) => {
   if (toString.call(padding) === '[object Object]') {
     return padding;
   }
-  return { right: 0, bottom: 0 };
+  // Same gap between top-left to top-bottom
+  const { x, y } = viewportBox;
+  return { right: x, bottom: y };
 };
 
 const useSize = (boxes, { padding }) => {

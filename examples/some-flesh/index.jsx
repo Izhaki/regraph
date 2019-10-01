@@ -10,7 +10,7 @@ import { Line } from '@regraph/connections';
 
 const MyGraph = compose(
   withLayout(connectionLayout()),
-  withViewportSize({ padding: ({ x, y }) => ({ right: x, bottom: y }) })
+  withViewportSize()
 )(Graph);
 
 export default () => (

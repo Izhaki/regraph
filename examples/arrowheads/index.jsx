@@ -12,7 +12,7 @@ import { TriangleMarker, PerpMarker } from '@regraph/arrowheads';
 
 const MyGraph = compose(
   withLayout(connectionLayout(chopBox)),
-  withViewportSize({ padding: ({ x, y }) => ({ right: x, bottom: y }) })
+  withViewportSize()
 )(Graph);
 
 export default () => (
