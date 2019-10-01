@@ -25,6 +25,9 @@ const renderNodes = (renderNode, props, isHtml = false) => (
 
 /* eslint-enable react/prop-types */
 
+// Translating by half a pixel results in uniform anti-aliasing
+const antialiasingShift = 'translate(0.5 0.5)';
+
 const Graph = props => {
   const {
     renderSvgNode,
@@ -42,7 +45,7 @@ const Graph = props => {
 
   return (
     <div style={style} data-regraph-graph>
-      <svg style={{ position: 'relative', width, height }}>
+      <svg style={style} transform={antialiasingShift}>
         {renderConnection && renderConnections(props)}
         {renderSvgNode && renderNodes(renderSvgNode, props)}
       </svg>
