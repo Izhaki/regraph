@@ -1,11 +1,11 @@
 export default [
   {
-    pathname: '/demos',
-    title: 'Demos',
+    pathname: '/examples',
+    title: 'Examples',
     children: [
-      { pathname: '/demos/bare-bones', title: 'Bare Bones' },
-      { pathname: '/demos/some-flesh', title: 'Some Flesh' },
-      { pathname: '/demos/arrowheads', title: 'Arrowheads' },
+      { pathname: '/examples/bare-bones', title: 'Bare Bones' },
+      { pathname: '/examples/some-flesh', title: 'Some Flesh' },
+      { pathname: '/examples/arrowheads', title: 'Arrowheads' },
     ],
   },
   {
