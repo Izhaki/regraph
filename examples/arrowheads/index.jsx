@@ -8,7 +8,7 @@ import {
   chopBox,
 } from '@regraph/graph';
 import { Line } from '@regraph/connections';
-import { TriangleMarker, PerpMarker } from '@regraph/arrowheads';
+import { Triangle, Perp } from '@regraph/arrowheads';
 
 const MyGraph = compose(
   withLayout(connectionLayout(chopBox)),
@@ -35,8 +35,8 @@ export default () => (
         key={props.id}
         {...props}
         strokeWidth={2}
-        markerStart={<PerpMarker />}
-        markerEnd={<TriangleMarker />}
+        markerStart={<Perp />}
+        markerEnd={<Triangle />}
       />
     )}
   />

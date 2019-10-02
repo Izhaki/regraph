@@ -60,7 +60,7 @@ Triangle.getMarkerProps = ({
     width,
     height,
   },
-  ref: {
+  anchor: {
     x: 0,
     y: 0,
   },
