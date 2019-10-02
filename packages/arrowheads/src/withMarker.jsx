@@ -1,23 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-const { ceil, abs } = Math;
+import { toSvgViewBox } from '@regraph/geo/rect';
 
 export default WrappedComponent => {
   const withMarker = ({ id, ...others }) => {
-    const { width, height, flip } = others;
+    const { viewBox, ref, width, height } = WrappedComponent.getMarkerProps(
+      others
+    );
 
-    const { anchor } = WrappedComponent.getMarkerProps(others);
-
-    const halfHeight = ceil(height / 2);
     return (
       <marker
         id={id}
         markerWidth={width}
         markerHeight={height}
-        viewBox={`${flip ? width : -width} ${-halfHeight} ${width}, ${height} `}
-        refX={anchor}
-        refY="0"
+        viewBox={toSvgViewBox(viewBox)}
+        refX={ref.x}
+        refY={ref.y}
         markerUnits="strokeWidth"
         orient="auto">
         <WrappedComponent {...others} />
@@ -26,20 +24,18 @@ export default WrappedComponent => {
   };
 
   withMarker.getTrim = (props, strokeWidth) => {
-    const { anchor } = WrappedComponent.getMarkerProps(props);
-    const trim = abs(anchor) * (strokeWidth || 1);
-    if (trim !== 0 && !strokeWidth) {
+    const { trim } = WrappedComponent.getMarkerProps(props);
+    const trimScaled = trim * (strokeWidth || 1);
+    if (trimScaled !== 0 && !strokeWidth) {
       console.warn(
         `Regraph: a ${WrappedComponent.name} marker may not render correctly as no 'strokeWidth' property was provided to the connection.`
       );
     }
-    return trim;
+    return trimScaled;
   };
 
   withMarker.propTypes = {
-    height: PropTypes.number.isRequired,
     id: PropTypes.string,
-    width: PropTypes.number.isRequired,
   };
 
   return withMarker;

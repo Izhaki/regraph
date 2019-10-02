@@ -37,8 +37,20 @@ const Chevy = ({ id, width, height, flip, className, ...others }) => {
   );
 };
 
-Chevy.getMarkerProps = () => ({
-  anchor: 0,
+Chevy.getMarkerProps = ({ width, height, flip }) => ({
+  width,
+  height,
+  viewBox: {
+    x: flip ? 0 : -width,
+    y: -(height / 2),
+    width,
+    height,
+  },
+  ref: {
+    x: 0,
+    y: 0,
+  },
+  trim: 0,
 });
 
 Chevy.propTypes = {
