@@ -14,7 +14,17 @@ const chevy = (width, height, flip) => {
   return [top, tipPoint, btm];
 };
 
-const Chevy = ({ id, width, height, flip, className, ...others }) => {
+const widthDefault = 6;
+const heightDefault = 6;
+
+const Chevy = ({
+  id,
+  width = widthDefault,
+  height = heightDefault,
+  flip,
+  className,
+  ...others
+}) => {
   const points = useMemo(() => chevy(width, height, flip), [
     height,
     flip,
@@ -37,7 +47,11 @@ const Chevy = ({ id, width, height, flip, className, ...others }) => {
   );
 };
 
-Chevy.getMarkerProps = ({ width, height, flip }) => ({
+Chevy.getMarkerProps = ({
+  width = widthDefault,
+  height = heightDefault,
+  flip,
+}) => ({
   width,
   height,
   viewBox: {

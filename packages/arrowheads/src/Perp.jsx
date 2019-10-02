@@ -10,7 +10,17 @@ const prep = (width, height, flip) => {
   return { x1: x, y1: -halfHeight, x2: x, y2: halfHeight };
 };
 
-const Perp = ({ id, width, height, flip, className, ...others }) => {
+const widthDefault = 6;
+const heightDefault = 6;
+
+const Perp = ({
+  id,
+  width = widthDefault,
+  height = heightDefault,
+  flip,
+  className,
+  ...others
+}) => {
   const points = useMemo(() => prep(width, height, flip), [
     height,
     width,
@@ -29,7 +39,11 @@ const Perp = ({ id, width, height, flip, className, ...others }) => {
   );
 };
 
-Perp.getMarkerProps = ({ width, height, flip }) => ({
+Perp.getMarkerProps = ({
+  width = widthDefault,
+  height = heightDefault,
+  flip,
+}) => ({
   width,
   height,
   viewBox: {
@@ -48,9 +62,9 @@ Perp.getMarkerProps = ({ width, height, flip }) => ({
 Perp.propTypes = {
   className: PropTypes.string,
   flip: PropTypes.bool,
-  height: PropTypes.number.isRequired,
+  height: PropTypes.number,
   id: PropTypes.string,
-  width: PropTypes.number.isRequired,
+  width: PropTypes.number,
 };
 
 export default Perp;

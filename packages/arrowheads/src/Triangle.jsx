@@ -14,7 +14,17 @@ const triangle = (width, height, flip) => {
   return [top, tipPoint, btm];
 };
 
-const Triangle = ({ id, width, height, flip, className, ...others }) => {
+const widthDefault = 6;
+const heightDefault = 6;
+
+const Triangle = ({
+  id,
+  width = widthDefault,
+  height = heightDefault,
+  flip,
+  className,
+  ...others
+}) => {
   const points = useMemo(() => triangle(width, height, flip), [
     height,
     flip,
@@ -37,7 +47,11 @@ const Triangle = ({ id, width, height, flip, className, ...others }) => {
   );
 };
 
-Triangle.getMarkerProps = ({ width, height, flip }) => ({
+Triangle.getMarkerProps = ({
+  width = widthDefault,
+  height = heightDefault,
+  flip,
+}) => ({
   width,
   height,
   viewBox: {
@@ -56,10 +70,10 @@ Triangle.getMarkerProps = ({ width, height, flip }) => ({
 Triangle.propTypes = {
   className: PropTypes.string,
   flip: PropTypes.bool,
-  height: PropTypes.number.isRequired,
+  height: PropTypes.number,
   id: PropTypes.string,
   others: PropTypes.object,
-  width: PropTypes.number.isRequired,
+  width: PropTypes.number,
 };
 
 export default Triangle;
