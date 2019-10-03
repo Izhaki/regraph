@@ -1,24 +1,34 @@
 import boxCenter from './boxCenter';
+import { isObject } from '@regraph/core/';
 import { isRect, getIntersectionCenterToPoint } from '@regraph/geo/rect';
 
-const isId = value => typeof value === 'string';
+const getEnds = ({ src, dst }) => ({
+  src: isObject(src) ? src : { id: src },
+  dst: isObject(dst) ? dst : { id: dst },
+});
 
 export default (props, connection) => {
   const { boxes } = props;
-  const { src, dst } = connection;
+  const { src, dst } = getEnds(connection);
   const terminals = {};
-  const srcBox = boxes[src];
-  const dstBox = boxes[dst];
+  const srcBox = boxes[src.id];
+  const dstBox = boxes[dst.id];
 
   if (!isRect(srcBox) || !isRect(dstBox)) {
     return terminals;
   }
 
-  const srcPoint = isId(src) ? boxCenter(srcBox) : src;
-  const dstPoint = isId(dst) ? boxCenter(dstBox) : dst;
+  const srcPoint = isRect(srcBox) ? boxCenter(srcBox) : src;
+  const dstPoint = isRect(dstBox) ? boxCenter(dstBox) : dst;
 
-  terminals.src = getIntersectionCenterToPoint(srcBox, dstPoint);
-  terminals.dst = getIntersectionCenterToPoint(dstBox, srcPoint);
+  terminals.src = {
+    ...src,
+    ...getIntersectionCenterToPoint(srcBox, dstPoint),
+  };
+  terminals.dst = {
+    ...dst,
+    ...getIntersectionCenterToPoint(dstBox, srcPoint),
+  };
 
   return terminals;
 };

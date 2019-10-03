@@ -1,17 +1,30 @@
 import boxCenter from './boxCenter';
+import { isObject } from '@regraph/core/';
 import { isRect } from '@regraph/geo/rect';
 
-const isId = value => typeof value === 'string';
+const getEnds = ({ src, dst }) => ({
+  src: isObject(src) ? src : { id: src },
+  dst: isObject(dst) ? dst : { id: dst },
+});
 
 export default (getMagnet = boxCenter) => (props, connection) => {
   const { boxes } = props;
-  const { src, dst } = connection;
+  const { src, dst } = getEnds(connection);
   const terminals = {};
-  if (isId(src) && isRect(boxes[src])) {
-    terminals.src = getMagnet(boxes[src]);
+  const srcBox = boxes[src.id];
+  const dstBox = boxes[dst.id];
+
+  if (isRect(srcBox)) {
+    terminals.src = {
+      ...src,
+      ...getMagnet(srcBox),
+    };
   }
-  if (isId(dst) && isRect(boxes[dst])) {
-    terminals.dst = getMagnet(boxes[dst]);
+  if (isRect(dstBox)) {
+    terminals.dst = {
+      ...dst,
+      ...getMagnet(dstBox),
+    };
   }
   return terminals;
 };

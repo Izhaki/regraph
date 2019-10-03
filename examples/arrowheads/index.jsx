@@ -26,8 +26,8 @@ export default () => (
     connections={[
       {
         id: 'ping->pong',
-        src: 'ping',
-        dst: 'pong',
+        src: { id: 'ping' },
+        dst: { id: 'pong' },
       },
     ]}
     renderConnection={props => (
