@@ -4,8 +4,8 @@ import clsx from 'clsx';
 
 const { ceil } = Math;
 
-const prep = (width, height, flip) => {
-  const x = flip ? width : -width;
+const prep = (width, height, rtl) => {
+  const x = rtl ? width : -width;
   const halfHeight = ceil(height / 2);
   return { x1: x, y1: -halfHeight, x2: x, y2: halfHeight };
 };
@@ -17,15 +17,11 @@ const Perp = ({
   id,
   width = widthDefault,
   height = heightDefault,
-  flip,
+  rtl,
   className,
   ...others
 }) => {
-  const points = useMemo(() => prep(width, height, flip), [
-    height,
-    width,
-    flip,
-  ]);
+  const points = useMemo(() => prep(width, height, rtl), [height, width, rtl]);
 
   return (
     <line
@@ -42,12 +38,12 @@ const Perp = ({
 Perp.getMarkerProps = ({
   width = widthDefault,
   height = heightDefault,
-  flip,
+  rtl,
 }) => ({
   width,
   height,
   viewBox: {
-    x: flip ? 0 : -width,
+    x: rtl ? 0 : -width,
     y: -(height / 2),
     width,
     height,
@@ -61,9 +57,9 @@ Perp.getMarkerProps = ({
 
 Perp.propTypes = {
   className: PropTypes.string,
-  flip: PropTypes.bool,
   height: PropTypes.number,
   id: PropTypes.string,
+  rtl: PropTypes.bool,
   width: PropTypes.number,
 };
 

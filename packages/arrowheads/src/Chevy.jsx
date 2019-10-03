@@ -5,8 +5,8 @@ import { toSvg } from '@regraph/geo/point';
 
 const { ceil } = Math;
 
-const chevy = (width, height, flip) => {
-  const base = flip ? width : -width;
+const chevy = (width, height, rtl) => {
+  const base = rtl ? width : -width;
   const halfHeight = ceil(height / 2);
   const top = { x: base, y: -halfHeight };
   const tipPoint = { x: 0, y: 0 };
@@ -21,15 +21,11 @@ const Chevy = ({
   id,
   width = widthDefault,
   height = heightDefault,
-  flip,
+  rtl,
   className,
   ...others
 }) => {
-  const points = useMemo(() => chevy(width, height, flip), [
-    height,
-    flip,
-    width,
-  ]);
+  const points = useMemo(() => chevy(width, height, rtl), [height, rtl, width]);
 
   return (
     <polyline
@@ -50,12 +46,12 @@ const Chevy = ({
 Chevy.getMarkerProps = ({
   width = widthDefault,
   height = heightDefault,
-  flip,
+  rtl,
 }) => ({
   width,
   height,
   viewBox: {
-    x: flip ? 0 : -width,
+    x: rtl ? 0 : -width,
     y: -(height / 2),
     width,
     height,
@@ -69,9 +65,9 @@ Chevy.getMarkerProps = ({
 
 Chevy.propTypes = {
   className: PropTypes.string,
-  flip: PropTypes.bool,
   height: PropTypes.number.isRequired,
   id: PropTypes.string,
+  rtl: PropTypes.bool,
   width: PropTypes.number.isRequired,
 };
 

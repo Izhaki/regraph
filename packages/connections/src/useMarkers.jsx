@@ -7,7 +7,7 @@ const useMarker = (marker, id, isStart = false) =>
     if (marker) {
       const markerProps = marker.type.getMarkerProps({
         ...marker.props,
-        flip: isStart,
+        rtl: isStart,
       });
 
       return (
@@ -15,7 +15,7 @@ const useMarker = (marker, id, isStart = false) =>
           id={`${id}-marker-${isStart ? 'start' : 'end'}`}
           {...markerProps}>
           {React.cloneElement(marker, {
-            flip: isStart,
+            rtl: isStart,
           })}
         </Marker>
       );

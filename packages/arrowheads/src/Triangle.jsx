@@ -5,8 +5,8 @@ import { toSvg } from '@regraph/geo/point';
 
 const { ceil } = Math;
 
-const triangle = (width, height, flip) => {
-  const tip = flip ? -width : width;
+const triangle = (width, height, rtl) => {
+  const tip = rtl ? -width : width;
   const halfHeight = ceil(height / 2);
   const top = { x: 0, y: -halfHeight };
   const tipPoint = { x: tip, y: 0 };
@@ -21,13 +21,13 @@ const Triangle = ({
   id,
   width = widthDefault,
   height = heightDefault,
-  flip,
+  rtl,
   className,
   ...others
 }) => {
-  const points = useMemo(() => triangle(width, height, flip), [
+  const points = useMemo(() => triangle(width, height, rtl), [
     height,
-    flip,
+    rtl,
     width,
   ]);
 
@@ -50,12 +50,12 @@ const Triangle = ({
 Triangle.getMarkerProps = ({
   width = widthDefault,
   height = heightDefault,
-  flip,
+  rtl,
 }) => ({
   width,
   height,
   viewBox: {
-    x: flip ? -width : 0,
+    x: rtl ? -width : 0,
     y: -(height / 2),
     width,
     height,
@@ -69,10 +69,10 @@ Triangle.getMarkerProps = ({
 
 Triangle.propTypes = {
   className: PropTypes.string,
-  flip: PropTypes.bool,
   height: PropTypes.number,
   id: PropTypes.string,
   others: PropTypes.object,
+  rtl: PropTypes.bool,
   width: PropTypes.number,
 };
 
