@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { PointPropTypes } from '@regraph/core';
 import clsx from 'clsx';
 import useMarkers from './useMarkers';
 import { getSvgCoordinates, trim } from '@regraph/geo/line';
@@ -59,11 +60,6 @@ const Line = React.memo(
     );
   }
 );
-
-const PointPropTypes = PropTypes.shape({
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-}).isRequired;
 
 Line.propTypes = {
   className: PropTypes.string,

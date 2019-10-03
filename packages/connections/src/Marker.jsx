@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { PointPropTypes, RectPropTypes } from '@regraph/core';
 import { toSvgViewBox } from '@regraph/geo/rect';
 
 const Marker = ({ id, width, height, viewBox, anchor, children }) => (
@@ -17,17 +18,6 @@ const Marker = ({ id, width, height, viewBox, anchor, children }) => (
 );
 
 // TODO: DRY
-const PointPropTypes = PropTypes.shape({
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-}).isRequired;
-
-const RectPropTypes = PropTypes.shape({
-  height: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-}).isRequired;
 
 Marker.propTypes = {
   anchor: PointPropTypes,

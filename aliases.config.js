@@ -8,6 +8,7 @@ const getPackageSourcePath = packageName =>
 module.exports = {
   docs: resolve(__dirname, 'docs'),
   examples: resolve(__dirname, 'examples'),
+  '@regraph/core': getPackageSourcePath('core'),
   '@regraph/graph': getPackageSourcePath('graph'),
   '@regraph/geo': getPackageSourcePath('geo'),
   '@regraph/connections': getPackageSourcePath('connections'),
