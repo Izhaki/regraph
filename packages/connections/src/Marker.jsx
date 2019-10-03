@@ -17,8 +17,6 @@ const Marker = ({ id, width, height, viewBox, anchor, children }) => (
   </marker>
 );
 
-// TODO: DRY
-
 Marker.propTypes = {
   anchor: PointPropTypes,
   children: PropTypes.element.isRequired,

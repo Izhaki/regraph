@@ -1,34 +1,11 @@
 import React, { useMemo } from 'react';
-import Marker from './Marker';
-import useTrim from './useTrim';
 
-const useMarker = (marker, id, isStart = false) =>
-  useMemo(() => {
-    if (marker) {
-      const markerProps = marker.type.getMarkerProps({
-        ...marker.props,
-        rtl: isStart,
-      });
+const useMarker = (marker, id) =>
+  useMemo(() => marker && React.cloneElement(marker, { id }), [id, marker]);
 
-      return (
-        <Marker
-          id={`${id}-marker-${isStart ? 'start' : 'end'}`}
-          {...markerProps}>
-          {React.cloneElement(marker, {
-            rtl: isStart,
-          })}
-        </Marker>
-      );
-    }
-    return undefined;
-  }, [id, isStart, marker]);
+export default (id, src, dst) => {
+  const srcMarker = useMarker(src.marker, `${id}-marker-start`);
+  const dstMarker = useMarker(dst.marker, `${id}-marker-end`);
 
-export default (id, markerStart, markerEnd, strokeWidth) => {
-  const startTrim = useTrim(markerStart, strokeWidth);
-  const MarkerStart = useMarker(markerStart, id, true);
-
-  const endTrim = useTrim(markerEnd, strokeWidth);
-  const MarkerEnd = useMarker(markerEnd, id);
-
-  return { MarkerStart, MarkerEnd, startTrim, endTrim };
+  return { srcMarker, dstMarker };
 };

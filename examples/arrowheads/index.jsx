@@ -8,12 +8,15 @@ import {
   chopBox,
 } from '@regraph/graph';
 import { Line } from '@regraph/connections';
-import { Triangle, Perp } from '@regraph/arrowheads';
+import { getArrowhead, Triangle, Perp } from '@regraph/arrowheads';
 
 const MyGraph = compose(
   withLayout(connectionLayout(chopBox)),
   withViewportSize()
 )(Graph);
+
+const srcArrowhead = getArrowhead(<Perp rtl />, 2);
+const dstArrowhead = getArrowhead(<Triangle />, 2);
 
 export default () => (
   <MyGraph
@@ -26,18 +29,12 @@ export default () => (
     connections={[
       {
         id: 'ping->pong',
-        src: { id: 'ping' },
-        dst: { id: 'pong' },
+        src: { id: 'ping', ...srcArrowhead },
+        dst: { id: 'pong', ...dstArrowhead },
       },
     ]}
     renderConnection={props => (
-      <Line
-        key={props.id}
-        {...props}
-        strokeWidth={2}
-        markerStart={<Perp />}
-        markerEnd={<Triangle />}
-      />
+      <Line key={props.id} {...props} strokeWidth={2} />
     )}
   />
 );

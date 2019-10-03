@@ -7,44 +7,28 @@ import useMarkers from './useMarkers';
 import { getSvgCoordinates, trim } from '@regraph/geo/line';
 
 const Line = React.memo(
-  ({
-    id,
-    src,
-    dst,
-    markerStart,
-    markerEnd,
-    selectable,
-    className,
-    strokeWidth,
-    ...others
-  }) => {
-    const { MarkerStart, MarkerEnd, startTrim, endTrim } = useMarkers(
-      id,
-      markerStart,
-      markerEnd,
-      strokeWidth
-    );
+  ({ id, src, dst, selectable, className, ...others }) => {
+    const { srcMarker, dstMarker } = useMarkers(id, src, dst);
 
     const coordinates = useMemo(() => {
-      const line = trim({ src, dst }, startTrim, endTrim);
+      const line = trim({ src, dst }, src.trim || 0, dst.trim || 0);
       return getSvgCoordinates(line);
-    }, [src, dst, startTrim, endTrim]);
+    }, [src, dst]);
 
     return (
       <g id={id}>
-        {MarkerStart}
-        {MarkerEnd}
+        {srcMarker}
+        {dstMarker}
         <line
           {...coordinates}
-          markerStart={MarkerStart && `url(#${MarkerStart.props.id})`}
-          markerEnd={MarkerEnd && `url(#${MarkerEnd.props.id})`}
+          markerStart={srcMarker && `url(#${srcMarker.props.id})`}
+          markerEnd={dstMarker && `url(#${dstMarker.props.id})`}
           className={clsx(
             'regraph-connection',
             'regraph-connection-line',
             className
           )}
           stroke="#777"
-          style={{ strokeWidth }}
           {...others}
         />
         {selectable && (
@@ -65,8 +49,6 @@ Line.propTypes = {
   className: PropTypes.string,
   dst: PointPropTypes,
   id: PropTypes.string.isRequired,
-  markerEnd: PropTypes.element,
-  markerStart: PropTypes.element,
   selectable: PropTypes.bool,
   src: PointPropTypes,
   strokeWidth: PropTypes.number,
