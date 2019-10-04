@@ -7,13 +7,18 @@ import useMarkers from './useMarkers';
 import { getSvgCoordinates, trim } from '@regraph/geo/line';
 
 const Line = React.memo(
-  ({ id, src, dst, selectable, className, ...others }) => {
-    const { srcMarker, dstMarker } = useMarkers(id, src, dst);
+  ({ id, src, dst, selectable, className, strokeWidth, ...others }) => {
+    const { srcMarker, dstMarker, srcTrim, dstTrim } = useMarkers(
+      id,
+      src,
+      dst,
+      strokeWidth
+    );
 
     const coordinates = useMemo(() => {
-      const line = trim({ src, dst }, src.trim || 0, dst.trim || 0);
+      const line = trim({ src, dst }, srcTrim, dstTrim);
       return getSvgCoordinates(line);
-    }, [src, dst]);
+    }, [src, dst, srcTrim, dstTrim]);
 
     return (
       <g id={id}>
@@ -29,6 +34,7 @@ const Line = React.memo(
             className
           )}
           stroke="#777"
+          style={{ strokeWidth }}
           {...others}
         />
         {selectable && (
