@@ -11,24 +11,3 @@ import code from '!!raw-loader!examples/arrowheads';
 ## Source
 
 <Code code={code} />
-
-> ⚠️ The markers in this example are constants, so React will call `createElement` on every render:
->
-> ```jsx
-> markerEnd={<Triangle />}
-> ```
->
-> To prevent this, either:
->
-> - Use [@babel/plugin-transform-react-constant-elements](https://babeljs.io/docs/en/babel-plugin-transform-react-constant-elements) in production builds.
-> - Define it as const outside the render function:
->
-> ```jsx
-> const markerEnd = <Triangle />;
-> ```
->
-> Then:
->
-> ```jsx
-> markerEnd = { markerEnd };
-> ```

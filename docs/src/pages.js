@@ -8,13 +8,13 @@ export default [
       { pathname: '/examples/arrowheads', title: 'Arrowheads' },
     ],
   },
-  {
-    pathname: '/graph',
-    title: 'Graph',
-    children: [
-      { pathname: '/graph/Graph', title: 'Graph' },
-      { pathname: '/graph/withViewportSize', title: 'withViewportSize' },
-      { pathname: '/graph/withLayout', title: 'withLayout' },
-    ],
-  },
+  // {
+  //   pathname: '/graph',
+  //   title: 'Graph',
+  //   children: [
+  //     { pathname: '/graph/Graph', title: 'Graph' },
+  //     { pathname: '/graph/withViewportSize', title: 'withViewportSize' },
+  //     { pathname: '/graph/withLayout', title: 'withLayout' },
+  //   ],
+  // },
 ];
