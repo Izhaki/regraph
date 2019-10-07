@@ -28,6 +28,7 @@ const useStyles = makeStyles({
   codeWrapper: {
     '&[class*="language-"]': {
       marginTop: 0,
+      marginBottom: 0,
     },
   },
   codeContainer: {

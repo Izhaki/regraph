@@ -2,11 +2,23 @@ import Example from 'docs/src/components/Example';
 import Graph from 'examples/arrowheads';
 import code from '!!raw-loader!examples/arrowheads/index.jsx';
 
+import GraphAll from 'examples/arrowheads/all';
+import codeAll from '!!raw-loader!examples/arrowheads/all.jsx';
+
 # Arrowheads
+
+Basic example:
 
 <Example
   code={code}
   output={<Graph />}
   path={'examples/arrowheads/index.jsx'}
-  sourceOpen
+/>
+
+Some more arrowheads:
+
+<Example
+  code={codeAll}
+  output={<GraphAll />}
+  path={'examples/arrowheads/all.jsx'}
 />

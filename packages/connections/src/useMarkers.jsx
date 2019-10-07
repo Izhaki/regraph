@@ -21,6 +21,7 @@ const getArrowheadMarker = arrowhead => {
       refY={anchor.y}
       data-trim={trim}
       markerUnits="strokeWidth"
+      overflow="visible"
       orient="auto">
       {arrowhead}
     </marker>

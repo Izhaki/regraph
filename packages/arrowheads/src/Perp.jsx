@@ -29,7 +29,7 @@ const Perp = ({
       {...points}
       className={clsx('regraph-arrowhead', 'regraph-arrowhead-perp', className)}
       stroke="#777"
-      strokeWidth={2}
+      strokeWidth={1}
       {...others}
     />
   );

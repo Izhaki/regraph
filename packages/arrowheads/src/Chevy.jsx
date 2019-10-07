@@ -65,10 +65,10 @@ Chevy.getMarkerProps = ({
 
 Chevy.propTypes = {
   className: PropTypes.string,
-  height: PropTypes.number.isRequired,
+  height: PropTypes.number,
   id: PropTypes.string,
   rtl: PropTypes.bool,
-  width: PropTypes.number.isRequired,
+  width: PropTypes.number,
 };
 
 export default Chevy;
