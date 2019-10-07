@@ -39,10 +39,13 @@ const adjustTrimToWidth = (trim, strokeWidth) => {
   return trim * (strokeWidth || 1);
 };
 
-const useMarker = (markerOrHead, id, strokeWidth) =>
+const flipIfSource = (element, isSource) =>
+  isSource ? React.cloneElement(element, { rtl: true }) : element;
+
+const useMarker = (markerOrHead, id, strokeWidth, isSource) =>
   useMemo(() => {
     if (markerOrHead) {
-      const marker = getMarker(markerOrHead);
+      const marker = getMarker(flipIfSource(markerOrHead, isSource));
       const trim = marker.props['data-trim'] || 0;
       return {
         trim: adjustTrimToWidth(trim, strokeWidth),
@@ -50,13 +53,14 @@ const useMarker = (markerOrHead, id, strokeWidth) =>
       };
     }
     return {};
-  }, [id, markerOrHead, strokeWidth]);
+  }, [id, isSource, markerOrHead, strokeWidth]);
 
 export default (id, src, dst, strokeWidth) => {
   const { marker: srcMarker, trim: srcTrim } = useMarker(
     src.marker,
     `${id}-marker-start`,
-    strokeWidth
+    strokeWidth,
+    true
   );
   const { marker: dstMarker, trim: dstTrim } = useMarker(
     dst.marker,
