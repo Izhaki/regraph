@@ -1,13 +1,12 @@
 import Code from 'docs/src/components/Code';
 import Graph from 'examples/arrowheads';
-import code from '!!raw-loader!examples/arrowheads';
+import code from '!!raw-loader!examples/arrowheads/index.jsx';
 
 # Arrowheads
 
-## Render
-
-<Graph />
-
-## Source
-
-<Code code={code} />
+<Code
+  code={code}
+  output={<Graph />}
+  path={'examples/arrowheads/index.jsx'}
+  sourceOpen
+/>

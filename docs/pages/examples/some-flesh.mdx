@@ -1,13 +1,12 @@
 import Code from 'docs/src/components/Code';
 import Graph from 'examples/some-flesh';
-import code from '!!raw-loader!examples/some-flesh';
+import code from '!!raw-loader!examples/some-flesh/index.jsx';
 
 # Some Flesh
 
-## Render
-
-<Graph />
-
-## Source
-
-<Code code={code} />
+<Code
+  code={code}
+  output={<Graph />}
+  path={'examples/some-flesh/index.jsx'}
+  sourceOpen
+/>

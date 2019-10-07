@@ -14,7 +14,7 @@ const theme = createMuiTheme({
       main: red.A400,
     },
     background: {
-      default: '#fff',
+      default: '#f6f8fa',
     },
   },
   overrides: {
@@ -24,6 +24,11 @@ const theme = createMuiTheme({
           fontSize: '1rem',
         },
       },
+    },
+  },
+  props: {
+    MuiButtonBase: {
+      disableRipple: true,
     },
   },
 });

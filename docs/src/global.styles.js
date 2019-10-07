@@ -22,10 +22,5 @@ export default {
       padding: 10,
       paddingInlineStart: 24,
     },
-    '[data-regraph-graph]': {
-      margin: [[0, 'auto']],
-      borderRadius: 6,
-      backgroundColor: `#fdf6e3`,
-    },
   },
 };

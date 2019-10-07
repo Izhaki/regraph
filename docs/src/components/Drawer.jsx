@@ -99,6 +99,7 @@ function ResponsiveDrawer(props) {
             edge="end"
             component="a"
             color="inherit"
+            target="_blank"
             href="https://github.com/Izhaki/regraph"
             aria-label={'github'}>
             <GithubIcon />

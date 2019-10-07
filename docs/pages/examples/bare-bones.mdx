@@ -1,13 +1,12 @@
 import Code from 'docs/src/components/Code';
 import Graph from 'examples/bare-bones';
-import code from '!!raw-loader!examples/bare-bones';
+import code from '!!raw-loader!examples/bare-bones/index.jsx';
 
 # Bare Bones
 
-## Render
-
-<Graph />
-
-## Source
-
-<Code code={code} />
+<Code
+  code={code}
+  output={<Graph />}
+  path={'examples/bare-bones/index.jsx'}
+  sourceOpen
+/>
