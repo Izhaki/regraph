@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     top: -1,
     borderRadius,
     border,
-    backgroundColor: 'rgba(253, 246, 227, 0.5)', // '#fdf6e3'
+    backgroundColor: '#f7f1d5',
   },
   codeButton: {
     position: 'absolute',
