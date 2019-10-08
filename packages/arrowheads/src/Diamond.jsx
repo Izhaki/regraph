@@ -5,18 +5,21 @@ import { toSvg } from '@regraph/geo/point';
 
 const { ceil } = Math;
 
-const triangle = (width, height, rtl) => {
+const diamond = (width, height, rtl) => {
+  const sign = rtl ? -1 : 1;
   const halfHeight = ceil(height / 2);
-  const top = { x: 0, y: -halfHeight };
-  const tip = { x: rtl ? -width : width, y: 0 };
-  const btm = { x: 0, y: halfHeight };
-  return [top, tip, btm];
+  const halfWidth = ceil(width / 2);
+  const base = { x: 0, y: 0 };
+  const top = { x: sign * halfWidth, y: -halfHeight };
+  const tip = { x: sign * width, y: 0 };
+  const btm = { x: sign * halfWidth, y: halfHeight };
+  return [base, top, tip, btm];
 };
 
-const widthDefault = 6;
-const heightDefault = 6;
+const widthDefault = 10;
+const heightDefault = 5;
 
-const Triangle = ({
+const Diamond = ({
   id,
   width = widthDefault,
   height = heightDefault,
@@ -24,7 +27,7 @@ const Triangle = ({
   className,
   ...others
 }) => {
-  const points = useMemo(() => triangle(width, height, rtl), [
+  const points = useMemo(() => diamond(width, height, rtl), [
     height,
     rtl,
     width,
@@ -36,7 +39,7 @@ const Triangle = ({
       points={points.map(toSvg)}
       className={clsx(
         'regraph-arrowhead',
-        'regraph-arrowhead-triangle',
+        'regraph-arrowhead-diamond',
         className
       )}
       stroke="none"
@@ -46,7 +49,7 @@ const Triangle = ({
   );
 };
 
-Triangle.getMarkerProps = ({
+Diamond.getMarkerProps = ({
   width = widthDefault,
   height = heightDefault,
   rtl,
@@ -66,7 +69,7 @@ Triangle.getMarkerProps = ({
   trim: width,
 });
 
-Triangle.propTypes = {
+Diamond.propTypes = {
   className: PropTypes.string,
   height: PropTypes.number,
   id: PropTypes.string,
@@ -74,4 +77,4 @@ Triangle.propTypes = {
   width: PropTypes.number,
 };
 
-export default Triangle;
+export default Diamond;
