@@ -8,7 +8,7 @@ import {
   chopBox,
 } from '@regraph/graph';
 import { Line } from '@regraph/connections';
-import { Triangle, Perp, Chevy } from '@regraph/arrowheads';
+import { Triangle, Perp, Chevy, Ellipse } from '@regraph/arrowheads';
 import TextBox from './TextBox';
 
 const MyGraph = compose(
@@ -30,6 +30,16 @@ const connections = [
   {
     src: { id: 'Perp', marker: <Perp /> },
     dst: { id: 'Chevy', marker: <Chevy /> },
+  },
+  {
+    src: {
+      id: 'Ellipse (Full)',
+      marker: <Ellipse stroke="#777" fill="#777" />,
+    },
+    dst: {
+      id: 'Ellipse (Empty)',
+      marker: <Ellipse stroke="#777" fill="none" />,
+    },
   },
 ];
 

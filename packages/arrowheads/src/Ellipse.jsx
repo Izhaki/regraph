@@ -1,23 +1,21 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { toSvg } from '@regraph/geo/point';
 
 const { ceil } = Math;
 
-const triangle = (width, height, rtl) => {
-  const tip = rtl ? -width : width;
-  const halfHeight = ceil(height / 2);
-  const top = { x: 0, y: -halfHeight };
-  const tipPoint = { x: tip, y: 0 };
-  const btm = { x: 0, y: halfHeight };
-  return [top, tipPoint, btm];
+const ellipse = (width, height, rtl) => {
+  const rx = ceil(width / 2);
+  const ry = ceil(height / 2);
+  const cx = rtl ? -rx : rx;
+  const cy = 0;
+  return { cx, cy, rx, ry };
 };
 
 const widthDefault = 6;
 const heightDefault = 6;
 
-const Triangle = ({
+const Ellipse = ({
   id,
   width = widthDefault,
   height = heightDefault,
@@ -25,19 +23,19 @@ const Triangle = ({
   className,
   ...others
 }) => {
-  const points = useMemo(() => triangle(width, height, rtl), [
+  const attrs = useMemo(() => ellipse(width, height, rtl), [
     height,
     rtl,
     width,
   ]);
 
   return (
-    <polygon
+    <ellipse
       id={id}
-      points={points.map(toSvg)}
+      {...attrs}
       className={clsx(
         'regraph-arrowhead',
-        'regraph-arrowhead-triangle',
+        'regraph-arrowhead-ellipse',
         className
       )}
       stroke="none"
@@ -47,7 +45,7 @@ const Triangle = ({
   );
 };
 
-Triangle.getMarkerProps = ({
+Ellipse.getMarkerProps = ({
   width = widthDefault,
   height = heightDefault,
   rtl,
@@ -67,7 +65,7 @@ Triangle.getMarkerProps = ({
   trim: width,
 });
 
-Triangle.propTypes = {
+Ellipse.propTypes = {
   className: PropTypes.string,
   height: PropTypes.number,
   id: PropTypes.string,
@@ -75,4 +73,4 @@ Triangle.propTypes = {
   width: PropTypes.number,
 };
 
-export default Triangle;
+export default Ellipse;
