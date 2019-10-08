@@ -18,7 +18,6 @@ const MyGraph = compose(
 
 const connections = [
   {
-    id: '1',
     src: {
       id: 'Triangle (Full)',
       marker: <Triangle stroke="#777" fill="#777" />,
@@ -29,7 +28,6 @@ const connections = [
     },
   },
   {
-    id: '2',
     src: { id: 'Perp', marker: <Perp /> },
     dst: { id: 'Chevy', marker: <Chevy /> },
   },

@@ -27,7 +27,6 @@ export default () => (
     )}
     connections={[
       {
-        id: 'ping->pong',
         src: { id: 'ping', marker: <Perp /> },
         dst: { id: 'pong', marker: <Triangle /> },
       },
