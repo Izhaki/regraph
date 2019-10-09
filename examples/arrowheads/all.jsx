@@ -8,7 +8,14 @@ import {
   chopBox,
 } from '@regraph/graph';
 import { Line } from '@regraph/connections';
-import { Triangle, Perp, Chevy, Ellipse, Diamond } from '@regraph/arrowheads';
+import {
+  Triangle,
+  Perp,
+  Chevy,
+  Ellipse,
+  Diamond,
+  Barbed,
+} from '@regraph/arrowheads';
 import TextBox from './TextBox';
 
 const MyGraph = compose(
@@ -25,16 +32,20 @@ const connections = [
     dst: { id: 'Chevy', marker: <Chevy /> },
   },
   {
+    src: { id: 'Barbed (Full)', marker: <Barbed {...full} /> },
+    dst: { id: 'Barbed (Empty)', marker: <Barbed {...empty} /> },
+  },
+  {
     src: { id: 'Triangle (Full)', marker: <Triangle {...full} /> },
     dst: { id: 'Triangle (Empty)', marker: <Triangle {...empty} /> },
   },
   {
-    src: { id: 'Ellipse (Full)', marker: <Ellipse {...full} /> },
-    dst: { id: 'Ellipse (Empty)', marker: <Ellipse {...empty} /> },
-  },
-  {
     src: { id: 'Diamond (Full)', marker: <Diamond {...full} /> },
     dst: { id: 'Diamond (Empty)', marker: <Diamond {...empty} /> },
+  },
+  {
+    src: { id: 'Ellipse (Full)', marker: <Ellipse {...full} /> },
+    dst: { id: 'Ellipse (Empty)', marker: <Ellipse {...empty} /> },
   },
 ];
 
