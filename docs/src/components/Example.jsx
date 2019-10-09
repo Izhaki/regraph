@@ -43,9 +43,9 @@ const useStyles = makeStyles({
     bottom: 0,
     left: '50%',
     transform: `translate(-50%, 50%)`,
-    backgroundColor: 'white',
+    backgroundColor: '#f7f1d5',
     '&:hover': {
-      backgroundColor: '#eee',
+      backgroundColor: '#fdf6e3',
     },
     border,
     zIndex: 1,
