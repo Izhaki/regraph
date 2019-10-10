@@ -10,13 +10,15 @@ const prep = (width, height, rtl) => {
   return { x1: x, y1: -halfHeight, x2: x, y2: halfHeight };
 };
 
-const widthDefault = 6;
-const heightDefault = 6;
+const defaults = {
+  width: 6,
+  height: 6,
+};
 
 const Perp = ({
   id,
-  width = widthDefault,
-  height = heightDefault,
+  width = defaults.width,
+  height = defaults.height,
   rtl,
   className,
   ...others
@@ -36,8 +38,8 @@ const Perp = ({
 };
 
 Perp.getMarkerProps = ({
-  width = widthDefault,
-  height = heightDefault,
+  width = defaults.width,
+  height = defaults.height,
   rtl,
 }) => ({
   width,

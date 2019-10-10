@@ -16,13 +16,15 @@ const diamond = (width, height, rtl) => {
   return [base, top, tip, btm];
 };
 
-const widthDefault = 10;
-const heightDefault = 5;
+const defaults = {
+  width: 10,
+  height: 5,
+};
 
 const Diamond = ({
   id,
-  width = widthDefault,
-  height = heightDefault,
+  width = defaults.width,
+  height = defaults.height,
   rtl,
   className,
   ...others
@@ -50,8 +52,8 @@ const Diamond = ({
 };
 
 Diamond.getMarkerProps = ({
-  width = widthDefault,
-  height = heightDefault,
+  width = defaults.width,
+  height = defaults.height,
   rtl,
 }) => ({
   width,

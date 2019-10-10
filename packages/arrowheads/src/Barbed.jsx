@@ -17,15 +17,17 @@ const barbed = (width, height, inset, rtl) => {
   return [anchor, top, tip, btm];
 };
 
-const widthDefault = 6;
-const heightDefault = 6;
-const insetDefault = 0.5;
+const defaults = {
+  width: 6,
+  height: 6,
+  inset: 0.5,
+};
 
 const Barbed = ({
   id,
-  width = widthDefault,
-  height = heightDefault,
-  inset = insetDefault,
+  width = defaults.width,
+  height = defaults.height,
+  inset = defaults.inset,
   rtl,
   className,
   ...others
@@ -55,9 +57,9 @@ const Barbed = ({
 };
 
 Barbed.getMarkerProps = ({
-  width = widthDefault,
-  height = heightDefault,
-  inset = insetDefault,
+  width = defaults.width,
+  height = defaults.height,
+  inset = defaults.inset,
   rtl,
 }) => ({
   width,

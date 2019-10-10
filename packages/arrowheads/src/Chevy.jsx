@@ -14,13 +14,17 @@ const chevy = (width, height, rtl) => {
   return [top, tipPoint, btm];
 };
 
-const widthDefault = 6;
-const heightDefault = 6;
+const defaults = {
+  width: 6,
+  height: 6,
+  stroke: '#777',
+};
 
 const Chevy = ({
   id,
-  width = widthDefault,
-  height = heightDefault,
+  width = defaults.width,
+  height = defaults.height,
+  stroke = defaults.stroke,
   rtl,
   className,
   ...others
@@ -36,7 +40,7 @@ const Chevy = ({
         'regraph-arrowhead-chevy',
         className
       )}
-      stroke="#777"
+      stroke={stroke}
       fill="none"
       {...others}
     />
@@ -44,8 +48,8 @@ const Chevy = ({
 };
 
 Chevy.getMarkerProps = ({
-  width = widthDefault,
-  height = heightDefault,
+  width = defaults.width,
+  height = defaults.height,
   rtl,
 }) => ({
   width,
@@ -68,6 +72,7 @@ Chevy.propTypes = {
   height: PropTypes.number,
   id: PropTypes.string,
   rtl: PropTypes.bool,
+  stroke: PropTypes.string,
   width: PropTypes.number,
 };
 

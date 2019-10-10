@@ -12,13 +12,15 @@ const ellipse = (width, height, rtl) => {
   return { cx, cy, rx, ry };
 };
 
-const widthDefault = 6;
-const heightDefault = 6;
+const defaults = {
+  width: 6,
+  height: 6,
+};
 
 const Ellipse = ({
   id,
-  width = widthDefault,
-  height = heightDefault,
+  width = defaults.width,
+  height = defaults.height,
   rtl,
   className,
   ...others
@@ -46,8 +48,8 @@ const Ellipse = ({
 };
 
 Ellipse.getMarkerProps = ({
-  width = widthDefault,
-  height = heightDefault,
+  width = defaults.width,
+  height = defaults.height,
   rtl,
 }) => ({
   width,
