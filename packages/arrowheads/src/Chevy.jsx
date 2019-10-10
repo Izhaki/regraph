@@ -1,13 +1,12 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import getFillSize from './getFillSize';
 import { toSvg } from '@regraph/geo/point';
-
-const { ceil } = Math;
 
 const chevy = (width, height, rtl) => {
   const base = rtl ? width : -width;
-  const halfHeight = ceil(height / 2);
+  const halfHeight = height / 2;
   const top = { x: base, y: -halfHeight };
   const tipPoint = { x: 0, y: 0 };
   const btm = { x: base, y: halfHeight };
@@ -25,16 +24,20 @@ const Chevy = ({
   width = defaults.width,
   height = defaults.height,
   stroke = defaults.stroke,
+  strokeWidth,
   rtl,
   className,
   ...others
 }) => {
-  const points = useMemo(() => chevy(width, height, rtl), [height, rtl, width]);
+  const points = useMemo(() => {
+    const [w, h] = getFillSize(width, height, stroke, strokeWidth);
+    return chevy(w, h, rtl).map(toSvg);
+  }, [height, rtl, stroke, strokeWidth, width]);
 
   return (
     <polyline
       id={id}
-      points={points.map(toSvg)}
+      points={points}
       className={clsx(
         'regraph-arrowhead',
         'regraph-arrowhead-chevy',
@@ -73,6 +76,7 @@ Chevy.propTypes = {
   id: PropTypes.string,
   rtl: PropTypes.bool,
   stroke: PropTypes.string,
+  strokeWidth: PropTypes.number,
   width: PropTypes.number,
 };
 

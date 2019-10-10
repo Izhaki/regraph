@@ -1,14 +1,13 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import getFillSize from './getFillSize';
 import { toSvg } from '@regraph/geo/point';
-
-const { ceil } = Math;
 
 const diamond = (width, height, rtl) => {
   const sign = rtl ? -1 : 1;
-  const halfHeight = ceil(height / 2);
-  const halfWidth = ceil(width / 2);
+  const halfHeight = height / 2;
+  const halfWidth = width / 2;
   const base = { x: 0, y: 0 };
   const top = { x: sign * halfWidth, y: -halfHeight };
   const tip = { x: sign * width, y: 0 };
@@ -25,26 +24,27 @@ const Diamond = ({
   id,
   width = defaults.width,
   height = defaults.height,
+  stroke,
+  strokeWidth,
   rtl,
   className,
   ...others
 }) => {
-  const points = useMemo(() => diamond(width, height, rtl), [
-    height,
-    rtl,
-    width,
-  ]);
+  const points = useMemo(() => {
+    const [w, h] = getFillSize(width, height, stroke, strokeWidth);
+    return diamond(w, h, rtl).map(toSvg);
+  }, [height, rtl, stroke, strokeWidth, width]);
 
   return (
     <polygon
       id={id}
-      points={points.map(toSvg)}
+      points={points}
       className={clsx(
         'regraph-arrowhead',
         'regraph-arrowhead-diamond',
         className
       )}
-      stroke="none"
+      stroke={stroke}
       fill="#777"
       {...others}
     />
@@ -76,6 +76,8 @@ Diamond.propTypes = {
   height: PropTypes.number,
   id: PropTypes.string,
   rtl: PropTypes.bool,
+  stroke: PropTypes.string,
+  strokeWidth: PropTypes.number,
   width: PropTypes.number,
 };
 

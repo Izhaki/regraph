@@ -1,12 +1,11 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-
-const { ceil } = Math;
+import getFillSize from './getFillSize';
 
 const ellipse = (width, height, rtl) => {
-  const rx = ceil(width / 2);
-  const ry = ceil(height / 2);
+  const rx = width / 2;
+  const ry = height / 2;
   const cx = rtl ? -rx : rx;
   const cy = 0;
   return { cx, cy, rx, ry };
@@ -21,15 +20,16 @@ const Ellipse = ({
   id,
   width = defaults.width,
   height = defaults.height,
+  stroke,
+  strokeWidth,
   rtl,
   className,
   ...others
 }) => {
-  const attrs = useMemo(() => ellipse(width, height, rtl), [
-    height,
-    rtl,
-    width,
-  ]);
+  const attrs = useMemo(() => {
+    const [w, h] = getFillSize(width, height, stroke, strokeWidth);
+    return ellipse(w, h, rtl);
+  }, [height, rtl, stroke, strokeWidth, width]);
 
   return (
     <ellipse
@@ -40,7 +40,7 @@ const Ellipse = ({
         'regraph-arrowhead-ellipse',
         className
       )}
-      stroke="none"
+      stroke={stroke}
       fill="#777"
       {...others}
     />
@@ -72,6 +72,8 @@ Ellipse.propTypes = {
   height: PropTypes.number,
   id: PropTypes.string,
   rtl: PropTypes.bool,
+  stroke: PropTypes.string,
+  strokeWidth: PropTypes.number,
   width: PropTypes.number,
 };
 

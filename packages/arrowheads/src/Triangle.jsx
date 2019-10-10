@@ -1,12 +1,11 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import getFillSize from './getFillSize';
 import { toSvg } from '@regraph/geo/point';
 
-const { ceil } = Math;
-
 const triangle = (width, height, rtl) => {
-  const halfHeight = ceil(height / 2);
+  const halfHeight = height / 2;
   const top = { x: 0, y: -halfHeight };
   const tip = { x: rtl ? -width : width, y: 0 };
   const btm = { x: 0, y: halfHeight };
@@ -22,26 +21,27 @@ const Triangle = ({
   id,
   width = defaults.width,
   height = defaults.height,
+  stroke,
+  strokeWidth,
   rtl,
   className,
   ...others
 }) => {
-  const points = useMemo(() => triangle(width, height, rtl), [
-    height,
-    rtl,
-    width,
-  ]);
+  const points = useMemo(() => {
+    const [w, h] = getFillSize(width, height, stroke, strokeWidth);
+    return triangle(w, h, rtl).map(toSvg);
+  }, [height, rtl, stroke, strokeWidth, width]);
 
   return (
     <polygon
       id={id}
-      points={points.map(toSvg)}
+      points={points}
       className={clsx(
         'regraph-arrowhead',
         'regraph-arrowhead-triangle',
         className
       )}
-      stroke="none"
+      stroke={stroke}
       fill="#777"
       {...others}
     />
@@ -73,6 +73,8 @@ Triangle.propTypes = {
   height: PropTypes.number,
   id: PropTypes.string,
   rtl: PropTypes.bool,
+  stroke: PropTypes.string,
+  strokeWidth: PropTypes.number,
   width: PropTypes.number,
 };
 

@@ -1,13 +1,12 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import getFillSize from './getFillSize';
 import { toSvg } from '@regraph/geo/point';
-
-const { ceil } = Math;
 
 const barbed = (width, height, inset, rtl) => {
   const sign = rtl ? -1 : 1;
-  const halfHeight = ceil(height / 2);
+  const halfHeight = height / 2;
   const xBarb = -(inset * width);
   const xTip = (1 - inset) * width;
   const anchor = { x: 0, y: 0 };
@@ -20,7 +19,7 @@ const barbed = (width, height, inset, rtl) => {
 const defaults = {
   width: 6,
   height: 6,
-  inset: 0.5,
+  inset: 0.25,
 };
 
 const Barbed = ({
@@ -28,28 +27,27 @@ const Barbed = ({
   width = defaults.width,
   height = defaults.height,
   inset = defaults.inset,
+  stroke,
+  strokeWidth,
   rtl,
   className,
   ...others
 }) => {
-  const points = useMemo(() => barbed(width, height, inset, rtl), [
-    height,
-    inset,
-    rtl,
-    width,
-  ]);
+  const points = useMemo(() => {
+    const [w, h] = getFillSize(width, height, stroke, strokeWidth);
+    return barbed(w, h, inset, rtl).map(toSvg);
+  }, [height, inset, rtl, stroke, strokeWidth, width]);
 
   return (
     <polygon
       id={id}
-      points={points.map(toSvg)}
+      points={points}
       className={clsx(
         'regraph-arrowhead',
         'regraph-arrowhead-barbed',
         className
       )}
-      strokeLinejoin="miter"
-      stroke="none"
+      stroke={stroke}
       fill="#777"
       {...others}
     />
@@ -83,6 +81,8 @@ Barbed.propTypes = {
   id: PropTypes.string,
   inset: PropTypes.number,
   rtl: PropTypes.bool,
+  stroke: PropTypes.string,
+  strokeWidth: PropTypes.number,
   width: PropTypes.number,
 };
 
