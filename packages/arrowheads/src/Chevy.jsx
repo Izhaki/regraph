@@ -44,6 +44,7 @@ const Chevy = ({
         className
       )}
       stroke={stroke}
+      strokeLinejoin="bevel"
       fill="none"
       {...others}
     />
