@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import getFillSize from './getFillSize';
+import { getStrokeWidth } from './getFillSize';
 
-const ellipse = (width, height, rtl) => {
-  const rx = width / 2;
-  const ry = height / 2;
-  const cx = rtl ? -rx : rx;
+const ellipse = (width, height, strokeWidth, rtl) => {
+  const cx = (width / 2) * (rtl ? -1 : 1);
   const cy = 0;
+  const rx = (width - strokeWidth) / 2;
+  const ry = (height - strokeWidth) / 2;
   return { cx, cy, rx, ry };
 };
 
@@ -26,10 +26,10 @@ const Ellipse = ({
   className,
   ...others
 }) => {
-  const attrs = useMemo(() => {
-    const [w, h] = getFillSize(width, height, stroke, strokeWidth);
-    return ellipse(w, h, rtl);
-  }, [height, rtl, stroke, strokeWidth, width]);
+  const attrs = useMemo(
+    () => ellipse(width, height, getStrokeWidth(stroke, strokeWidth), rtl),
+    [height, rtl, stroke, strokeWidth, width]
+  );
 
   return (
     <ellipse
