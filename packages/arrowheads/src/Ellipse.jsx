@@ -4,7 +4,8 @@ import clsx from 'clsx';
 import { getStrokeWidth } from './getFillSize';
 
 const ellipse = (width, height, strokeWidth, rtl) => {
-  const cx = (width / 2) * (rtl ? -1 : 1);
+  const sign = rtl ? -1 : 1;
+  const cx = (width / 2) * sign - sign;
   const cy = 0;
   const rx = (width - strokeWidth) / 2;
   const ry = (height - strokeWidth) / 2;
@@ -64,7 +65,7 @@ Ellipse.getMarkerProps = ({
     x: 0,
     y: 0,
   },
-  trim: width,
+  trim: width - 1,
 });
 
 Ellipse.propTypes = {

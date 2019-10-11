@@ -12,7 +12,11 @@ const diamond = (width, height, rtl) => {
   const top = { x: sign * halfWidth, y: -halfHeight };
   const tip = { x: sign * width, y: 0 };
   const btm = { x: sign * halfWidth, y: halfHeight };
-  return [base, top, tip, btm];
+  return [base, top, tip, btm].map(point => {
+    // compensate for miter
+    point.x -= sign;
+    return point;
+  });
 };
 
 const defaults = {
@@ -68,7 +72,7 @@ Diamond.getMarkerProps = ({
     x: 0,
     y: 0,
   },
-  trim: width,
+  trim: width - 1, // compensate for miter
 });
 
 Diamond.propTypes = {
