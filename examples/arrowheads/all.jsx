@@ -15,6 +15,7 @@ import {
   Ellipse,
   Diamond,
   Barbed,
+  Curly,
 } from '@regraph/arrowheads';
 import TextBox from './TextBox';
 
@@ -32,8 +33,8 @@ const connections = [
     dst: { id: 'Chevy', marker: <Chevy /> },
   },
   {
-    src: { id: 'Barbed (Full)', marker: <Barbed {...full} /> },
-    dst: { id: 'Barbed (Empty)', marker: <Barbed {...empty} /> },
+    src: { id: 'Curly', marker: <Curly height={15} /> },
+    dst: { id: 'Barbed', marker: <Barbed {...full} /> },
   },
   {
     src: { id: 'Triangle (Full)', marker: <Triangle {...full} /> },

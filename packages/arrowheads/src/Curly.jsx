@@ -4,22 +4,42 @@ import clsx from 'clsx';
 import getFillSize from './getFillSize';
 import { toSvg } from '@regraph/geo/point';
 
-const chevy = (width, height, rtl) => {
-  const base = rtl ? width : -width;
+const curly = (width, height, rtl) => {
+  const sign = rtl ? -1 : 1;
   const halfHeight = height / 2;
+  const halfWidth = width / 2;
+  const base = sign * width;
+  const xMid = base - sign * halfWidth;
+
   const top = { x: base, y: -halfHeight };
+  const cTop = { x: xMid, y: -halfHeight };
+  const midTop = { x: xMid, y: -halfHeight + halfWidth };
+  const midTipTop = { x: xMid, y: -halfWidth };
   const tip = { x: 0, y: 0 };
+  const cTip = { x: xMid, y: 0 };
+  const midTipBtm = { x: xMid, y: halfWidth };
+  const midBtm = { x: xMid, y: halfHeight - halfWidth };
+  const cBtm = { x: xMid, y: halfHeight };
   const btm = { x: base, y: halfHeight };
-  return [top, tip, btm];
+
+  return `
+    M ${toSvg(top)}
+    Q ${toSvg(cTop)} ${toSvg(midTop)}
+    L ${toSvg(midTipTop)}
+    Q ${toSvg(cTip)} ${toSvg(tip)}
+    Q ${toSvg(cTip)} ${toSvg(midTipBtm)}
+    L ${toSvg(midBtm)}
+    Q ${toSvg(cBtm)} ${toSvg(btm)}
+  `;
 };
 
 const defaults = {
   width: 6,
-  height: 6,
+  height: 12,
   stroke: '#777',
 };
 
-const Chevy = ({
+const Curly = ({
   id,
   width = defaults.width,
   height = defaults.height,
@@ -29,29 +49,28 @@ const Chevy = ({
   className,
   ...others
 }) => {
-  const points = useMemo(() => {
+  const drawCommand = useMemo(() => {
     const [w, h] = getFillSize(width, height, stroke, strokeWidth);
-    return chevy(w, h, rtl).map(toSvg);
+    return curly(w, h, rtl);
   }, [height, rtl, stroke, strokeWidth, width]);
 
   return (
-    <polyline
+    <path
       id={id}
-      points={points}
+      d={drawCommand}
       className={clsx(
         'regraph-arrowhead',
-        'regraph-arrowhead-chevy',
+        'regraph-arrowhead-curly',
         className
       )}
       stroke={stroke}
-      strokeLinejoin="bevel"
       fill="none"
       {...others}
     />
   );
 };
 
-Chevy.getMarkerProps = ({
+Curly.getMarkerProps = ({
   width = defaults.width,
   height = defaults.height,
   rtl,
@@ -68,10 +87,10 @@ Chevy.getMarkerProps = ({
     x: 0,
     y: 0,
   },
-  trim: 0,
+  trim: width,
 });
 
-Chevy.propTypes = {
+Curly.propTypes = {
   className: PropTypes.string,
   height: PropTypes.number,
   id: PropTypes.string,
@@ -81,4 +100,4 @@ Chevy.propTypes = {
   width: PropTypes.number,
 };
 
-export default Chevy;
+export default Curly;
