@@ -23,7 +23,7 @@ const MyGraph = compose(
   withViewportSize()
 )(Graph);
 
-const full = { stroke: '#777', fill: '#777' };
+const full = { stroke: 'none', fill: '#777' };
 const empty = { stroke: '#777', fill: 'none' };
 
 const connections = [
