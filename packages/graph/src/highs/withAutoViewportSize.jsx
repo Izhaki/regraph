@@ -41,16 +41,16 @@ const useSize = (boxes, { padding }) => {
 };
 
 export default (options = {}) => {
-  const withViewportSize = WrappedComponent => props => {
+  const withAutoViewportSize = WrappedComponent => props => {
     // ESLint does not pick the propTypes below for some reason.
     // eslint-disable-next-line react/prop-types
     const { width, height } = useSize(props.boxes, options);
     return <WrappedComponent {...props} width={width} height={height} />;
   };
 
-  withViewportSize.propTypes = {
+  withAutoViewportSize.propTypes = {
     boxes: PropTypes.object.isRequired,
   };
 
-  return withViewportSize;
+  return withAutoViewportSize;
 };

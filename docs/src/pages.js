@@ -13,7 +13,7 @@ export default [
   //   title: 'Graph',
   //   children: [
   //     { pathname: '/graph/Graph', title: 'Graph' },
-  //     { pathname: '/graph/withViewportSize', title: 'withViewportSize' },
+  //     { pathname: '/graph/withAutoViewportSize', title: 'withAutoViewportSize' },
   //     { pathname: '/graph/withLayout', title: 'withLayout' },
   //   ],
   // },

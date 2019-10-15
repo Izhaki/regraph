@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Graph,
   compose,
-  withViewportSize,
+  withAutoViewportSize,
   withLayout,
   connectionLayout,
   chopBox,
@@ -12,7 +12,7 @@ import { Triangle, Perp } from '@regraph/arrowheads';
 
 const MyGraph = compose(
   withLayout(connectionLayout(chopBox)),
-  withViewportSize()
+  withAutoViewportSize()
 )(Graph);
 
 export default () => (

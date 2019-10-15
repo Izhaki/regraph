@@ -1,6 +1,6 @@
 import 'prismjs/themes/prism-solarizedlight.css';
 
-# withViewportSize
+# withAutoViewportSize
 
 Automatically calculates the width and height of the graph based on the `boxes` property.
 
@@ -15,7 +15,7 @@ In the following example, we use the `x` and `y` values of the viewport as the `
 ## Example
 
 ```jsx
-const MyGraph = withViewportSize({
+const MyGraph = withAutoViewportSize({
   padding: ({ x, y }) => ({ right: x, bottom: y }),
 })(Graph);
 

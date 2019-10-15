@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Graph,
   compose,
-  withViewportSize,
+  withAutoViewportSize,
   withLayout,
   connectionLayout,
 } from '@regraph/graph';
@@ -10,7 +10,7 @@ import { Line } from '@regraph/connections';
 
 const MyGraph = compose(
   withLayout(connectionLayout()),
-  withViewportSize()
+  withAutoViewportSize()
 )(Graph);
 
 export default () => (

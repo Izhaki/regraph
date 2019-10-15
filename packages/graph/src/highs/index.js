@@ -1,2 +1,2 @@
-export { default as withViewportSize } from './withViewportSize';
+export { default as withAutoViewportSize } from './withAutoViewportSize';
 export { default as withLayout } from './withLayout';

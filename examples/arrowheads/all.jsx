@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Graph,
   compose,
-  withViewportSize,
+  withAutoViewportSize,
   withLayout,
   connectionLayout,
   chopBox,
@@ -21,7 +21,7 @@ import TextBox from './TextBox';
 
 const MyGraph = compose(
   withLayout(connectionLayout(chopBox)),
-  withViewportSize()
+  withAutoViewportSize()
 )(Graph);
 
 const full = { stroke: 'none', fill: '#777' };
