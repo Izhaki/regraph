@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { isObject } from '@regraph/core';
+import { isObject, isNumber } from '@regraph/core';
 import { union, getRight, getBottom, isRect } from '@regraph/geo/rect';
 
 const { values } = Object;
@@ -27,23 +27,32 @@ const getPadding = (viewportBox, padding) => {
   return { right: x, bottom: y };
 };
 
-const usePadding = (box, padding) =>
+const usePadding = (box, padding, disabled) =>
   useMemo(() => {
+    if (disabled) {
+      return {};
+    }
     const [width, height] = [getRight(box), getBottom(box)];
     const { right, bottom } = getPadding(box, padding);
     return {
       width: width + right,
       height: height + bottom,
     };
-  }, [box, padding]);
+  }, [box, disabled, padding]);
 
 export default ({ padding } = {}) => props => {
+  const disabled = isNumber(props.width) && isNumber(props.height);
   const { boxes } = props;
-  const box = useMemo(() => getViewportBox(boxes), [boxes]);
-  const { width, height } = usePadding(box, padding);
-  return {
-    ...props,
-    width,
-    height,
-  };
+  const box = useMemo(() => (disabled ? null : getViewportBox(boxes)), [
+    boxes,
+    disabled,
+  ]);
+  const { width, height } = usePadding(box, padding, disabled);
+  return disabled
+    ? props
+    : {
+        width,
+        height,
+        ...props,
+      };
 };
