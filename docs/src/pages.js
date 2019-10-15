@@ -3,8 +3,8 @@ export default [
     pathname: '/examples',
     title: 'Examples',
     children: [
-      { pathname: '/examples/bare-bones', title: 'Bare Bones' },
-      { pathname: '/examples/some-flesh', title: 'Some Flesh' },
+      { pathname: '/examples/graph-base', title: 'GraphBase' },
+      { pathname: '/examples/basic-graph', title: 'Basic Graph' },
       { pathname: '/examples/arrowheads', title: 'Arrowheads' },
     ],
   },

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Graph } from '@regraph/graph';
+import { GraphBase } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 
 export default () => (
-  <Graph
+  <GraphBase
     width={220}
     height={100}
     nodes={[{ id: 'ping' }, { id: 'pong' }]}
