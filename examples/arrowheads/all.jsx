@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Graph,
-  compose,
-  withAutoViewportSize,
-  withLayout,
-  connectionLayout,
-  chopBox,
-} from '@regraph/graph';
+import { Graph, withLayout, connectionLayout, chopBox } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 import {
   Triangle,
@@ -19,10 +12,7 @@ import {
 } from '@regraph/arrowheads';
 import TextBox from './TextBox';
 
-const MyGraph = compose(
-  withLayout(connectionLayout(chopBox)),
-  withAutoViewportSize()
-)(Graph);
+const MyGraph = withLayout(connectionLayout(chopBox))(Graph);
 
 const full = { stroke: 'none', fill: '#777' };
 const empty = { stroke: '#777', fill: 'none' };

@@ -1,19 +1,9 @@
 import React from 'react';
-import {
-  Graph,
-  compose,
-  withAutoViewportSize,
-  withLayout,
-  connectionLayout,
-  chopBox,
-} from '@regraph/graph';
+import { Graph, withLayout, connectionLayout, chopBox } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 import { Triangle, Perp } from '@regraph/arrowheads';
 
-const MyGraph = compose(
-  withLayout(connectionLayout(chopBox)),
-  withAutoViewportSize()
-)(Graph);
+const MyGraph = withLayout(connectionLayout(chopBox))(Graph);
 
 export default () => (
   <MyGraph

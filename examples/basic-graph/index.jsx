@@ -1,17 +1,8 @@
 import React from 'react';
-import {
-  Graph,
-  compose,
-  withAutoViewportSize,
-  withLayout,
-  connectionLayout,
-} from '@regraph/graph';
+import { Graph, withLayout, connectionLayout } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 
-const MyGraph = compose(
-  withLayout(connectionLayout()),
-  withAutoViewportSize()
-)(Graph);
+const MyGraph = withLayout(connectionLayout())(Graph);
 
 export default () => (
   <MyGraph
