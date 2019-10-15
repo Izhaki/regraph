@@ -27,9 +27,8 @@ const getPadding = (viewportBox, padding) => {
   return { right: x, bottom: y };
 };
 
-export default (boxes, { padding }) => {
-  const box = useMemo(() => getViewportBox(boxes), [boxes]);
-  return useMemo(() => {
+const usePadding = (box, padding) =>
+  useMemo(() => {
     const [width, height] = [getRight(box), getBottom(box)];
     const { right, bottom } = getPadding(box, padding);
     return {
@@ -37,4 +36,14 @@ export default (boxes, { padding }) => {
       height: height + bottom,
     };
   }, [box, padding]);
+
+export default ({ padding }) => props => {
+  const { boxes } = props;
+  const box = useMemo(() => getViewportBox(boxes), [boxes]);
+  const { width, height } = usePadding(box, padding);
+  return {
+    ...props,
+    width,
+    height,
+  };
 };
