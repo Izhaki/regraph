@@ -27,27 +27,24 @@ const getPadding = (viewportBox, padding) => {
   return { right: x, bottom: y };
 };
 
-const usePadding = (box, padding, disabled) =>
+const usePadding = (box, padding) =>
   useMemo(() => {
-    if (disabled) {
-      return {};
-    }
     const [width, height] = [getRight(box), getBottom(box)];
     const { right, bottom } = getPadding(box, padding);
     return {
       width: width + right,
       height: height + bottom,
     };
-  }, [box, disabled, padding]);
+  }, [box, padding]);
 
 export default ({ padding } = {}) => props => {
   const disabled = isNumber(props.width) && isNumber(props.height);
+  if (disabled) {
+    return props;
+  }
   const { boxes } = props;
-  const box = useMemo(() => (disabled ? null : getViewportBox(boxes)), [
-    boxes,
-    disabled,
-  ]);
-  const { width, height } = usePadding(box, padding, disabled);
+  const box = useMemo(() => getViewportBox(boxes), [boxes]);
+  const { width, height } = usePadding(box, padding);
   return disabled
     ? props
     : {
