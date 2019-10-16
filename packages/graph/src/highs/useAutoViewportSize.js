@@ -37,7 +37,7 @@ const usePadding = (box, padding) =>
     };
   }, [box, padding]);
 
-export default ({ padding } = {}) => props => {
+export default padding => props => {
   const disabled = isNumber(props.width) && isNumber(props.height);
   if (disabled) {
     return props;

@@ -1,9 +1,9 @@
 import React from 'react';
 import useAutoViewportSize from './useAutoViewportSize';
 
-export default options => {
+export default padding => {
   const withAutoViewportSize = WrappedComponent => props => {
-    const newProps = useAutoViewportSize(options)(props);
+    const newProps = useAutoViewportSize(padding)(props);
     return <WrappedComponent {...newProps} />;
   };
 
