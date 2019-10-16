@@ -1,11 +1,9 @@
 import React from 'react';
-import { Graph, withLayout, connectionLayout } from '@regraph/graph';
+import { Graph } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 
-const MyGraph = withLayout(connectionLayout())(Graph);
-
 export default () => (
-  <MyGraph
+  <Graph
     nodes={[{ id: 'ping' }, { id: 'pong' }]}
     boxes={{
       ping: { x: 50, y: 40, width: 20, height: 20 },

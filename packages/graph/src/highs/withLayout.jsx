@@ -1,5 +1,7 @@
 import React from 'react';
+import useLayout from './useLayout';
 
-export default layout => WrappedComponent => props => (
-  <WrappedComponent {...layout(props)} />
-);
+export default layout => WrappedComponent => props => {
+  const wrappedProps = useLayout(layout)(props);
+  return <WrappedComponent {...wrappedProps} />;
+};

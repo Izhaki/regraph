@@ -1,12 +1,10 @@
 import React from 'react';
-import { Graph, withLayout, connectionLayout, chopBox } from '@regraph/graph';
+import { Graph } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 import { Triangle, Perp } from '@regraph/arrowheads';
 
-const MyGraph = withLayout(connectionLayout(chopBox))(Graph);
-
 export default () => (
-  <MyGraph
+  <Graph
     nodes={[{ id: 'ping' }, { id: 'pong' }]}
     boxes={{
       ping: { x: 50, y: 40, width: 20, height: 20 },

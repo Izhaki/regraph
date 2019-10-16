@@ -10,7 +10,11 @@ const layoutConnections = (props, resolveTerminals) =>
     return connections;
   }, []);
 
-export default (resolveTerminals = terminalBoxes()) => props => ({
-  ...props,
-  connections: layoutConnections(props, resolveTerminals),
-});
+export default (resolveTerminals = terminalBoxes()) => {
+  const layout = props => ({
+    ...props,
+    connections: layoutConnections(props, resolveTerminals),
+  });
+  layout.deps = ({ boxes, connections }) => [boxes, connections];
+  return layout;
+};

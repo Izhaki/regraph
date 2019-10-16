@@ -1,5 +1,5 @@
 import React from 'react';
-import { Graph, withLayout, connectionLayout, chopBox } from '@regraph/graph';
+import { Graph } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 import {
   Triangle,
@@ -11,8 +11,6 @@ import {
   Curly,
 } from '@regraph/arrowheads';
 import TextBox from './TextBox';
-
-const MyGraph = withLayout(connectionLayout(chopBox))(Graph);
 
 const full = { stroke: 'none', fill: '#777' };
 const empty = { stroke: '#777', fill: 'none' };
@@ -59,7 +57,7 @@ const { nodes, boxes } = connections.reduce(connectionReducer, {
 });
 
 export default () => (
-  <MyGraph
+  <Graph
     nodes={nodes}
     boxes={boxes}
     renderSvgNode={TextBox}
