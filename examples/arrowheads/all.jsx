@@ -40,28 +40,22 @@ const connections = [
 
 const firstWord = str => str.split(' ')[0];
 
-const connectionReducer = ({ nodes, boxes }, { src, dst }, index) => {
-  nodes.push(
-    { id: src.id, title: firstWord(src.id) },
-    { id: dst.id, title: firstWord(dst.id) }
-  );
+const nodesReducer = (nodes, { src, dst }, index) => {
   const box = { y: index * 50 + 50, width: 150, height: 30 };
-  boxes[src.id] = { x: 50, ...box };
-  boxes[dst.id] = { x: 300, ...box };
-  return { nodes, boxes };
+  nodes.push(
+    { id: src.id, title: firstWord(src.id), box: { x: 50, ...box } },
+    { id: dst.id, title: firstWord(dst.id), box: { x: 300, ...box } }
+  );
+  return nodes;
 };
 
-const { nodes, boxes } = connections.reduce(connectionReducer, {
-  nodes: [],
-  boxes: {},
-});
+const nodes = connections.reduce(nodesReducer, []);
 
 export default () => (
   <Graph
     nodes={nodes}
-    boxes={boxes}
-    renderSvgNode={TextBox}
     connections={connections}
+    renderSvgNode={TextBox}
     renderConnection={props => (
       <Line key={props.id} {...props} strokeWidth={2} />
     )}

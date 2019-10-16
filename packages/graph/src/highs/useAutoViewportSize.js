@@ -45,11 +45,9 @@ export default padding => props => {
   const { boxes } = props;
   const box = useMemo(() => getViewportBox(boxes), [boxes]);
   const { width, height } = usePadding(box, padding);
-  return disabled
-    ? props
-    : {
-        width,
-        height,
-        ...props,
-      };
+  return {
+    width,
+    height,
+    ...props,
+  };
 };
