@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
-import { isObject, isNumber } from '@regraph/core';
+import { isObject } from '@regraph/core';
 import { union, getRight, getBottom, isRect } from '@regraph/geo/rect';
+import update from './update';
 
 const { values } = Object;
 const isEmpty = arr => arr.length === 0;
@@ -37,17 +38,8 @@ const usePadding = (box, padding) =>
     };
   }, [box, padding]);
 
-export default padding => props => {
-  const disabled = isNumber(props.width) && isNumber(props.height);
-  if (disabled) {
-    return props;
-  }
-  const { boxes } = props;
-  const box = useMemo(() => getViewportBox(boxes), [boxes]);
-  const { width, height } = usePadding(box, padding);
-  return {
-    width,
-    height,
-    ...props,
-  };
-};
+export default padding =>
+  update(({ boxes }) => {
+    const box = useMemo(() => getViewportBox(boxes), [boxes]);
+    return usePadding(box, padding);
+  });

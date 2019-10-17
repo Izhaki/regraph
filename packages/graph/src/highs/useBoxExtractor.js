@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import update from './update';
 
 const getBox = ({ box, x, y, width, height }) =>
   box || (x && y && { x, y, width, height });
@@ -12,8 +13,6 @@ const boxReducer = (boxes, node) => {
 };
 
 const getBoxes = nodes => nodes.reduce(boxReducer, {});
-
-const update = fn => props => ({ ...props, ...fn(props) });
 
 export default update(({ nodes, boxes }) => {
   const nodeBoxes = useMemo(() => getBoxes(nodes), [nodes]);
