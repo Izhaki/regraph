@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GraphBase from './GraphBase';
-import { useAutoViewportSize, useLayout, useBoxExtractor } from './highs';
+import {
+  useAutoViewportSize,
+  useLayout,
+  useBoxExtractor,
+  useNormaliseConnections,
+} from './highs';
 import connectionLayout, { chopBox } from './layouts/connections';
 import { pipe } from './utils';
 
@@ -11,6 +16,7 @@ const Graph = ({
   ...others
 }) => {
   const props = pipe(
+    useNormaliseConnections,
     useBoxExtractor,
     useLayout(layout),
     useAutoViewportSize(viewportPadding)
