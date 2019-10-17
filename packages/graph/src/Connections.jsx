@@ -1,14 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import getConnectionId from './getConnectionId';
 
 const Connections = ({ connections, renderConnection, graphProps }) => (
-  <>
-    {connections.map(connection => {
-      const id = getConnectionId(connection);
-      return renderConnection({ ...connection, id }, graphProps);
-    })}
-  </>
+  <>{connections.map(connection => renderConnection(connection, graphProps))}</>
 );
 
 Connections.propTypes = {

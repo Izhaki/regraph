@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import GraphBase from './GraphBase';
 import {
   useAutoViewportSize,
-  useLayout,
+  useAutoConnectionId,
   useBoxExtractor,
+  useLayout,
   useNormaliseConnections,
 } from './highs';
 import connectionLayout, { chopBox } from './layouts/connections';
@@ -17,6 +18,7 @@ const Graph = ({
 }) => {
   const props = pipe(
     useNormaliseConnections,
+    useAutoConnectionId,
     useBoxExtractor,
     useLayout(layout),
     useAutoViewportSize(viewportPadding)

@@ -16,6 +16,7 @@ export default () => (
     )}
     connections={[
       {
+        id: 'ping->pong',
         src: { x: 60, y: 50 },
         dst: { x: 160, y: 50 },
       },

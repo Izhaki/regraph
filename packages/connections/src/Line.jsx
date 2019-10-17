@@ -26,8 +26,8 @@ const Line = React.memo(
         {dstMarker}
         <line
           {...coordinates}
-          markerStart={srcMarker && `url(#${srcMarker.props.id})`}
-          markerEnd={dstMarker && `url(#${dstMarker.props.id})`}
+          markerStart={srcMarker && `url('#${srcMarker.props.id}')`}
+          markerEnd={dstMarker && `url('#${dstMarker.props.id}')`}
           className={clsx(
             'regraph-connection',
             'regraph-connection-line',
