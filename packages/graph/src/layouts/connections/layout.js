@@ -1,5 +1,5 @@
 import terminalBoxes from './terminalBoxes';
-import { isEmpty } from '../../utils';
+import { isEmpty } from '@regraph/core/';
 
 const layoutConnections = (props, resolveTerminals) =>
   props.connections.reduce((connections, connection) => {

@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
-import { isObject } from '@regraph/core';
+import { isObject, isEmpty } from '@regraph/core';
 import { union, getRight, getBottom, isRect } from '@regraph/geo/rect';
 import update from './update';
 
 const { values } = Object;
-const isEmpty = arr => arr.length === 0;
 const nullBox = { x: 0, y: 0, width: 0, height: 0 };
 const ensureRect = box => (isRect(box) ? box : { ...nullBox, ...box });
 
