@@ -53,10 +53,10 @@ const Line = React.memo(
 
 Line.propTypes = {
   className: PropTypes.string,
-  dst: PointPropTypes,
+  dst: PointPropTypes.isRequired,
   id: PropTypes.string.isRequired,
   selectable: PropTypes.bool,
-  src: PointPropTypes,
+  src: PointPropTypes.isRequired,
   strokeWidth: PropTypes.number,
 };
 
