@@ -15,10 +15,19 @@ const Line = React.memo(
       strokeWidth
     );
 
+    const padding = {
+      src: src.padding || 0,
+      dst: dst.padding || 0,
+    };
+
     const coordinates = useMemo(() => {
-      const line = trim({ src, dst }, srcTrim, dstTrim);
+      const line = trim(
+        { src, dst },
+        srcTrim + padding.src,
+        dstTrim + padding.dst
+      );
       return getSvgCoordinates(line);
-    }, [src, dst, srcTrim, dstTrim]);
+    }, [src, dst, srcTrim, padding.src, padding.dst, dstTrim]);
 
     return (
       <g id={id}>
