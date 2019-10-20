@@ -19,12 +19,11 @@ export default () => (
     renderSvgNode={({ id, box }) => (
       <rect key={id} {...box} fill="#FFD86E" stroke="#EDBA39" />
     )}
-    connection={
-      <Line
-        src={{ marker: <Perp /> }}
-        dst={{ marker: <Triangle /> }}
-        strokeWidth={2}
-      />
-    }
+    connectionDefaults={{
+      type: Line,
+      strokeWidth: 2,
+      src: { marker: <Perp /> },
+      dst: { marker: <Triangle /> },
+    }}
   />
 );

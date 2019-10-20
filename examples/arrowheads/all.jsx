@@ -56,6 +56,6 @@ export default () => (
     nodes={nodes}
     connections={connections}
     renderSvgNode={TextBox}
-    connection={<Line strokeWidth={2} />}
+    connectionDefaults={{ type: Line, strokeWidth: 2 }}
   />
 );

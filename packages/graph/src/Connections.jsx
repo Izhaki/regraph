@@ -1,25 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const mergeConnection = (element, connection) =>
-  React.cloneElement(element, {
-    ...connection,
-    src: { ...element.props.src, ...connection.src },
-    dst: { ...element.props.dst, ...connection.dst },
-  });
+const mergeWithDefaults = (defaults, connection) => ({
+  ...defaults,
+  ...connection,
+  src: { ...defaults.src, ...connection.src },
+  dst: { ...defaults.dst, ...connection.dst },
+});
 
-const Connections = ({ connections, connection: element }) => (
-  <>
-    {connections.map(connection => (
-      <React.Fragment key={connection.id}>
-        {mergeConnection(element, connection)}
-      </React.Fragment>
-    ))}
-  </>
+const createConnection = defaults => connection => {
+  const { type, ...props } = defaults
+    ? mergeWithDefaults(defaults, connection)
+    : connection;
+  props.key = connection.id;
+  return React.createElement(type, props);
+};
+
+const Connections = ({ connections, connectionDefaults: defaults }) => (
+  <>{connections.map(createConnection(defaults))}</>
 );
 
 Connections.propTypes = {
-  connection: PropTypes.element,
+  connectionDefaults: PropTypes.shape({
+    type: PropTypes.elementType,
+  }),
   connections: PropTypes.array,
 };
 

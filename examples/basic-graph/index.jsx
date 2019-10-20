@@ -10,6 +10,7 @@ export default () => (
     ]}
     connections={[
       {
+        type: Line,
         src: 'ping',
         dst: 'pong',
       },
@@ -17,6 +18,5 @@ export default () => (
     renderSvgNode={({ id, box }) => (
       <rect key={id} {...box} fill="#FFD86E" stroke="#EDBA39" />
     )}
-    connection={<Line />}
   />
 );
