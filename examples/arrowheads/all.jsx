@@ -56,8 +56,6 @@ export default () => (
     nodes={nodes}
     connections={connections}
     renderSvgNode={TextBox}
-    renderConnection={props => (
-      <Line key={props.id} {...props} strokeWidth={2} />
-    )}
+    connection={<Line strokeWidth={2} />}
   />
 );

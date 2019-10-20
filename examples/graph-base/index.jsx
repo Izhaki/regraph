@@ -21,6 +21,6 @@ export default () => (
         dst: { x: 160, y: 50 },
       },
     ]}
-    renderConnection={props => <Line key={props.id} {...props} />}
+    connection={<Line />}
   />
 );

@@ -17,6 +17,6 @@ export default () => (
     renderSvgNode={({ id, box }) => (
       <rect key={id} {...box} fill="#FFD86E" stroke="#EDBA39" />
     )}
-    renderConnection={props => <Line key={props.id} {...props} />}
+    connection={<Line />}
   />
 );

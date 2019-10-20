@@ -69,4 +69,4 @@ Line.propTypes = {
   strokeWidth: PropTypes.number,
 };
 
-export default Line;
+export default props => <Line {...props} />;

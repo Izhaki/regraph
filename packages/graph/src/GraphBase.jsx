@@ -6,11 +6,7 @@ import PropTypes from 'prop-types';
 /* eslint-disable react/prop-types */
 
 const renderConnections = props => (
-  <Connections
-    connections={props.connections}
-    renderConnection={props.renderConnection}
-    graphProps={props}
-  />
+  <Connections connections={props.connections} connection={props.connection} />
 );
 
 const renderNodes = (renderNode, props, isHtml = false) => (
@@ -29,13 +25,7 @@ const renderNodes = (renderNode, props, isHtml = false) => (
 const antialiasingShift = 'translate(0.5 0.5)';
 
 const GraphBase = props => {
-  const {
-    renderSvgNode,
-    renderHtmlNode,
-    renderConnection,
-    width,
-    height,
-  } = props;
+  const { renderSvgNode, renderHtmlNode, connection, width, height } = props;
 
   const style = {
     position: 'relative',
@@ -46,7 +36,7 @@ const GraphBase = props => {
   return (
     <div style={style} data-regraph-graph>
       <svg style={style} transform={antialiasingShift}>
-        {renderConnection && renderConnections(props)}
+        {connection && renderConnections(props)}
         {renderSvgNode && renderNodes(renderSvgNode, props)}
       </svg>
       {renderHtmlNode && renderNodes(renderHtmlNode, props, true)}
@@ -58,10 +48,10 @@ const GraphBase = props => {
 
 GraphBase.propTypes = {
   boxes: PropTypes.object,
+  connection: PropTypes.element,
   connections: PropTypes.array,
   height: PropTypes.number.isRequired,
   nodes: PropTypes.array,
-  renderConnection: PropTypes.func,
   renderHtmlNode: PropTypes.func,
   renderSvgNode: PropTypes.func,
   width: PropTypes.number.isRequired,
