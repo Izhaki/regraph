@@ -6,6 +6,8 @@ const layoutConnections = (props, resolveTerminals) =>
     const terminals = resolveTerminals(props, connection);
     if (!isEmpty(terminals)) {
       connections.push({ ...connection, ...terminals });
+    } else {
+      connections.push(connection);
     }
     return connections;
   }, []);
