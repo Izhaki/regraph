@@ -3,45 +3,34 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { PointPropTypes } from '@regraph/core';
 import clsx from 'clsx';
-import useMarkers from './useMarkers';
 import { getSvgCoordinates, trim } from '@regraph/geo/line';
+import withConnection from './withConnection';
 
 const Line = React.memo(
-  ({ id, src, dst, selectable, className, strokeWidth, ...others }) => {
-    const { srcMarker, dstMarker, srcTrim, dstTrim } = useMarkers(
-      id,
-      src,
-      dst,
-      strokeWidth
-    );
-
-    const padding = {
-      src: src.padding || 0,
-      dst: dst.padding || 0,
-    };
-
+  ({
+    src,
+    dst,
+    markerStart,
+    markerEnd,
+    srcTrim,
+    dstTrim,
+    selectable,
+    className,
+    strokeWidth,
+    ...others
+  }) => {
     const coordinates = useMemo(() => {
-      const line = trim(
-        { src, dst },
-        srcTrim + padding.src,
-        dstTrim + padding.dst
-      );
+      const line = trim({ src, dst }, srcTrim, dstTrim);
       return getSvgCoordinates(line);
-    }, [src, dst, srcTrim, padding.src, padding.dst, dstTrim]);
+    }, [src, dst, srcTrim, dstTrim]);
 
     return (
-      <g id={id}>
-        {srcMarker}
-        {dstMarker}
+      <>
         <line
           {...coordinates}
-          markerStart={srcMarker && `url('#${srcMarker.props.id}')`}
-          markerEnd={dstMarker && `url('#${dstMarker.props.id}')`}
-          className={clsx(
-            'regraph-connection',
-            'regraph-connection-line',
-            className
-          )}
+          markerStart={markerStart}
+          markerEnd={markerEnd}
+          className={clsx('regraph-connection-line', className)}
           stroke="#777"
           style={{ strokeWidth }}
           {...others}
@@ -55,7 +44,7 @@ const Line = React.memo(
             y2={dst.y}
           />
         )}
-      </g>
+      </>
     );
   }
 );
@@ -63,10 +52,13 @@ const Line = React.memo(
 Line.propTypes = {
   className: PropTypes.string,
   dst: PointPropTypes.isRequired,
-  id: PropTypes.string.isRequired,
+  dstTrim: PropTypes.number,
+  markerEnd: PropTypes.string,
+  markerStart: PropTypes.string,
   selectable: PropTypes.bool,
   src: PointPropTypes.isRequired,
+  srcTrim: PropTypes.number,
   strokeWidth: PropTypes.number,
 };
 
-export default Line;
+export default withConnection(Line);
