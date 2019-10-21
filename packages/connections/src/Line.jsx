@@ -1,9 +1,8 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { PointPropTypes } from '@regraph/core';
 import clsx from 'clsx';
-import { getSvgCoordinates, trim } from '@regraph/geo/line';
+import { toElement, trim } from '@regraph/geo/line';
 import withConnection from './withConnection';
 
 const Line = React.memo(
@@ -19,31 +18,32 @@ const Line = React.memo(
     strokeWidth,
     ...others
   }) => {
-    const coordinates = useMemo(() => {
+    const { type, props: elementProps } = useMemo(() => {
       const line = trim({ src, dst }, srcTrim, dstTrim);
-      return getSvgCoordinates(line);
+      return toElement(line);
     }, [src, dst, srcTrim, dstTrim]);
+
+    const line = React.createElement(type, {
+      ...elementProps,
+      markerStart,
+      markerEnd,
+      className: clsx('regraph-connection-line', className),
+      stroke: '#777',
+      style: { strokeWidth },
+      ...others,
+    });
+
+    const overlay =
+      selectable &&
+      React.createElement(type, {
+        ...elementProps,
+        className: 'regraph-connection-overlay',
+      });
 
     return (
       <>
-        <line
-          {...coordinates}
-          markerStart={markerStart}
-          markerEnd={markerEnd}
-          className={clsx('regraph-connection-line', className)}
-          stroke="#777"
-          style={{ strokeWidth }}
-          {...others}
-        />
-        {selectable && (
-          <line
-            className="regraph-connection-overlay"
-            x1={src.x}
-            y1={src.y}
-            x2={dst.x}
-            y2={dst.y}
-          />
-        )}
+        {line}
+        {overlay}
       </>
     );
   }
