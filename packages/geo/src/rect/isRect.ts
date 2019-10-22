@@ -1,6 +1,6 @@
 import { Rect } from './Rect';
+import { isNumber } from '../utils';
 
-const isNumber = (x: number): boolean => typeof x === 'number';
 export default (rect: Rect): boolean =>
   rect &&
   isNumber(rect.x) &&
