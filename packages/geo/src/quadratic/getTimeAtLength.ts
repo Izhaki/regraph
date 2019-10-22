@@ -1,9 +1,6 @@
 import Bezier from 'bezier-js';
 import { Quadratic } from './Quadratic';
-
-const { abs } = Math;
-const isNegativeZero = (x: number): boolean => Object.is(x, -0);
-const isNegative = (x: number): boolean => x < 0 || isNegativeZero(x);
+import { abs, isNegativeZero, isPositive } from '../utils';
 
 interface Options {
   maxError?: number;
@@ -48,7 +45,7 @@ export default (quad: Quadratic, length: number, options?: Options): number => {
     return 0;
   }
 
-  const fromStart = !isNegative(length);
+  const fromStart = isPositive(length);
 
   return getTimeAtLength(quad, abs(length), fromStart, options);
 };

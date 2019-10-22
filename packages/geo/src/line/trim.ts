@@ -8,7 +8,7 @@ export default (line: Line, startTrim: number, endTrim: number): Line => {
     line.src.y = src.y;
   }
   if (endTrim) {
-    const dst = getPointAtLength(line, endTrim, false);
+    const dst = getPointAtLength(line, -endTrim);
     line.dst.x = dst.x;
     line.dst.y = dst.y;
   }
