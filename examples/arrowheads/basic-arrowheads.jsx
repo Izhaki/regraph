@@ -3,15 +3,14 @@ import { Graph } from '@regraph/graph';
 import { Line, CurvedLine } from '@regraph/connections';
 import { Triangle, Perp } from '@regraph/arrowheads';
 
-const getBox = index => ({ x: 50 + index * 100, y: 40, width: 20, height: 20 });
+const toNode = (id, index) => ({
+  id,
+  box: { x: 50 + index * 100, y: 40, width: 20, height: 20 },
+});
 
 export default () => (
   <Graph
-    nodes={[
-      { id: 'left', box: getBox(0) },
-      { id: 'centre', box: getBox(1) },
-      { id: 'right', box: getBox(2) },
-    ]}
+    nodes={['left', 'centre', 'right'].map(toNode)}
     connections={[
       { src: 'centre', dst: 'left' },
       { src: 'centre', dst: 'right' },
