@@ -30,6 +30,7 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
-    "bezier-js": "^2.4.4"
+    "bezier-js": "^2.4.4",
+    "kld-intersections": "^0.6.0"
   }
 }

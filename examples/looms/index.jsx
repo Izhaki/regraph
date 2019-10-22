@@ -1,7 +1,8 @@
 import React from 'react';
 import { Graph } from '@regraph/graph';
-import { Line } from '@regraph/connections';
-import { Triangle, Perp } from '@regraph/arrowheads';
+import { CurvedLine } from '@regraph/connections';
+import { Triangle } from '@regraph/arrowheads';
+import layout from './layout';
 
 const toNode = (id, index) => ({
   id,
@@ -10,18 +11,18 @@ const toNode = (id, index) => ({
 
 export default () => (
   <Graph
-    nodes={['left', 'centre', 'right'].map(toNode)}
+    layout={layout}
+    nodes={['left', 'right'].map(toNode)}
     connections={[
-      { src: 'centre', dst: 'left' },
-      { src: 'centre', dst: 'right' },
+      { src: 'left', dst: 'right', bend: 10 },
+      { src: 'right', dst: 'left', bend: 10 },
     ]}
     renderSvgNode={({ id, box }) => (
       <rect key={id} {...box} fill="#FFD86E" stroke="#EDBA39" />
     )}
     connectionDefaults={{
-      type: Line,
+      type: CurvedLine,
       strokeWidth: 2,
-      src: { marker: <Perp /> },
       dst: { marker: <Triangle /> },
     }}
   />
