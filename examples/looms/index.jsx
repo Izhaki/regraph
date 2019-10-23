@@ -9,20 +9,29 @@ const toNode = (id, index) => ({
   box: { x: 50 + index * 100, y: 40, width: 20, height: 20 },
 });
 
+const stampId = (connection, index) => ({ id: `${index}`, ...connection });
+
 export default () => (
   <Graph
     layout={layout}
-    nodes={['left', 'right'].map(toNode)}
+    nodes={['1', '2', '3', '4'].map(toNode)}
     connections={[
-      { src: 'left', dst: 'right', bend: 10 },
-      { src: 'right', dst: 'left', bend: 10 },
-    ]}
+      { src: '1', dst: '2' },
+      { src: '1', dst: '2' },
+      { src: '2', dst: '3' },
+      { src: '2', dst: '3' },
+      { src: '2', dst: '3' },
+      { src: '3', dst: '4' },
+      { src: '3', dst: '4' },
+      { src: '3', dst: '4' },
+      { src: '3', dst: '4' },
+    ].map(stampId)}
     renderSvgNode={({ id, box }) => (
       <rect key={id} {...box} fill="#FFD86E" stroke="#EDBA39" />
     )}
     connectionDefaults={{
       type: CurvedLine,
-      strokeWidth: 2,
+      strokeWidth: 1,
       dst: { marker: <Triangle /> },
     }}
   />

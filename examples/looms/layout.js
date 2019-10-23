@@ -4,7 +4,7 @@ import { getMidPointAtDistance } from '@regraph/geo/line';
 import { xsQuadraticRect } from '@regraph/geo/intersections';
 
 const resolveTerminals = ({ boxes }, connection) => {
-  const { src, dst, bend } = connection;
+  const { src, dst, bend = 0 } = connection;
 
   const srcBox = boxes[src.id];
   const dstBox = boxes[dst.id];

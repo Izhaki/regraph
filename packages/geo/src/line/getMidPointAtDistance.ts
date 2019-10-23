@@ -8,6 +8,10 @@ const { sqrt } = Math;
 export default (line: Line, distance: number): Point => {
   const mid = getMidPoint(line);
 
+  if (distance === 0) {
+    return mid;
+  }
+
   const { src, dst } = line;
   const a = src.y - dst.y;
   const b = dst.x - src.x;

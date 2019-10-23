@@ -10,7 +10,7 @@ const CurvedLine = React.memo(
   ({
     src,
     dst,
-    bend,
+    bend = 0,
     markerStart,
     markerEnd,
     srcTrim,

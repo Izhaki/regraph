@@ -6,6 +6,7 @@ import {
   useAutoConnectionId,
   useBoxExtractor,
   useLayout,
+  useLoomer,
   useNormaliseConnections,
 } from './highs';
 import connectionLayout, { chopBox } from './layouts/connections';
@@ -19,6 +20,7 @@ const Graph = ({
   const props = pipe(
     useNormaliseConnections,
     useAutoConnectionId,
+    useLoomer(),
     useBoxExtractor,
     useLayout(layout),
     useAutoViewportSize(viewportPadding)
