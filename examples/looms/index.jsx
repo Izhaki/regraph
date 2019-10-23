@@ -9,8 +9,6 @@ const toNode = (id, index) => ({
   box: { x: 50 + index * 100, y: 40, width: 20, height: 20 },
 });
 
-const stampId = (connection, index) => ({ id: `${index}`, ...connection });
-
 export default () => (
   <Graph
     layout={layout}
@@ -25,7 +23,7 @@ export default () => (
       { src: '3', dst: '4' },
       { src: '3', dst: '4' },
       { src: '3', dst: '4' },
-    ].map(stampId)}
+    ]}
     renderSvgNode={({ id, box }) => (
       <rect key={id} {...box} fill="#FFD86E" stroke="#EDBA39" />
     )}

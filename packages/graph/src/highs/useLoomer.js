@@ -12,8 +12,7 @@ const getGroupId = ({ src, dst }) =>
 const getGroups = connections =>
   connections.reduce((groups, connection) => {
     const groupId = getGroupId(connection);
-    groups[groupId] = groups[groupId] || [];
-    groups[groupId].push(connection);
+    (groups[groupId] = groups[groupId] || []).push(connection);
     return groups;
   }, {});
 
@@ -23,7 +22,7 @@ const keepMultiGroups = groups =>
 
 const getTopBend = (connections, gap) => {
   const height = (connections.length - 1) * gap;
-  // We substract half the height to have the loom centred centred.
+  // We subtract half the height to have the loom centred centred.
   // That is, instead of 0..40, we get -20..20.
   return height - height / 2;
 };
