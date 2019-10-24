@@ -1,6 +1,6 @@
 import { connectionLayout } from '@regraph/graph/';
 import { getCenter } from '@regraph/geo/rect';
-import { getMidPointAtDistance } from '@regraph/geo/line';
+import { fromBentLine } from '@regraph/geo/quadratic';
 import { xQuadraticRect } from '@regraph/geo/intersections';
 
 const resolveTerminals = ({ boxes }, connection) => {
@@ -14,10 +14,7 @@ const resolveTerminals = ({ boxes }, connection) => {
     dst: getCenter(dstBox),
   };
 
-  const quad = {
-    ...centers,
-    c1: getMidPointAtDistance(centers, -2 * bend),
-  };
+  const quad = fromBentLine(centers, bend);
 
   return {
     src: xQuadraticRect(quad, srcBox),

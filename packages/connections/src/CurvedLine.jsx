@@ -2,8 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { PointPropTypes } from '@regraph/core';
 import clsx from 'clsx';
-import { toElement, trim } from '@regraph/geo/quadratic';
-import { getMidPointAtDistance } from '@regraph/geo/line';
+import { fromBentLine, toElement, trim } from '@regraph/geo/quadratic';
 import withConnection from './withConnection';
 
 const CurvedLine = React.memo(
@@ -21,8 +20,7 @@ const CurvedLine = React.memo(
     ...others
   }) => {
     const { type, props: elementProps } = useMemo(() => {
-      const c1 = getMidPointAtDistance({ src, dst }, -2 * bend);
-      const quad = trim({ src, c1, dst }, srcTrim, dstTrim);
+      const quad = trim(fromBentLine({ src, dst }, bend), srcTrim, dstTrim);
       return toElement(quad);
     }, [src, dst, bend, srcTrim, dstTrim]);
 
