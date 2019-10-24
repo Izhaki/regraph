@@ -24,7 +24,7 @@ const renderNodes = (props, isHtml = false) => (
 const antialiasingShift = 'translate(0.5 0.5)';
 
 const GraphBase = props => {
-  const { nodes, connections, width, height } = props;
+  const { nodes, connections, width, height, nodeLayer = 'svg' } = props;
 
   const style = {
     position: 'relative',
@@ -36,9 +36,9 @@ const GraphBase = props => {
     <div style={style} data-regraph-graph>
       <svg style={style} transform={antialiasingShift}>
         {connections && renderConnections(props)}
-        {nodes && renderNodes(props)}
+        {nodes && nodeLayer === 'svg' && renderNodes(props)}
       </svg>
-      {false && renderNodes(props, true)}
+      {nodes && nodeLayer === 'html' && renderNodes(props, true)}
     </div>
   );
 };
@@ -49,6 +49,7 @@ GraphBase.propTypes = {
   boxes: PropTypes.object,
   connections: PropTypes.array,
   height: PropTypes.number.isRequired,
+  nodeLayer: PropTypes.oneOf(['svg', 'html']),
   nodes: PropTypes.array,
   width: PropTypes.number.isRequired,
 };
