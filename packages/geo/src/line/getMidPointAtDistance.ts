@@ -1,5 +1,5 @@
+import { Point } from '@regraph/geo/point';
 import { Line } from './Line';
-import { Point } from '../point';
 import getMidPoint from './getMidPoint';
 
 const { sqrt } = Math;

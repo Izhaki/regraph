@@ -1,6 +1,6 @@
+import { Point } from '@regraph/geo/point';
+import { getLineIntersection } from '@regraph/geo/line';
 import { Rect } from './Rect';
-import { Point } from '../point';
-import { getLineIntersection } from '../line';
 import { getSides } from './getSides';
 import getCenter from './getCenter';
 

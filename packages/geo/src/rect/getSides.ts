@@ -1,5 +1,5 @@
+import { Line } from '@regraph/geo/line';
 import { Rect } from './Rect';
-import { Line } from '../line';
 
 import {
   getTopLeft,

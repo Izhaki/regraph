@@ -1,5 +1,5 @@
+import { Point } from '@regraph/geo/point';
 import { Line } from './Line';
-import { Point } from '../point';
 
 // AKA `lerp` - Linear interpolation
 export default (line: Line, time: number): Point => ({

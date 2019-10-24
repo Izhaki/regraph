@@ -1,5 +1,5 @@
+import { toSvg } from '@regraph/geo/point';
 import { Quadratic } from './Quadratic';
-import { toSvg } from '../point';
 
 export interface QuadraticElement {
   type: string;

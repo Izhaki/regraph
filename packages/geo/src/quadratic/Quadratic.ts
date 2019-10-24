@@ -1,4 +1,4 @@
-import { Point } from '../point';
+import { Point } from '@regraph/geo/point';
 
 export interface Quadratic {
   src: Point;

@@ -1,5 +1,5 @@
+import { Point } from '@regraph/geo/point';
 import { Line } from './Line';
-import { Point } from '../point';
 import getLength from './getLength';
 import getPointAtTime from './getPointAtTime';
 import { abs, isNegativeZero, isPositive } from '../utils';

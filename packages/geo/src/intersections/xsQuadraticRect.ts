@@ -1,7 +1,7 @@
+import { Quadratic } from '@regraph/geo/quadratic';
+import { Rect } from '@regraph/geo/rect';
+import { Point } from '@regraph/geo/point';
 import { intersect, quadraticBezier, rectangle } from './kld';
-import { Quadratic } from '../quadratic';
-import { Rect } from '../rect';
-import { Point } from '../point';
 
 export const xsQuadraticRect = (quad: Quadratic, rect: Rect): Point[] =>
   intersect(quadraticBezier(quad), rectangle(rect));

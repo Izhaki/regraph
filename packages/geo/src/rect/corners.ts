@@ -1,4 +1,4 @@
-import { Point } from '../point';
+import { Point } from '@regraph/geo/point';
 import { Rect } from './Rect';
 
 export const getTop = (rect: Rect): number => rect.y;
