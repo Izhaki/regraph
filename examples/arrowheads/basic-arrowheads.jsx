@@ -18,7 +18,7 @@ export default () => (
       { src: 'centre', dst: 'left' },
       { src: 'centre', dst: 'right' },
     ]}
-    connectionDefaults={{
+    connection={{
       type: Line,
       strokeWidth: 2,
       src: { marker: <Perp /> },

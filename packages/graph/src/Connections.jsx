@@ -16,12 +16,12 @@ const createConnection = defaults => connection => {
   return React.createElement(type, props);
 };
 
-const Connections = ({ connections, connectionDefaults: defaults }) => (
+const Connections = ({ connections, connection: defaults }) => (
   <>{connections.map(createConnection(defaults))}</>
 );
 
 Connections.propTypes = {
-  connectionDefaults: PropTypes.shape({
+  connection: PropTypes.shape({
     type: PropTypes.elementType,
   }),
   connections: PropTypes.array,

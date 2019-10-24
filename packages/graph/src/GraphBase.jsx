@@ -6,10 +6,7 @@ import PropTypes from 'prop-types';
 /* eslint-disable react/prop-types */
 
 const renderConnections = props => (
-  <Connections
-    connections={props.connections}
-    connectionDefaults={props.connectionDefaults}
-  />
+  <Connections connections={props.connections} connection={props.connection} />
 );
 
 const renderNodes = (props, isHtml = false) => (

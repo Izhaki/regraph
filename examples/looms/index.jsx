@@ -27,7 +27,7 @@ export default () => (
       { src: '3', dst: '4' },
       { src: '3', dst: '4' },
     ]}
-    connectionDefaults={{
+    connection={{
       type: CurvedLine,
       strokeWidth: 1,
       dst: { marker: <Triangle /> },
