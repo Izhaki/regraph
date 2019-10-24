@@ -3,7 +3,7 @@ import { Graph } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 import { Triangle, Perp } from '@regraph/arrowheads';
 
-const Rect = ({ box }) => <rect {...box} fill="#FFD86E" stroke="#EDBA39" />;
+const Rect = ({ box }) => <rect {...box} />;
 
 const toNode = (id, index) => ({
   id,

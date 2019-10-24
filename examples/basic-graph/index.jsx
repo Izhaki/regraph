@@ -2,7 +2,7 @@ import React from 'react';
 import { Graph } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 
-const Rect = ({ box }) => <rect {...box} fill="#FFD86E" stroke="#EDBA39" />;
+const Rect = ({ box }) => <rect {...box} />;
 
 export default () => (
   <Graph

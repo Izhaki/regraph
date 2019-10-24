@@ -24,6 +24,10 @@ const useStyles = makeStyles({
       borderRadius: [[borderRadius, borderRadius, 0, 0]],
       backgroundColor: 'white',
     },
+    '& rect': {
+      fill: '#FFD86E',
+      stroke: '#EDBA39',
+    },
   },
   codeWrapper: {
     '&[class*="language-"]': {

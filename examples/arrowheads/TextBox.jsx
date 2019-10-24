@@ -5,7 +5,7 @@ export default ({ id, box, title }) => {
   const { x, y } = getCenter(box);
   return (
     <g key={id}>
-      <rect {...box} fill="#FFD86E" stroke="#EDBA39" rx="2" />
+      <rect {...box} />
       <text
         x={x}
         y={y}

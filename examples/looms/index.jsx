@@ -4,7 +4,7 @@ import { CurvedLine } from '@regraph/connections';
 import { Triangle } from '@regraph/arrowheads';
 import layout from './layout';
 
-const Rect = ({ box }) => <rect {...box} fill="#FFD86E" stroke="#EDBA39" />;
+const Rect = ({ box }) => <rect {...box} />;
 
 const toNode = (id, index) => ({
   id,
