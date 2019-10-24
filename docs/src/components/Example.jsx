@@ -24,7 +24,7 @@ const useStyles = makeStyles({
       borderRadius: [[borderRadius, borderRadius, 0, 0]],
       backgroundColor: 'white',
     },
-    '& rect': {
+    '& rect, ellipse': {
       fill: '#FFD86E',
       stroke: '#EDBA39',
     },

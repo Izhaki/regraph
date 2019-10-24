@@ -1,7 +1,8 @@
 import { connectionLayout } from '@regraph/graph/';
 import { getCenter } from '@regraph/geo/rect';
 import { fromBentLine } from '@regraph/geo/quadratic';
-import { xQuadraticRect } from '@regraph/geo/intersections';
+import { fromRect } from '@regraph/geo/ellipse';
+import { xQuadraticEllipse } from '@regraph/geo/intersections';
 
 const resolveTerminals = ({ boxes }, connection) => {
   const { src, dst, bend = 0 } = connection;
@@ -17,9 +18,9 @@ const resolveTerminals = ({ boxes }, connection) => {
   const quad = fromBentLine(centers, bend);
 
   return {
-    src: xQuadraticRect(quad, srcBox),
+    src: xQuadraticEllipse(quad, fromRect(srcBox)),
     c1: quad.c1,
-    dst: xQuadraticRect(quad, dstBox),
+    dst: xQuadraticEllipse(quad, fromRect(dstBox)),
   };
 };
 

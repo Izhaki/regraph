@@ -2,14 +2,15 @@ import React from 'react';
 import { Graph } from '@regraph/graph';
 import { CurvedLine } from '@regraph/connections';
 import { Triangle } from '@regraph/arrowheads';
+import { fromRect, toSvgProps } from '@regraph/geo/ellipse';
 import layout from './layout';
 
-const Rect = ({ box }) => <rect {...box} />;
+const Circle = ({ box }) => <ellipse {...toSvgProps(fromRect(box))} />;
 
 const toNode = (id, index) => ({
   id,
-  type: Rect,
-  box: { x: 50 + index * 100, y: 40, width: 20, height: 20 },
+  type: Circle,
+  box: { x: 50 + index * 100, y: 40, width: 30, height: 30 },
 });
 
 export default () => (
