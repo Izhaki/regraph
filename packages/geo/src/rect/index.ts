@@ -1,4 +1,4 @@
-export { Rect } from './Rect';
+export { default as Rect } from './Rect';
 
 export { default as ensureRect } from './ensureRect';
 export { default as fromSides } from './fromSides';

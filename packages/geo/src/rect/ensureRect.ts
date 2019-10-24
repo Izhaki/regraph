@@ -1,4 +1,4 @@
-import { Rect } from './Rect';
+import Rect from './Rect';
 import isRect from './isRect';
 
 const nullRect = { x: 0, y: 0, width: 0, height: 0 };

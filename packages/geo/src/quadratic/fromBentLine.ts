@@ -1,5 +1,5 @@
 import { Line, getMidPointAtDistance } from '@regraph/geo/line';
-import { Quadratic } from './Quadratic';
+import Quadratic from './Quadratic';
 
 // A quad via the point that is at the given bend value (distance)
 // from the line middle.

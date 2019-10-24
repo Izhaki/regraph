@@ -1,4 +1,4 @@
-import { Rect } from './Rect';
+import Rect from './Rect';
 import { isNumber } from '../utils';
 
 export default (rect: Rect): boolean =>

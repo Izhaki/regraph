@@ -1,5 +1,5 @@
 import Bezier from 'bezier-js';
-import { Quadratic } from './Quadratic';
+import Quadratic from './Quadratic';
 import getTimeAtLength from './getTimeAtLength';
 
 export default (

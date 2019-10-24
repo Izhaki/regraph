@@ -1,5 +1,5 @@
 import { Point } from '@regraph/geo/point';
-import { Rect } from './Rect';
+import Rect from './Rect';
 
 export const getTop = (rect: Rect): number => rect.y;
 export const getRight = (rect: Rect): number => rect.x + rect.width;

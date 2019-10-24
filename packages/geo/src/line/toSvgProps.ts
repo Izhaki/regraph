@@ -1,4 +1,4 @@
-import { Line } from './Line';
+import Line from './Line';
 
 export interface SvgProps {
   x1: number;

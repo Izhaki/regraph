@@ -1,4 +1,4 @@
-export { Line } from './Line';
+export { default as Line } from './Line';
 export { default as getLineIntersection } from './getLineIntersection';
 export { default as toSvgProps } from './toSvgProps';
 export { default as toElement } from './toElement';

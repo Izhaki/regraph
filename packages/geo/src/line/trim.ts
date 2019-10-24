@@ -1,4 +1,4 @@
-import { Line } from './Line';
+import Line from './Line';
 import getPointAtLength from './getPointAtLength';
 
 export default (line: Line, startTrim: number, endTrim: number): Line => {

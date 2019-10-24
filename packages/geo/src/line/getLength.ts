@@ -1,4 +1,4 @@
-import { Line } from './Line';
+import Line from './Line';
 
 const { sqrt } = Math;
 const sqr = (x: number): number => x ** 2;

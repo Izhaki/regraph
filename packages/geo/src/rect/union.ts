@@ -1,4 +1,4 @@
-import { Rect, Rects } from './Rect';
+import Rect from './Rect';
 import fromSides from './fromSides';
 import { getTop, getRight, getBottom, getLeft } from './corners';
 
@@ -6,7 +6,7 @@ const apply = fn => (args): number => fn(...args);
 const min = apply(Math.min);
 const max = apply(Math.max);
 
-export default (rects: Rects): Rect =>
+export default (rects: Rect[]): Rect =>
   fromSides(
     min(rects.map(getTop)),
     max(rects.map(getRight)),
