@@ -9,6 +9,7 @@ const CurvedLine = React.memo(
   ({
     src,
     dst,
+    c1,
     bend = 0,
     markerStart,
     markerEnd,
@@ -20,9 +21,11 @@ const CurvedLine = React.memo(
     ...others
   }) => {
     const { type, props: elementProps } = useMemo(() => {
-      const quad = trim(fromBentLine({ src, dst }, bend), srcTrim, dstTrim);
-      return toElement(quad);
-    }, [src, dst, bend, srcTrim, dstTrim]);
+      // c1 may already be calculated by the layout
+      const quad = c1 ? { src, c1, dst } : fromBentLine({ src, dst }, bend);
+      const trimmedQuad = trim(quad, srcTrim, dstTrim);
+      return toElement(trimmedQuad);
+    }, [c1, src, dst, bend, srcTrim, dstTrim]);
 
     const curve = React.createElement(type, {
       ...elementProps,
@@ -53,6 +56,7 @@ const CurvedLine = React.memo(
 
 CurvedLine.propTypes = {
   bend: PropTypes.number,
+  c1: PointPropTypes,
   className: PropTypes.string,
   dst: PointPropTypes.isRequired,
   dstTrim: PropTypes.number,

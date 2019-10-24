@@ -18,6 +18,7 @@ const resolveTerminals = ({ boxes }, connection) => {
 
   return {
     src: xQuadraticRect(quad, srcBox),
+    c1: quad.c1,
     dst: xQuadraticRect(quad, dstBox),
   };
 };
