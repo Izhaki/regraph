@@ -15,6 +15,11 @@ import TextBox from './TextBox';
 const full = { stroke: 'none', fill: '#777' };
 const empty = { stroke: '#777', fill: 'none' };
 
+const applyConnectionDefaults = connection => ({
+  ...connection,
+  type: Line,
+  strokeWidth: 2,
+});
 const connections = [
   {
     src: { id: 'Perp', marker: <Perp /> },
@@ -36,26 +41,29 @@ const connections = [
     src: { id: 'Ellipse (Full)', marker: <Ellipse {...full} /> },
     dst: { id: 'Ellipse (Empty)', marker: <Ellipse {...empty} /> },
   },
-];
+].map(applyConnectionDefaults);
 
 const firstWord = str => str.split(' ')[0];
 
 const nodesReducer = (nodes, { src, dst }, index) => {
   const box = { y: index * 50 + 50, width: 150, height: 30 };
   nodes.push(
-    { id: src.id, title: firstWord(src.id), box: { x: 50, ...box } },
-    { id: dst.id, title: firstWord(dst.id), box: { x: 300, ...box } }
+    {
+      id: src.id,
+      type: TextBox,
+      title: firstWord(src.id),
+      box: { x: 50, ...box },
+    },
+    {
+      id: dst.id,
+      type: TextBox,
+      title: firstWord(dst.id),
+      box: { x: 300, ...box },
+    }
   );
   return nodes;
 };
 
 const nodes = connections.reduce(nodesReducer, []);
 
-export default () => (
-  <Graph
-    nodes={nodes}
-    connections={connections}
-    renderSvgNode={TextBox}
-    connectionDefaults={{ type: Line, strokeWidth: 2 }}
-  />
-);
+export default () => <Graph nodes={nodes} connections={connections} />;

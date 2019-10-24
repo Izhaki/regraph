@@ -12,12 +12,11 @@ const renderConnections = props => (
   />
 );
 
-const renderNodes = (renderNode, props, isHtml = false) => (
+const renderNodes = (props, isHtml = false) => (
   <Nodes
     nodes={props.nodes}
     boxes={props.boxes}
-    renderNode={renderNode}
-    graphProps={props}
+    defaults={props.node}
     isHtml={isHtml}
   />
 );
@@ -28,7 +27,7 @@ const renderNodes = (renderNode, props, isHtml = false) => (
 const antialiasingShift = 'translate(0.5 0.5)';
 
 const GraphBase = props => {
-  const { renderSvgNode, renderHtmlNode, connections, width, height } = props;
+  const { nodes, connections, width, height } = props;
 
   const style = {
     position: 'relative',
@@ -40,9 +39,9 @@ const GraphBase = props => {
     <div style={style} data-regraph-graph>
       <svg style={style} transform={antialiasingShift}>
         {connections && renderConnections(props)}
-        {renderSvgNode && renderNodes(renderSvgNode, props)}
+        {nodes && renderNodes(props)}
       </svg>
-      {renderHtmlNode && renderNodes(renderHtmlNode, props, true)}
+      {false && renderNodes(props, true)}
     </div>
   );
 };
@@ -54,8 +53,6 @@ GraphBase.propTypes = {
   connections: PropTypes.array,
   height: PropTypes.number.isRequired,
   nodes: PropTypes.array,
-  renderHtmlNode: PropTypes.func,
-  renderSvgNode: PropTypes.func,
   width: PropTypes.number.isRequired,
 };
 
