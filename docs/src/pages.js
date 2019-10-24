@@ -9,13 +9,4 @@ export default [
       { pathname: '/examples/looms', title: 'Looms' },
     ],
   },
-  // {
-  //   pathname: '/graph',
-  //   title: 'Graph',
-  //   children: [
-  //     { pathname: '/graph/Graph', title: 'Graph' },
-  //     { pathname: '/graph/withAutoViewportSize', title: 'withAutoViewportSize' },
-  //     { pathname: '/graph/withLayout', title: 'withLayout' },
-  //   ],
-  // },
 ];
