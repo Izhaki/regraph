@@ -17,7 +17,9 @@ const createConnection = defaults => connection => {
 };
 
 const Connections = ({ connections, connection: defaults }) => (
-  <>{connections.map(createConnection(defaults))}</>
+  <g className="regraph-connections">
+    {connections.map(createConnection(defaults))}
+  </g>
 );
 
 Connections.propTypes = {

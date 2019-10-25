@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Nodes = ({ nodes, boxes, defaults, isHtml }) => (
-  <>
+  <g className="regraph-nodes">
     {nodes.map(node => {
       const { type, ...props } = {
         ...node,
@@ -13,7 +13,7 @@ const Nodes = ({ nodes, boxes, defaults, isHtml }) => (
       };
       return React.createElement(type, props);
     })}
-  </>
+  </g>
 );
 
 Nodes.propTypes = {
