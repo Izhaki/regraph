@@ -2,13 +2,23 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { PointPropTypes } from '@regraph/core';
 import clsx from 'clsx';
-import { toElement, trim } from '@regraph/geo/line';
+import {
+  toElement as lineToElement,
+  trim as trimLine,
+} from '@regraph/geo/line';
+import {
+  fromBentLine,
+  toElement as quadToElement,
+  trim as trimQuad,
+} from '@regraph/geo/quadratic';
 import withConnection from './withConnection';
 
 const Line = React.memo(
   ({
     src,
     dst,
+    c1,
+    bend = 0,
     markerStart,
     markerEnd,
     srcTrim,
@@ -19,9 +29,15 @@ const Line = React.memo(
     ...others
   }) => {
     const { type, props: elementProps } = useMemo(() => {
-      const line = trim({ src, dst }, srcTrim, dstTrim);
-      return toElement(line);
-    }, [src, dst, srcTrim, dstTrim]);
+      if (bend || c1) {
+        // c1 may already be calculated by the layout
+        const quad = c1 ? { src, c1, dst } : fromBentLine({ src, dst }, bend);
+        const trimmed = trimQuad(quad, srcTrim, dstTrim);
+        return quadToElement(trimmed);
+      }
+      const line = trimLine({ src, dst }, srcTrim, dstTrim);
+      return lineToElement(line);
+    }, [bend, src, dst, srcTrim, dstTrim, c1]);
 
     const line = React.createElement(type, {
       ...elementProps,
@@ -29,6 +45,7 @@ const Line = React.memo(
       markerEnd,
       className: clsx('regraph-connection-line', className),
       stroke: '#777',
+      fill: 'none',
       style: { strokeWidth },
       ...others,
     });
@@ -50,6 +67,8 @@ const Line = React.memo(
 );
 
 Line.propTypes = {
+  bend: PropTypes.number,
+  c1: PointPropTypes,
   className: PropTypes.string,
   dst: PointPropTypes.isRequired,
   dstTrim: PropTypes.number,

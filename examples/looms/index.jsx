@@ -1,6 +1,6 @@
 import React from 'react';
 import { Graph } from '@regraph/graph';
-import { CurvedLine } from '@regraph/connections';
+import { Line } from '@regraph/connections';
 import { Triangle } from '@regraph/arrowheads';
 import { fromRect, toSvgProps } from '@regraph/geo/ellipse';
 import layout from './layout';
@@ -29,7 +29,7 @@ export default () => (
       { src: '3', dst: '4' },
     ]}
     connection={{
-      type: CurvedLine,
+      type: Line,
       strokeWidth: 1,
       dst: { marker: <Triangle /> },
     }}
