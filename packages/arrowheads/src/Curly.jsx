@@ -36,7 +36,7 @@ const curly = (width, height, rtl) => {
 const defaults = {
   width: 6,
   height: 12,
-  stroke: '#777',
+  stroke: 'inherent',
 };
 
 const Curly = ({

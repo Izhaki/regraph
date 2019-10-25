@@ -32,7 +32,6 @@ export default WrappedComponent => {
           srcTrim={srcTrim + padding.src}
           dstTrim={dstTrim + padding.dst}
         />
-        ;
       </g>
     );
   };

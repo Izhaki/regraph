@@ -48,7 +48,6 @@ const Barbed = ({
         className
       )}
       stroke={stroke}
-      fill="#777"
       {...others}
     />
   );

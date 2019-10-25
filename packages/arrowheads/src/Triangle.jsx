@@ -21,7 +21,7 @@ const Triangle = ({
   id,
   width = defaults.width,
   height = defaults.height,
-  stroke,
+  stroke = 'none',
   strokeWidth,
   rtl,
   className,
@@ -42,7 +42,6 @@ const Triangle = ({
         className
       )}
       stroke={stroke}
-      fill="#777"
       {...others}
     />
   );

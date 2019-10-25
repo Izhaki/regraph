@@ -42,7 +42,6 @@ const Ellipse = ({
         className
       )}
       stroke={stroke}
-      fill="#777"
       {...others}
     />
   );

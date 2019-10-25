@@ -12,8 +12,8 @@ import {
 } from '@regraph/arrowheads';
 import TextBox from './TextBox';
 
-const full = { stroke: 'none', fill: '#777' };
-const empty = { stroke: '#777', fill: 'none' };
+const full = { stroke: 'none', fill: 'inherent' };
+const empty = { stroke: 'inherent', fill: 'none' };
 
 const applyConnectionDefaults = connection => ({
   ...connection,

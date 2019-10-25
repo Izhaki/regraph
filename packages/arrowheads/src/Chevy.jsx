@@ -16,7 +16,7 @@ const chevy = (width, height, rtl) => {
 const defaults = {
   width: 6,
   height: 6,
-  stroke: '#777',
+  stroke: 'inherent',
 };
 
 const Chevy = ({

@@ -12,6 +12,7 @@ import clsx from 'clsx';
 
 const borderRadius = 6;
 const border = '1px solid #d1d5da';
+const connectionColor = '#888';
 
 const useStyles = makeStyles({
   graphWrapper: {
@@ -27,6 +28,10 @@ const useStyles = makeStyles({
     '& .regraph-nodes rect, .regraph-nodes ellipse': {
       fill: '#FFD86E',
       stroke: '#EDBA39',
+    },
+    '& .regraph-connection': {
+      stroke: connectionColor,
+      fill: connectionColor,
     },
   },
   codeWrapper: {

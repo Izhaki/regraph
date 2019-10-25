@@ -44,7 +44,6 @@ const Line = React.memo(
       markerStart,
       markerEnd,
       className: clsx('regraph-connection-line', className),
-      stroke: '#777',
       fill: 'none',
       style: { strokeWidth },
       ...others,

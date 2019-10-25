@@ -49,7 +49,6 @@ const Diamond = ({
         className
       )}
       stroke={stroke}
-      fill="#777"
       {...others}
     />
   );
