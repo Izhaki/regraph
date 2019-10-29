@@ -53,7 +53,7 @@ const useMarker = (markerOrHead, id, strokeWidth, isSource) =>
         marker: React.cloneElement(marker, { id }),
       };
     }
-    return {};
+    return { trim: 0 };
   }, [id, isSource, markerOrHead, strokeWidth]);
 
 export default (id, src, dst, strokeWidth) => {

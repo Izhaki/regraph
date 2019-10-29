@@ -1,5 +1,5 @@
 import React from 'react';
-import { Graph } from '@regraph/graph';
+import { graph } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 import {
   Triangle,
@@ -11,6 +11,13 @@ import {
   Curly,
 } from '@regraph/arrowheads';
 import TextBox from './TextBox';
+
+const Graph = graph({
+  autoConnectionId: true,
+  extractBoxesFromNodes: true,
+  layout: true,
+  autoViewportSize: true,
+});
 
 const full = { stroke: 'none', fill: 'inherent' };
 const empty = { stroke: 'inherent', fill: 'none' };

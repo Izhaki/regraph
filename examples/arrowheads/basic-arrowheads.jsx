@@ -1,7 +1,15 @@
 import React from 'react';
-import { Graph } from '@regraph/graph';
+import { graph } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 import { Triangle, Perp } from '@regraph/arrowheads';
+
+const Graph = graph({
+  normalizeConnections: true,
+  autoConnectionId: true,
+  extractBoxesFromNodes: true,
+  layout: true,
+  autoViewportSize: true,
+});
 
 const Rect = ({ box }) => <rect {...box} />;
 

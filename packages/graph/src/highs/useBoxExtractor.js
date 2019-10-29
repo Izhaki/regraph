@@ -1,8 +1,15 @@
 import { useMemo } from 'react';
 import update from './update';
 
+// Nil is null or undefined. We do this so with { width, height, ...box } we don't
+// override width & height with undefined.
+const removeNils = obj => {
+  Object.keys(obj).forEach(key => obj[key] == null && delete obj[key]);
+  return obj;
+};
+
 const getBox = ({ box, x, y, width, height }) =>
-  box || (x && y && { x, y, width, height });
+  box || (x && y && removeNils({ x, y, width, height }));
 
 const boxReducer = (boxes, node) => {
   const box = getBox(node);

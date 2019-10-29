@@ -1,9 +1,18 @@
 import React from 'react';
-import { Graph } from '@regraph/graph';
+import { graph } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 import { Triangle } from '@regraph/arrowheads';
 import { fromRect, toSvgProps } from '@regraph/geo/ellipse';
 import layout from './layout';
+
+const Graph = graph({
+  normalizeConnections: true,
+  autoConnectionId: true,
+  looms: true,
+  extractBoxesFromNodes: true,
+  layout,
+  autoViewportSize: true,
+});
 
 const Circle = ({ box }) => <ellipse {...toSvgProps(fromRect(box))} />;
 
