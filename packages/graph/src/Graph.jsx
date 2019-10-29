@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GraphBase from './GraphBase';
 import {
-  useAutoViewportSize,
+  useAutoBox,
   useAutoConnectionId,
+  useAutoViewportSize,
   useBoxExtractor,
   useLayout,
   useLoomer,
@@ -18,10 +19,16 @@ const Graph = ({
   ...others
 }) => {
   const props = pipe(
+    // Connections
     useNormaliseConnections,
     useAutoConnectionId,
     useLoomer(),
+
+    // Boxes
     useBoxExtractor,
+    useAutoBox,
+
+    // Others
     useLayout(layout),
     useAutoViewportSize(viewportPadding)
   )(others);
