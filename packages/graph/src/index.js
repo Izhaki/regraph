@@ -1,6 +1,6 @@
 export { compose } from './utils';
 
-export { default as graph } from './graphFactory';
+export { default as graph } from './graph';
 export { default as GraphBase } from './GraphBase';
 
 export * from './highs';
