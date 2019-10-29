@@ -27,6 +27,7 @@ const GraphBase = props => {
   const { nodes, connections, width, height, nodeLayer = 'svg' } = props;
 
   const style = {
+    ...props.style,
     position: 'relative',
     width,
     height,
@@ -51,6 +52,7 @@ GraphBase.propTypes = {
   height: PropTypes.number.isRequired,
   nodeLayer: PropTypes.oneOf(['svg', 'html']),
   nodes: PropTypes.array,
+  style: PropTypes.object,
   width: PropTypes.number.isRequired,
 };
 

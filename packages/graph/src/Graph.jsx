@@ -6,6 +6,7 @@ import {
   useAutoConnectionId,
   useAutoViewportSize,
   useBoxExtractor,
+  useHiddenFirstRender,
   useLayout,
   useLoomer,
   useNormaliseConnections,
@@ -29,6 +30,7 @@ const Graph = ({
     useAutoBox,
 
     // Others
+    useHiddenFirstRender,
     useLayout(layout),
     useAutoViewportSize(viewportPadding)
   )(others);
