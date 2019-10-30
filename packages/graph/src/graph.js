@@ -1,6 +1,7 @@
 import React from 'react';
 import GraphBase from './GraphBase';
 import {
+  useNodeDefaults,
   useNormaliseConnections,
   useAutoConnectionId,
   useLoomer,
@@ -14,6 +15,7 @@ import connectionLayout, { chopBox } from './layouts/connections';
 import { pipe } from './utils';
 
 export default ({
+  node,
   normalizeConnections,
   autoConnectionId,
   looms,
@@ -24,6 +26,10 @@ export default ({
   autoViewportSize,
 }) => {
   const features = [];
+
+  if (node) {
+    features.push(useNodeDefaults(node));
+  }
 
   if (normalizeConnections) {
     features.push(useNormaliseConnections);

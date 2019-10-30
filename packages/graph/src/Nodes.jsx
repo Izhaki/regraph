@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Nodes = ({ nodes, boxes, defaults, isHtml }) => {
+const Nodes = ({ nodes, boxes, isHtml }) => {
   const getNodeElement = node => {
     const { type, ...props } = {
       ...node,
-      ...defaults,
       box: boxes[node.id],
       isHtml,
       key: node.id,
@@ -24,7 +23,6 @@ const Nodes = ({ nodes, boxes, defaults, isHtml }) => {
 
 Nodes.propTypes = {
   boxes: PropTypes.object.isRequired,
-  defaults: PropTypes.object,
   isHtml: PropTypes.bool,
   nodes: PropTypes.array,
 };

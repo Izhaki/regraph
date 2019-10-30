@@ -10,12 +10,7 @@ const renderConnections = props => (
 );
 
 const renderNodes = (props, isHtml = false) => (
-  <Nodes
-    nodes={props.nodes}
-    boxes={props.boxes}
-    defaults={props.node}
-    isHtml={isHtml}
-  />
+  <Nodes nodes={props.nodes} boxes={props.boxes} isHtml={isHtml} />
 );
 
 /* eslint-enable react/prop-types */
