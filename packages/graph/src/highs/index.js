@@ -2,6 +2,7 @@ export { default as useAutoBox } from './useAutoBox';
 export { default as useAutoConnectionId } from './useAutoConnectionId';
 export { default as useAutoViewportSize } from './useAutoViewportSize';
 export { default as useBoxExtractor } from './useBoxExtractor';
+export { default as useConnectionDefaults } from './useConnectionDefaults';
 export { default as useHiddenFirstRender } from './useHiddenFirstRender';
 export { default as useLayout } from './useLayout';
 export { default as useLoomer } from './useLoomer';

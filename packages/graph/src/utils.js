@@ -4,6 +4,13 @@ const { keys, values, entries } = Object;
 
 export { keys, values, entries };
 
+export const mergeConnections = (a, b) => ({
+  ...a,
+  ...b,
+  src: { ...a.src, ...b.src },
+  dst: { ...a.dst, ...b.dst },
+});
+
 export const compose = (...fns) => x => fns.reduceRight((v, f) => f(v), x);
 export const pipe = (...fns) => x => fns.reduce((v, f) => f(v), x);
 

@@ -3,6 +3,7 @@ import GraphBase from './GraphBase';
 import {
   useNodeDefaults,
   useNormaliseConnections,
+  useConnectionDefaults,
   useAutoConnectionId,
   useLoomer,
   useBoxExtractor,
@@ -17,6 +18,7 @@ import { pipe } from './utils';
 export default ({
   node,
   normalizeConnections,
+  connection,
   autoConnectionId,
   looms,
   extractBoxesFromNodes,
@@ -33,6 +35,10 @@ export default ({
 
   if (normalizeConnections) {
     features.push(useNormaliseConnections);
+  }
+
+  if (connection) {
+    features.push(useConnectionDefaults(connection));
   }
 
   if (autoConnectionId) {

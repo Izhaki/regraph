@@ -17,12 +17,12 @@ const Rect = ({ box: { x: left, y: top, width, height } }) => (
 );
 
 const Graph = graph({
-  node: { type: Rect },
   normalizeConnections: true,
   autoConnectionId: true,
   extractBoxesFromNodes: true,
   layout: true,
   autoViewportSize: true,
+  node: { type: Rect },
 });
 
 export default () => (

@@ -12,6 +12,11 @@ const Graph = graph({
   extractBoxesFromNodes: true,
   layout,
   autoViewportSize: true,
+  connection: {
+    type: Line,
+    strokeWidth: 1,
+    dst: { marker: <Triangle /> },
+  },
 });
 
 const Circle = ({ box }) => <ellipse {...toSvgProps(fromRect(box))} />;
@@ -37,10 +42,5 @@ export default () => (
       { src: '3', dst: '4' },
       { src: '3', dst: '4' },
     ]}
-    connection={{
-      type: Line,
-      strokeWidth: 1,
-      dst: { marker: <Triangle /> },
-    }}
   />
 );

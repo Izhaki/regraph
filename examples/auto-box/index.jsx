@@ -10,11 +10,11 @@ const Text = ({ box, id }) => (
 );
 
 const Graph = graph({
-  node: { type: Text },
   extractBoxesFromNodes: true,
   layout: true,
   autoBox: true,
   hiddenFirstRender: true,
+  node: { type: Text },
 });
 
 export default () => (

@@ -9,6 +9,12 @@ const Graph = graph({
   extractBoxesFromNodes: true,
   layout: true,
   autoViewportSize: true,
+  connection: {
+    type: Line,
+    strokeWidth: 2,
+    src: { marker: <Perp /> },
+    dst: { marker: <Triangle /> },
+  },
 });
 
 const Rect = ({ box }) => <rect {...box} />;
@@ -26,11 +32,5 @@ export default () => (
       { src: 'centre', dst: 'left' },
       { src: 'centre', dst: 'right' },
     ]}
-    connection={{
-      type: Line,
-      strokeWidth: 2,
-      src: { marker: <Perp /> },
-      dst: { marker: <Triangle /> },
-    }}
   />
 );

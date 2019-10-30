@@ -1,15 +1,16 @@
 import terminalBoxes from './terminalBoxes';
 import { isEmpty } from '@regraph/core/';
 import { isPoint } from '@regraph/geo/point';
+import { mergeConnections } from '../../utils';
 
 const needsResolution = ({ src, dst }) => !isPoint(src) || !isPoint(dst);
 
 const layoutConnections = (props, resolveTerminals) =>
   props.connections.map(connection => {
     if (needsResolution(connection)) {
-      const terminals = resolveTerminals(props, connection);
-      if (!isEmpty(terminals)) {
-        return { ...connection, ...terminals };
+      const update = resolveTerminals(props, connection);
+      if (!isEmpty(update)) {
+        return mergeConnections(connection, update);
       }
     }
     return connection;

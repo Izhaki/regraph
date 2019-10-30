@@ -3,23 +3,11 @@ import Nodes from './Nodes';
 import Connections from './Connections';
 import PropTypes from 'prop-types';
 
-/* eslint-disable react/prop-types */
-
-const renderConnections = props => (
-  <Connections connections={props.connections} connection={props.connection} />
-);
-
-const renderNodes = (props, isHtml = false) => (
-  <Nodes nodes={props.nodes} boxes={props.boxes} isHtml={isHtml} />
-);
-
-/* eslint-enable react/prop-types */
-
 // Translating by half a pixel results in uniform anti-aliasing
 const antialiasingShift = 'translate(0.5 0.5)';
 
 const GraphBase = props => {
-  const { nodes, connections, width, height, nodeLayer = 'svg' } = props;
+  const { nodes, connections, boxes, width, height, nodeLayer = 'svg' } = props;
 
   const style = {
     ...props.style,
@@ -28,18 +16,19 @@ const GraphBase = props => {
     height,
   };
 
+  const hasSvgNodes = nodes && nodeLayer === 'svg';
+  const hasHtmlNodes = nodes && nodeLayer === 'html';
+
   return (
     <div style={style} data-regraph-graph>
       <svg style={style} transform={antialiasingShift}>
-        {connections && renderConnections(props)}
-        {nodes && nodeLayer === 'svg' && renderNodes(props)}
+        {connections && <Connections connections={connections} />}
+        {hasSvgNodes && <Nodes nodes={nodes} boxes={boxes} />}
       </svg>
-      {nodes && nodeLayer === 'html' && renderNodes(props, true)}
+      {hasHtmlNodes && <Nodes nodes={nodes} boxes={boxes} isHtml />}
     </div>
   );
 };
-
-/* eslint-disable react/no-unused-prop-types */
 
 GraphBase.propTypes = {
   boxes: PropTypes.object,
