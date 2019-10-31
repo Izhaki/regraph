@@ -3,19 +3,19 @@ import { graph } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 import { Triangle } from '@regraph/arrowheads';
 import { fromRect, toSvgProps } from '@regraph/geo/ellipse';
-import layout from './layout';
 
 const Graph = graph({
   normalizeConnections: true,
   autoConnectionId: true,
   looms: true,
   extractBoxesFromNodes: true,
-  layout,
+  layout: true,
   autoViewportSize: true,
   connection: {
     type: Line,
     strokeWidth: 1,
-    dst: { marker: <Triangle /> },
+    dst: { anchor: 'chop-ellipse', marker: <Triangle /> },
+    src: { anchor: 'chop-ellipse' },
   },
 });
 
@@ -29,7 +29,6 @@ const toNode = (id, index) => ({
 
 export default () => (
   <Graph
-    layout={layout}
     nodes={['1', '2', '3', '4'].map(toNode)}
     connections={[
       { src: '1', dst: '2' },

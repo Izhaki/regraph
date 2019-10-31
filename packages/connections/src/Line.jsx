@@ -13,12 +13,24 @@ import {
 } from '@regraph/geo/quadratic';
 import withConnection from './withConnection';
 
+const getShape = ({ bend, src, dst }) =>
+  bend
+    ? fromBentLine({ type: 'quad', src, dst }, bend)
+    : { type: 'line', src, dst };
+
+const getTrimmedElement = {
+  quad: (shape, srcTrim, dstTrim) =>
+    quadToElement(trimQuad(shape, srcTrim, dstTrim)),
+  line: (shape, srcTrim, dstTrim) =>
+    lineToElement(trimLine(shape, srcTrim, dstTrim)),
+};
+
 const Line = React.memo(
   ({
     src,
     dst,
-    c1,
     bend = 0,
+    shape,
     markerStart,
     markerEnd,
     srcTrim,
@@ -29,15 +41,9 @@ const Line = React.memo(
     ...others
   }) => {
     const { type, props: elementProps } = useMemo(() => {
-      if (bend || c1) {
-        // c1 may already be calculated by the layout
-        const quad = c1 ? { src, c1, dst } : fromBentLine({ src, dst }, bend);
-        const trimmed = trimQuad(quad, srcTrim, dstTrim);
-        return quadToElement(trimmed);
-      }
-      const line = trimLine({ src, dst }, srcTrim, dstTrim);
-      return lineToElement(line);
-    }, [bend, src, dst, srcTrim, dstTrim, c1]);
+      const shp = shape || getShape({ bend, src, dst });
+      return getTrimmedElement[shp.type](shp, srcTrim, dstTrim);
+    }, [bend, dst, dstTrim, shape, src, srcTrim]);
 
     const line = React.createElement(type, {
       ...elementProps,
@@ -65,6 +71,8 @@ const Line = React.memo(
   }
 );
 
+Line.getShape = getShape;
+
 Line.propTypes = {
   bend: PropTypes.number,
   c1: PointPropTypes,
@@ -74,6 +82,7 @@ Line.propTypes = {
   markerEnd: PropTypes.string,
   markerStart: PropTypes.string,
   selectable: PropTypes.bool,
+  shape: PropTypes.object,
   src: PointPropTypes.isRequired,
   srcTrim: PropTypes.number,
   strokeWidth: PropTypes.number,

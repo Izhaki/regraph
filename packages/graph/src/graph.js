@@ -12,7 +12,7 @@ import {
   useLayout,
   useAutoViewportSize,
 } from './highs';
-import connectionLayout, { chopBox } from './layouts/connections';
+import connectionLayout from './layouts/connections';
 import { pipe } from './utils';
 
 export default ({
@@ -62,9 +62,7 @@ export default ({
   }
 
   if (layout) {
-    features.push(
-      useLayout(layout === true ? connectionLayout(chopBox) : layout)
-    );
+    features.push(useLayout(layout === true ? connectionLayout : layout));
   }
 
   if (autoViewportSize) {

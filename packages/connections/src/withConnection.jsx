@@ -36,6 +36,8 @@ export default WrappedComponent => {
     );
   };
 
+  Connection.getShape = WrappedComponent.getShape;
+
   Connection.propTypes = {
     dst: PointPropTypes.isRequired,
     id: PropTypes.string.isRequired,

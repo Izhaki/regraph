@@ -1,14 +1,14 @@
-import terminalBoxes from './terminalBoxes';
 import { isEmpty } from '@regraph/core/';
 import { isPoint } from '@regraph/geo/point';
 import { mergeConnections } from '../../utils';
+import chop from './chop';
 
 const needsResolution = ({ src, dst }) => !isPoint(src) || !isPoint(dst);
 
-const layoutConnections = (props, resolveTerminals) =>
+const layoutConnections = props =>
   props.connections.map(connection => {
     if (needsResolution(connection)) {
-      const update = resolveTerminals(props, connection);
+      const update = chop(props, connection);
       if (!isEmpty(update)) {
         return mergeConnections(connection, update);
       }
@@ -16,11 +16,10 @@ const layoutConnections = (props, resolveTerminals) =>
     return connection;
   });
 
-export default (resolveTerminals = terminalBoxes()) => {
-  const layout = props => ({
-    ...props,
-    connections: layoutConnections(props, resolveTerminals),
-  });
-  layout.deps = ({ boxes, connections }) => [boxes, connections];
-  return layout;
-};
+const layout = props => ({
+  ...props,
+  connections: layoutConnections(props),
+});
+layout.deps = ({ boxes, connections }) => [boxes, connections];
+
+export default layout;
