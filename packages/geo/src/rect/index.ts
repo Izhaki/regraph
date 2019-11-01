@@ -11,3 +11,4 @@ export { default as union } from './union';
 
 export * from './corners';
 export * from './getSides';
+export * from './getMids';
