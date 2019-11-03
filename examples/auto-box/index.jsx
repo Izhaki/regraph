@@ -1,13 +1,9 @@
 import React from 'react';
-import { graph } from '@regraph/graph';
+import { graph, withPosition } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 import { Triangle } from '@regraph/arrowheads';
 
-const Text = ({ box, id }) => (
-  <text id={id} x={box.x} y={box.y} dominantBaseline="hanging">
-    {id}
-  </text>
-);
+const Text = withPosition(({ id }) => <div id={id}>{id}</div>);
 
 const Graph = graph({
   extractBoxesFromNodes: true,
@@ -21,6 +17,7 @@ export default () => (
   <Graph
     width={170}
     height={200}
+    nodeLayer="html"
     nodes={[
       { id: 'source', x: 40, y: 40 },
       { id: 'destination', x: 40, y: 140 },

@@ -9,5 +9,4 @@ export { default as useLoomer } from './useLoomer';
 export { default as useNodeDefaults } from './useNodeDefaults';
 export { default as useNormaliseConnections } from './useNormaliseConnections';
 
-export { default as withAutoViewportSize } from './withAutoViewportSize';
-export { default as withLayout } from './withLayout';
+export { default as withPosition } from './withPosition';
