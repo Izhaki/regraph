@@ -1,23 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import update from './update';
 import { queryRelativeBox } from './boxQueries';
 import { isRect } from '@regraph/geo/rect';
+import { isPoint } from '@regraph/geo/point';
 
-const { entries } = Object;
+const { keys } = Object;
 
-const fillMissingSize = boxes => {
-  const missing = [];
-  entries(boxes).forEach(([id, box]) => {
-    if (!isRect(box)) {
-      missing.push(id);
-      boxes[id] = {
-        width: 10,
-        height: 10,
-        ...box,
-      };
+const findMissing = (connections, boxes) => {
+  const needsAutoBox = end => !isPoint(end) && !isRect(boxes[end.id]);
+  const missing = {};
+  const validConnections = connections.reduce((acc, connection) => {
+    const { src, dst } = connection;
+    let isValidConnection = true;
+    if (needsAutoBox(src)) {
+      missing[src.id] = true;
+      isValidConnection = false;
     }
-  });
-  return missing;
+    if (needsAutoBox(dst)) {
+      missing[dst.id] = true;
+      isValidConnection = false;
+    }
+    if (isValidConnection) {
+      acc.push(connection);
+    }
+    return acc;
+  }, []);
+  const missingIds = keys(missing);
+  const hasMissing = missingIds.length > 0;
+  return {
+    missing: missingIds,
+    connections: hasMissing ? validConnections : connections,
+  };
 };
 
 export default update(props => {
@@ -26,16 +39,22 @@ export default update(props => {
   const updateBoxes = boxes => (onBoxes || setStateBoxes)(boxes);
 
   const boxes = { ...(onBoxes ? props.boxes : stateBoxes) };
-  const missing = fillMissingSize(boxes);
+  const { missing, connections } = useMemo(
+    () => findMissing(props.connections, boxes),
+    [boxes, props.connections]
+  );
 
   useEffect(() => {
-    missing.forEach(id => {
-      boxes[id] = queryRelativeBox(id);
-    });
-    updateBoxes(boxes);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    if (missing.length) {
+      missing.forEach(id => {
+        boxes[id] = queryRelativeBox(id);
+      });
+      updateBoxes(boxes);
+    }
+  }); // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
     boxes,
+    connections,
   };
 });
