@@ -14,17 +14,18 @@ const borderRadius = 6;
 const border = '1px solid #d1d5da';
 const connectionColor = '#888';
 
+const systemFonts = `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`;
+
 const useStyles = makeStyles({
   graphWrapper: {
     display: 'inline-block',
     position: 'relative',
     margin: [[0, 'auto']],
+    border: '1px solid #d1d5da',
+    borderRadius: [[borderRadius, borderRadius, 0, 0]],
+    backgroundColor: 'white',
+    fontFamily: systemFonts,
 
-    '& > [data-regraph-graph]': {
-      border: '1px solid #d1d5da',
-      borderRadius: [[borderRadius, borderRadius, 0, 0]],
-      backgroundColor: 'white',
-    },
     '& .regraph-nodes rect, .regraph-nodes ellipse': {
       fill: '#FFD86E',
       stroke: '#EDBA39',

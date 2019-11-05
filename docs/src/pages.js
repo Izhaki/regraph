@@ -10,6 +10,7 @@ export default [
       { pathname: '/examples/connection-anchors', title: 'Connection Anchors' },
       { pathname: '/examples/looms', title: 'Looms' },
       { pathname: '/examples/auto-box', title: 'Auto Box' },
+      { pathname: '/examples/ports', title: 'Ports' },
     ],
   },
 ];

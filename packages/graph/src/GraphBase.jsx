@@ -12,6 +12,9 @@ const GraphBase = props => {
   const style = {
     ...props.style,
     position: 'relative',
+    // When querying the position of HTML nodes, FireFox accounts for border whilst other browsers
+    // don't. This messes up auto-boxing. So force no border on the graph component
+    border: 'none',
     width,
     height,
   };
