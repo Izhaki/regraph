@@ -1,17 +1,37 @@
 import { isPoint } from '@regraph/geo/point';
+import { isRect } from '@regraph/geo/rect';
 import { mergeConnections } from '../../utils';
 import resolveAnchors from './resolveAnchors';
 
 const needsResolution = ({ src, dst }) => !isPoint(src) || !isPoint(dst);
 
-const layoutConnections = props =>
-  props.connections.map(connection => {
-    if (needsResolution(connection)) {
-      const update = resolveAnchors(props, connection);
-      return mergeConnections(connection, update);
+const layoutConnections = props => {
+  const { boxes, boxContext } = props;
+  const missingBox = end => !isPoint(end) && !isRect(boxes[end.id]);
+  const getEndsMissingBox = connection =>
+    [connection.src, connection.dst].filter(missingBox).map(end => end.id);
+  const requestBox = id => {
+    boxContext.requestBox({ id });
+  };
+
+  return props.connections.reduce((connections, connection) => {
+    const endsMissingBoxes = getEndsMissingBox(connection);
+
+    if (endsMissingBoxes.length) {
+      endsMissingBoxes.forEach(requestBox);
+      // Don't add the connection to the accumulator - it won't be rendered
+    } else if (needsResolution(connection)) {
+      const updates = resolveAnchors(props, connection);
+      // Add resolved connections
+      connections.push(mergeConnections(connection, updates));
+    } else {
+      // Add original connection
+      connections.push(connection);
     }
-    return connection;
-  });
+
+    return connections;
+  }, []);
+};
 
 const layout = props => ({
   ...props,
