@@ -3,8 +3,8 @@ import getOffsetToParent from './getOffsetToParent';
 
 const antialiasingShift = 0.5;
 
-export default id => {
-  const element = document.getElementById(id);
+export default ({ id, element: el }) => {
+  const element = el || document.getElementById(id);
   const box = queryBox(element);
 
   const offset = getOffsetToParent(element);

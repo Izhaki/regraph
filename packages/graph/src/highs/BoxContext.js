@@ -1,5 +1,11 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 
-export default createContext({
-  requestBox: () => {},
+export const BoxContext = createContext({
+  requestBox: () => {
+    console.warn(
+      `Regraph: A request was made to BoxContext, but none was provided.`
+    );
+  },
 });
+
+export const useBoxContext = () => useContext(BoxContext);

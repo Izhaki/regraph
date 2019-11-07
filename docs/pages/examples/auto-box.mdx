@@ -2,11 +2,25 @@ import Example from 'docs/src/components/Example';
 import Graph from 'examples/auto-box';
 import code from '!!raw-loader!examples/auto-box/index.jsx';
 
+import GraphDynamic from 'examples/auto-box/auto-box-dynamic';
+import codeDynamic from '!!raw-loader!examples/auto-box/auto-box-dynamic.jsx';
+
 # Auto Box
+
+Static example:
 
 <Example
   code={code}
   output={<Graph />}
   path={'examples/auto-box/index.jsx'}
+  sourceOpen
+/>
+
+Dynamic example:
+
+<Example
+  code={codeDynamic}
+  output={<GraphDynamic />}
+  path={'examples/auto-box/auto-box-dynamic.jsx'}
   sourceOpen
 />

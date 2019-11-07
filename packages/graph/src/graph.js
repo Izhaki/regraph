@@ -1,4 +1,4 @@
-import React from 'react';
+import { createElement } from 'react';
 import GraphBase from './GraphBase';
 import {
   useNodeDefaults,
@@ -7,10 +7,10 @@ import {
   useAutoConnectionId,
   useLoomer,
   useBoxExtractor,
-  useAutoBox,
   useHiddenFirstRender,
   useLayout,
   useAutoViewportSize,
+  withAutoBox,
 } from './highs';
 import connectionLayout from './layouts/connections';
 import { pipe } from './utils';
@@ -53,10 +53,6 @@ export default ({
     features.push(useBoxExtractor);
   }
 
-  if (autoBox) {
-    features.push(useAutoBox);
-  }
-
   if (hiddenFirstRender) {
     features.push(useHiddenFirstRender);
   }
@@ -69,5 +65,8 @@ export default ({
     features.push(useAutoViewportSize());
   }
 
-  return props => React.createElement(GraphBase, pipe(...features)(props));
+  const applyFeatures = pipe(...features);
+  const Graph = props => createElement(GraphBase, applyFeatures(props));
+
+  return autoBox ? withAutoBox(Graph) : Graph;
 };

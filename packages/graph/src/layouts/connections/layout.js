@@ -5,9 +5,8 @@ import resolveAnchors from './resolveAnchors';
 
 const needsResolution = ({ src, dst }) => !isPoint(src) || !isPoint(dst);
 
-const layoutConnections = props => {
-  const { boxes, boxContext } = props;
-  const missingBox = end => !isPoint(end) && !isRect(boxes[end.id]);
+const layoutConnections = (props, boxContext) => {
+  const missingBox = end => !isPoint(end) && !isRect(props.boxes[end.id]);
   const getEndsMissingBox = connection =>
     [connection.src, connection.dst].filter(missingBox).map(end => end.id);
   const requestBox = id => {
@@ -33,9 +32,9 @@ const layoutConnections = props => {
   }, []);
 };
 
-const layout = props => ({
+const layout = (props, boxContext) => ({
   ...props,
-  connections: layoutConnections(props),
+  connections: layoutConnections(props, boxContext),
 });
 layout.deps = ({ boxes, connections }) => [boxes, connections];
 

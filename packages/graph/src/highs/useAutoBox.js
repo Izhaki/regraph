@@ -1,37 +1,35 @@
-import { useEffect, useState, useMemo, useRef } from 'react';
-import update from './update';
+import { useEffect, useState, useRef } from 'react';
 import { queryRelativeBox } from './boxQueries';
+import useForceUpdate from './useForceUpdate';
 
-export default update(props => {
-  const { onBoxes } = props;
-  const [stateBoxes, setStateBoxes] = useState(props.boxes);
-  const updateBoxes = boxes => (onBoxes || setStateBoxes)(boxes);
+export default ({ onBoxes, boxes: inBoxes }) => {
+  const forceUpdate = useForceUpdate();
+  const [stateBoxes, setStateBoxes] = useState(inBoxes);
+  const updateBoxes = onBoxes || setStateBoxes;
 
-  const boxes = onBoxes ? props.boxes : stateBoxes;
-  const requests = useRef(new Map());
+  const outBoxes = onBoxes ? inBoxes : stateBoxes;
+  const requests = useRef(new Map()).current;
 
-  const boxContext = useMemo(
-    () => ({
-      requestBox: request => {
-        requests.current.set(request.id, request);
-      },
-    }),
-    []
-  );
+  const boxContext = useRef({
+    requestBox: request => {
+      requests.set(request.id, request);
+      forceUpdate();
+    },
+  }).current;
 
   useEffect(() => {
-    if (requests.current.size) {
-      const newBoxes = { ...boxes };
-      requests.current.forEach(({ id }) => {
-        newBoxes[id] = queryRelativeBox(id);
+    if (requests.size) {
+      const newBoxes = { ...outBoxes };
+      requests.forEach(request => {
+        newBoxes[request.id] = queryRelativeBox(request);
       });
-      requests.current.clear();
+      requests.clear();
       updateBoxes(newBoxes);
     }
   }); // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
-    boxes,
+    boxes: outBoxes,
     boxContext,
   };
-});
+};
