@@ -6,11 +6,17 @@ export default [
       { pathname: '/examples/graph-base', title: 'GraphBase' },
       { pathname: '/examples/basic-graph', title: 'Basic Graph' },
       { pathname: '/examples/html-nodes', title: 'HTML Nodes' },
-      { pathname: '/examples/arrowheads', title: 'Arrowheads' },
-      { pathname: '/examples/connection-anchors', title: 'Connection Anchors' },
-      { pathname: '/examples/looms', title: 'Looms' },
       { pathname: '/examples/auto-box', title: 'Auto Box' },
-      { pathname: '/examples/ports', title: 'Ports' },
+      {
+        pathname: '/examples/connections',
+        title: 'Connections',
+        children: [
+          { pathname: '/examples/connections/arrowheads', title: 'Arrowheads' },
+          { pathname: '/examples/connections/anchors', title: 'Anchors' },
+          { pathname: '/examples/connections/looms', title: 'Looms' },
+          { pathname: '/examples/connections/ports', title: 'Ports' },
+        ],
+      },
     ],
   },
 ];

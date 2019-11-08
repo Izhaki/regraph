@@ -1,0 +1,24 @@
+import Example from 'docs/src/components/Example';
+import Graph from 'examples/connections/arrowheads/basic-arrowheads';
+import code from '!!raw-loader!examples/connections/arrowheads/basic-arrowheads.jsx';
+
+import GraphAll from 'examples/connections/arrowheads/all-arrowheads';
+import codeAll from '!!raw-loader!examples/connections/arrowheads/all-arrowheads.jsx';
+
+# Arrowheads
+
+Basic example:
+
+<Example
+  code={code}
+  output={<Graph />}
+  path={'examples/connections/arrowheads/index.jsx'}
+/>
+
+Some more arrowheads:
+
+<Example
+  code={codeAll}
+  output={<GraphAll />}
+  path={'examples/connections/arrowheads/all.jsx'}
+/>
