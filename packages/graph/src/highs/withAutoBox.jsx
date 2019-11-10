@@ -5,10 +5,11 @@ import { BoxContext } from './BoxContext';
 export default WraapedComponent => {
   const WithAutoBox = props => {
     const { boxes, boxContext } = useAutoBox(props);
+    const ref = React.createRef();
 
     return (
       <BoxContext.Provider value={boxContext}>
-        <WraapedComponent {...props} boxes={boxes} />
+        <WraapedComponent forwardedRef={ref} {...props} boxes={boxes} />
       </BoxContext.Provider>
     );
   };
