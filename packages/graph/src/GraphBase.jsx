@@ -7,7 +7,15 @@ import PropTypes from 'prop-types';
 const antialiasingShift = 'translate(0.5 0.5)';
 
 const GraphBase = props => {
-  const { nodes, connections, boxes, width, height, nodeLayer = 'svg' } = props;
+  const {
+    forwardedRef,
+    nodes,
+    connections,
+    boxes,
+    width,
+    height,
+    nodeLayer = 'svg',
+  } = props;
 
   const style = {
     ...props.style,
@@ -23,7 +31,7 @@ const GraphBase = props => {
   const hasHtmlNodes = nodes && nodeLayer === 'html';
 
   return (
-    <div style={style} data-regraph-graph>
+    <div style={style} ref={forwardedRef} data-regraph-graph>
       <svg style={style} transform={antialiasingShift}>
         {connections && <Connections connections={connections} />}
         {hasSvgNodes && <Nodes nodes={nodes} boxes={boxes} />}
