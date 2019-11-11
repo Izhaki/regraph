@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { queryRelativeBox } from './boxQueries';
 import useForceUpdate from './useForceUpdate';
 
-export default ({ onBoxes, boxes: inBoxes }) => {
+export default ({ onBoxes, boxes: inBoxes }, graphRef) => {
   const forceUpdate = useForceUpdate();
   const [stateBoxes, setStateBoxes] = useState(inBoxes);
   const updateBoxes = onBoxes || setStateBoxes;
@@ -19,9 +19,10 @@ export default ({ onBoxes, boxes: inBoxes }) => {
 
   useEffect(() => {
     if (requests.size) {
+      const graphElement = graphRef.current;
       const newBoxes = { ...outBoxes };
       requests.forEach(request => {
-        newBoxes[request.id] = queryRelativeBox(request);
+        newBoxes[request.id] = queryRelativeBox(request, graphElement);
       });
       requests.clear();
       updateBoxes(newBoxes);

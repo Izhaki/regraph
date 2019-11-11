@@ -4,8 +4,8 @@ import { BoxContext } from './BoxContext';
 
 export default WraapedComponent => {
   const WithAutoBox = props => {
-    const { boxes, boxContext } = useAutoBox(props);
     const ref = React.createRef();
+    const { boxes, boxContext } = useAutoBox(props, ref);
 
     return (
       <BoxContext.Provider value={boxContext}>
