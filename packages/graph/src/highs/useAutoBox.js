@@ -13,7 +13,14 @@ export default ({ onBoxes, boxes: inBoxes }, graphRef) => {
 
   const boxContext = useRef({
     requestBox: request => {
-      requests.set(request.id, request);
+      // Add the node
+      const { port, ...nodeRequest } = request;
+      requests.set(nodeRequest.id, nodeRequest);
+      // Add the port if needed
+      if (port) {
+        const portId = `${request.id}/${port}`;
+        requests.set(portId, request);
+      }
       forceUpdate();
     },
   }).current;
@@ -27,8 +34,6 @@ export default ({ onBoxes, boxes: inBoxes }, graphRef) => {
       requests.forEach(request => {
         const { id, port } = request;
 
-        newBoxes[id] = queryRelativeBox(request, graphBox);
-
         if (port) {
           const portId = `${id}/${port}`;
           const parentBox = newBoxes[id];
@@ -37,6 +42,8 @@ export default ({ onBoxes, boxes: inBoxes }, graphRef) => {
           box.y -= parentBox.y;
           box.parent = id;
           newBoxes[portId] = box;
+        } else {
+          newBoxes[id] = queryRelativeBox(request, graphBox);
         }
       });
       requests.clear();
