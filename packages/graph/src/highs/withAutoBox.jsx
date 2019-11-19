@@ -9,7 +9,7 @@ export default WraapedComponent => {
 
     return (
       <BoxContext.Provider value={boxContext}>
-        <WraapedComponent forwardedRef={ref} {...props} boxes={boxes} />
+        <WraapedComponent ref={ref} {...props} boxes={boxes} />
       </BoxContext.Provider>
     );
   };

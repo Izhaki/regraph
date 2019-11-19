@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import { forwardRef, createElement } from 'react';
 import GraphBase from './GraphBase';
 import {
   useNodeDefaults,
@@ -66,7 +66,9 @@ export default ({
   }
 
   const applyFeatures = pipe(...features);
-  const Graph = props => createElement(GraphBase, applyFeatures(props));
+  const Graph = forwardRef((props, ref) =>
+    createElement(GraphBase, { ...applyFeatures(props), ref })
+  );
 
   return autoBox ? withAutoBox(Graph) : Graph;
 };

@@ -26,19 +26,17 @@ export default ({ onBoxes, boxes: inBoxes }, graphRef) => {
       const newBoxes = { ...outBoxes };
       requests.forEach(request => {
         const { id, port } = request;
-        if (!isRect(newBoxes[id])) {
-          newBoxes[id] = queryRelativeBox(request, graphBox);
-        }
+
+        newBoxes[id] = queryRelativeBox(request, graphBox);
+
         if (port) {
           const portId = `${id}/${port}`;
-          if (!isRect(newBoxes[portId])) {
-            const parentBox = newBoxes[id];
-            const box = queryRelativeBox({ id: portId }, graphBox);
-            box.x -= parentBox.x;
-            box.y -= parentBox.y;
-            box.parent = id;
-            newBoxes[portId] = box;
-          }
+          const parentBox = newBoxes[id];
+          const box = queryRelativeBox({ id: portId }, graphBox);
+          box.x -= parentBox.x;
+          box.y -= parentBox.y;
+          box.parent = id;
+          newBoxes[portId] = box;
         }
       });
       requests.clear();
