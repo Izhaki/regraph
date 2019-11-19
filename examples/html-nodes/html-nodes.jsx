@@ -29,8 +29,8 @@ export default () => (
   <Graph
     nodeLayer="html"
     nodes={[
-      { id: 'ping', box: { x: 50, y: 40, width: 20, height: 20 } },
-      { id: 'pong', box: { x: 150, y: 40, width: 20, height: 20 } },
+      { id: 'ping', box: { x: 50, y: 40.5, width: 20, height: 20 } },
+      { id: 'pong', box: { x: 150, y: 40.5, width: 20, height: 20 } },
     ]}
     connections={[
       {

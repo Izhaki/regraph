@@ -22,9 +22,11 @@ const GraphBase = React.forwardRef((props, ref) => {
   const hasSvgNodes = nodes && nodeLayer === 'svg';
   const hasHtmlNodes = nodes && nodeLayer === 'html';
 
+  const transform = nodeLayer === 'html' ? null : antialiasingShift;
+
   return (
     <div style={style} ref={ref}>
-      <svg style={style} transform={antialiasingShift}>
+      <svg style={style} transform={transform}>
         {connections && <Connections connections={connections} />}
         {hasSvgNodes && <Nodes nodes={nodes} boxes={boxes} />}
       </svg>
