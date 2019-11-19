@@ -31,7 +31,7 @@ const GraphBase = props => {
   const hasHtmlNodes = nodes && nodeLayer === 'html';
 
   return (
-    <div style={style} ref={forwardedRef} data-regraph-graph>
+    <div style={style} ref={forwardedRef}>
       <svg style={style} transform={antialiasingShift}>
         {connections && <Connections connections={connections} />}
         {hasSvgNodes && <Nodes nodes={nodes} boxes={boxes} />}
@@ -44,6 +44,7 @@ const GraphBase = props => {
 GraphBase.propTypes = {
   boxes: PropTypes.object,
   connections: PropTypes.array,
+  forwardedRef: PropTypes.object,
   height: PropTypes.number.isRequired,
   nodeLayer: PropTypes.oneOf(['svg', 'html']),
   nodes: PropTypes.array,

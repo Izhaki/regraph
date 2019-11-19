@@ -1,4 +1,5 @@
 import { isPoint } from '@regraph/geo/point';
+import { transpose } from '@regraph/geo/rect';
 import resolvers from './anchorResolvers';
 
 const doIntersect = ({ intersect, fromRect }, connectionShape, box) => {
@@ -7,15 +8,24 @@ const doIntersect = ({ intersect, fromRect }, connectionShape, box) => {
 };
 
 export default ({ boxes }, connection) => {
+  const getBox = ({ id, port }) => {
+    if (port) {
+      const box = boxes[`${id}/${port}`];
+      const parentBox = boxes[id];
+      return transpose({ ...box }, parentBox);
+    }
+    return boxes[id];
+  };
+
   const updates = {};
   const { src, dst } = connection;
 
   const srcIsPoint = isPoint(src);
-  const srcBox = boxes[src.id];
+  const srcBox = getBox(src);
   const srcResolver = resolvers[src.anchor || 'chop-box'];
 
   const dstIsPoint = isPoint(dst);
-  const dstBox = boxes[dst.id];
+  const dstBox = getBox(dst);
   const dstResolver = resolvers[dst.anchor || 'chop-box'];
 
   // Anchor

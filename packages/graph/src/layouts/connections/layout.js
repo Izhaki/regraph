@@ -8,9 +8,9 @@ const needsResolution = ({ src, dst }) => !isPoint(src) || !isPoint(dst);
 const layoutConnections = (props, boxContext) => {
   const missingBox = end => !isPoint(end) && !isRect(props.boxes[end.id]);
   const getEndsMissingBox = connection =>
-    [connection.src, connection.dst].filter(missingBox).map(end => end.id);
-  const requestBox = id => {
-    boxContext.requestBox({ id });
+    [connection.src, connection.dst].filter(missingBox);
+  const requestBox = ({ id, port }) => {
+    boxContext.requestBox({ id, port });
   };
 
   return props.connections.reduce((connections, connection) => {

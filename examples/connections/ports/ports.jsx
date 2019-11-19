@@ -27,8 +27,8 @@ export default () => (
     connections={[
       {
         id: '1',
-        src: { id: 'lfo/out', anchor: 'right' },
-        dst: { id: 'filter/cutoff', anchor: 'left' },
+        src: { id: 'lfo', port: 'out', anchor: 'right' },
+        dst: { id: 'filter', port: 'cutoff', anchor: 'left' },
       },
     ]}
   />
