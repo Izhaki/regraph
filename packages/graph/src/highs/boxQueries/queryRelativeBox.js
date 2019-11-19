@@ -1,15 +1,12 @@
-import queryBox from './queryBox';
-import getOffsetToParent from './getOffsetToParent';
-
 const antialiasingShift = 0.5;
 
 export default ({ id, element: el }, rootElement) => {
   const element = el || document.getElementById(id);
-  const box = queryBox(element);
+  const box = element.getBoundingClientRect();
+  const parent = rootElement.getBoundingClientRect();
 
-  const offset = getOffsetToParent(element);
-  box.x += offset.x - antialiasingShift;
-  box.y += offset.y - antialiasingShift;
+  box.x -= parent.x + antialiasingShift;
+  box.y -= parent.y + antialiasingShift;
 
   return box;
 };
