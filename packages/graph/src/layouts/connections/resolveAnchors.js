@@ -7,6 +7,8 @@ const doIntersect = ({ intersect, fromRect }, connectionShape, box) => {
   return intersect[connectionShape.type](connectionShape, nodeShape);
 };
 
+const noIntersection = result => result === undefined;
+
 export default ({ boxes }, connection) => {
   const getBox = ({ id, port }) => {
     if (port) {
@@ -53,10 +55,16 @@ export default ({ boxes }, connection) => {
 
     if (srcNeedsIntersection) {
       updates.src = doIntersect(srcResolver, connectionShape, srcBox);
+      if (noIntersection(updates.src)) {
+        return undefined;
+      }
     }
 
     if (dstNeedsIntersection) {
       updates.dst = doIntersect(dstResolver, connectionShape, dstBox);
+      if (noIntersection(updates.dst)) {
+        return undefined;
+      }
     }
 
     // Keep the shape in the connection so no need to recalculate later.
