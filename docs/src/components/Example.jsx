@@ -18,9 +18,15 @@ const systemFonts = `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helv
 
 const useStyles = makeStyles({
   graphWrapper: {
+    // So it resizes to its content
     display: 'inline-block',
-    position: 'relative',
+    // So it is centred
     margin: [[0, 'auto']],
+    // So it and its content shrink on small screens.
+    // 96% so it meets the straight part of the rounded code box
+    maxWidth: '96%',
+    // So we can absolute-position the code button
+    position: 'relative',
     border: '1px solid #d1d5da',
     borderRadius: [[borderRadius, borderRadius, 0, 0]],
     backgroundColor: 'white',

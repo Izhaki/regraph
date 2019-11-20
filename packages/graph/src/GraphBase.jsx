@@ -11,12 +11,9 @@ const GraphBase = React.forwardRef(function GraphBase(props, ref) {
 
   const style = {
     ...props.style,
-    position: 'relative',
-    // When querying the position of HTML nodes, FireFox accounts for border whilst other browsers
-    // don't. This messes up auto-boxing. So force no border on the graph component
-    border: 'none',
     width,
-    height,
+    height: 'auto',
+    maxWidth: '100%', // So it doesn't overflow on mobiles
   };
 
   const hasSvgNodes = nodes && nodeLayer === 'svg';
@@ -26,11 +23,23 @@ const GraphBase = React.forwardRef(function GraphBase(props, ref) {
 
   return (
     <div style={style} ref={ref}>
-      <svg style={style} transform={transform}>
+      <svg
+        transform={transform}
+        viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="xMidYMid meet">
         {connections && <Connections connections={connections} />}
         {hasSvgNodes && <Nodes nodes={nodes} boxes={boxes} />}
+        {hasHtmlNodes && (
+          <foreignObject
+            x={0}
+            y={0}
+            width={width}
+            height={height}
+            style={{ pointerEvents: 'none' }}>
+            <Nodes nodes={nodes} boxes={boxes} isHtml />
+          </foreignObject>
+        )}
       </svg>
-      {hasHtmlNodes && <Nodes nodes={nodes} boxes={boxes} isHtml />}
     </div>
   );
 });
