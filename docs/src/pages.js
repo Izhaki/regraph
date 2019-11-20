@@ -17,6 +17,13 @@ export default [
           { pathname: '/examples/connections/ports', title: 'Ports' },
         ],
       },
+      {
+        pathname: '/examples/interactive',
+        title: 'Interactive',
+        children: [
+          { pathname: '/examples/interactive/drag-circles', title: 'dragging' },
+        ],
+      },
     ],
   },
 ];

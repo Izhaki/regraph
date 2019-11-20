@@ -11,9 +11,10 @@ import {
   useLayout,
   useAutoViewportSize,
   withAutoBox,
+  withInteraction,
 } from './highs';
 import connectionLayout from './layouts/connections';
-import { pipe } from './utils';
+import { pipe, compose } from './utils';
 
 export default ({
   node,
@@ -26,6 +27,7 @@ export default ({
   hiddenFirstRender,
   layout,
   autoViewportSize,
+  interactive,
 }) => {
   const features = [];
 
@@ -70,5 +72,13 @@ export default ({
     createElement(GraphBase, { ...applyFeatures(props), ref })
   );
 
-  return autoBox ? withAutoBox(Graph) : Graph;
+  const hocs = [];
+  if (interactive) {
+    hocs.push(withInteraction);
+  }
+  if (autoBox) {
+    hocs.push(withAutoBox);
+  }
+
+  return compose(...hocs)(Graph);
 };
