@@ -68,9 +68,9 @@ export default ({
   }
 
   const applyFeatures = pipe(...features);
-  const Graph = forwardRef((props, ref) =>
-    createElement(GraphBase, { ...applyFeatures(props), ref })
-  );
+  const Graph = forwardRef(function Graph(props, ref) {
+    return createElement(GraphBase, { ...applyFeatures(props), ref });
+  });
 
   const hocs = [];
   if (interactive) {

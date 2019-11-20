@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 // Translating by half a pixel results in uniform anti-aliasing
 const antialiasingShift = 'translate(0.5 0.5)';
 
-const GraphBase = React.forwardRef((props, ref) => {
+const GraphBase = React.forwardRef(function GraphBase(props, ref) {
   const { nodes, connections, boxes, width, height, nodeLayer = 'svg' } = props;
 
   const style = {
