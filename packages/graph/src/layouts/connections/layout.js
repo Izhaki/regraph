@@ -4,6 +4,7 @@ import { mergeConnections } from '../../utils';
 import resolveAnchors from './resolveAnchors';
 
 const needsResolution = ({ src, dst }) => !isPoint(src) || !isPoint(dst);
+const isResolved = connection => !needsResolution(connection);
 
 const layoutConnections = (props, boxContext) => {
   const missingBox = end => !isPoint(end) && !isRect(props.boxes[end.id]);
@@ -21,8 +22,14 @@ const layoutConnections = (props, boxContext) => {
       // Don't add the connection to the accumulator - it won't be rendered
     } else if (needsResolution(connection)) {
       const updates = resolveAnchors(props, connection);
-      // Add resolved connections
-      connections.push(mergeConnections(connection, updates));
+
+      // Resolution may fail (like when there is no intersection because a source node
+      // is dragged over a destination node). In such case we don't push the connection -
+      // meaning it won't be rendered.
+      if (isResolved(updates)) {
+        // Add resolved connections
+        connections.push(mergeConnections(connection, updates));
+      }
     } else {
       // Add original connection
       connections.push(connection);
