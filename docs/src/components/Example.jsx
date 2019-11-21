@@ -16,7 +16,7 @@ const connectionColor = '#888';
 
 const systemFonts = `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   graphWrapper: {
     // So it resizes to its content
     display: 'inline-block',
@@ -45,11 +45,7 @@ const useStyles = makeStyles({
     '&[class*="language-"]': {
       marginTop: 0,
       marginBottom: 0,
-    },
-  },
-  '@media only screen and (max-width : 480px)': {
-    codeWrapper: {
-      '&[class*="language-"]': {
+      [theme.breakpoints.down('md')]: {
         fontSize: 12,
       },
     },
@@ -78,7 +74,7 @@ const useStyles = makeStyles({
     flexDirection: 'row-reverse',
     padding: 6,
   },
-});
+}));
 
 const Code = ({ code, output, sourceOpen, path, language = 'jsx' }) => {
   const classes = useStyles();

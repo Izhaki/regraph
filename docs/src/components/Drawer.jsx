@@ -14,20 +14,21 @@ import renderNavItems from './renderNavItems';
 import GithubIcon from './GithubIcon';
 
 const drawerWidth = 240;
+const breakpoint = 'md';
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up(breakpoint)]: {
       width: drawerWidth,
       flexShrink: 0,
     },
   },
   appBar: {
     marginLeft: drawerWidth,
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up(breakpoint)]: {
       width: `calc(100% - ${drawerWidth}px)`,
     },
     backgroundColor: '#444',
@@ -37,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up(breakpoint)]: {
       display: 'none',
     },
   },
@@ -108,7 +109,7 @@ function ResponsiveDrawer(props) {
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden smUp implementation="css">
+        <Hidden mdUp implementation="css">
           <Drawer
             variant="temporary"
             open={mobileOpen}
@@ -122,7 +123,7 @@ function ResponsiveDrawer(props) {
             {drawer}
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+        <Hidden smDown implementation="css">
           <Drawer
             classes={{
               paper: classes.drawerPaper,
