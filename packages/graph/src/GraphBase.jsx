@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 
 // Translating by half a pixel results in uniform anti-aliasing
 const antialiasingShift = 'translate(0.5 0.5)';
+const foreignObjectStyle = {
+  // foreignObject otherwise becomes the target of drag events
+  pointerEvents: 'none',
+};
 
 const GraphBase = React.forwardRef(function GraphBase(props, ref) {
   const { nodes, connections, boxes, width, height, nodeLayer = 'svg' } = props;
@@ -35,7 +39,7 @@ const GraphBase = React.forwardRef(function GraphBase(props, ref) {
             y={0}
             width={width}
             height={height}
-            style={{ pointerEvents: 'none' }}>
+            style={foreignObjectStyle}>
             <Nodes nodes={nodes} boxes={boxes} isHtml />
           </foreignObject>
         )}

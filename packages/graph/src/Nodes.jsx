@@ -14,11 +14,13 @@ const Nodes = ({ nodes, boxes, isHtml }) => {
 
   const children = nodes.map(getNodeElement);
 
-  return React.createElement(
-    isHtml ? 'div' : 'g',
-    { className: 'regraph-nodes' },
-    children
-  );
+  const props = {
+    className: 'regraph-nodes',
+    // A foreignObject wrapper will set pointerEvents to none. So reinstate.
+    style: { pointerEvents: 'auto' },
+  };
+
+  return React.createElement(isHtml ? 'div' : 'g', props, children);
 };
 
 Nodes.propTypes = {
