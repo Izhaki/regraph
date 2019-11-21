@@ -47,6 +47,13 @@ const useStyles = makeStyles({
       marginBottom: 0,
     },
   },
+  '@media only screen and (max-width : 480px)': {
+    codeWrapper: {
+      '&[class*="language-"]': {
+        fontSize: 12,
+      },
+    },
+  },
   codeContainer: {
     position: 'relative',
     top: -1,
