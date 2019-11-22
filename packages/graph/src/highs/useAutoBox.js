@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { queryRelativeBox } from './boxQueries';
 import useForceUpdate from './useForceUpdate';
-import { isRect, transpose } from '@regraph/geo/rect';
 
 export default ({ onBoxes, boxes: inBoxes }, graphRef) => {
   const forceUpdate = useForceUpdate();

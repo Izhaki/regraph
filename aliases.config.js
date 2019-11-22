@@ -14,4 +14,5 @@ module.exports = {
   '@regraph/connections': getPackageSourcePath('connections'),
   '@regraph/nodes': getPackageSourcePath('nodes'),
   '@regraph/arrowheads': getPackageSourcePath('arrowheads'),
+  '@regraph/editor': getPackageSourcePath('editor'),
 };

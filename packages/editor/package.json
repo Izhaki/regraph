@@ -1,0 +1,46 @@
+{
+  "name": "@regraph/editor",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "Izhaki <roey@gefri.org>",
+  "description": "Regraph editor",
+  "keywords": [
+    "react",
+    "react-component",
+    "graphs",
+    "visualization"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Izhaki/regraph.git",
+    "directory": "packages/editor"
+  },
+  "bugs": {
+    "url": "https://github.com/Izhaki/regraph/issues"
+  },
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "yarn build:esm && yarn build:cjs && yarn build:frank-dist",
+    "build:esm": "cross-env BABEL_ENV=esm babel --config-file ../../babel.config.js ./src --out-dir ./dist/esm",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel --config-file ../../babel.config.js ./src --out-dir ./dist/cjs",
+    "build:frank-dist": "node ../../scripts/frank-dist.js",
+    "release": "yarn build && npm publish dist --tag latest"
+  },
+  "peerDependencies": {
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "redux": "^4.0.4"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}

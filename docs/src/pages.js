@@ -24,6 +24,16 @@ export default [
           { pathname: '/examples/interactive/drag-circles', title: 'dragging' },
         ],
       },
+      {
+        pathname: '/examples/editors',
+        title: 'Editors',
+        children: [
+          {
+            pathname: '/examples/editors/basic-drag-editor',
+            title: 'Basic Editor',
+          },
+        ],
+      },
     ],
   },
 ];

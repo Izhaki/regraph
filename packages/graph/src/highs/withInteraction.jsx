@@ -8,7 +8,7 @@ export default WrappedComponent => {
       event.position = { x, y };
       event.delta = { x: dx, y: dy };
       if (handler) {
-        handler(event);
+        return handler(event);
       }
     };
 
