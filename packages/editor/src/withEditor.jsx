@@ -1,9 +1,8 @@
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
-import reducer from './reducer';
 import useStore from './useStore';
 
-export default ({ initialState, tool }) => {
+export default ({ initialState, reducer, tool }) => {
   const enhancer = applyMiddleware(tool);
 
   const store = createStore(reducer, initialState, enhancer);

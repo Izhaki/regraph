@@ -5,6 +5,7 @@ import { Line } from '@regraph/connections';
 import { Triangle } from '@regraph/arrowheads';
 import { fromRect, toSvgProps } from '@regraph/geo/ellipse';
 import moveTool from './moveTool';
+import reducer from './reducer';
 
 const Circle = ({ box, isHtml, ...props }) => (
   <ellipse {...props} {...toSvgProps(fromRect(box))} />
@@ -24,6 +25,7 @@ const Graph = graph({
 
 const GraphEditor = withEditor({
   tool: moveTool,
+  reducer,
   initialState: {
     nodes: [{ id: 'ping' }, { id: 'pong' }],
     boxes: {

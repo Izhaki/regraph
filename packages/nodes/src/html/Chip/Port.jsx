@@ -5,7 +5,7 @@ import styles from './Port.style';
 
 const useStyles = makeStyles(styles);
 
-const Port = ({ title, isInput, id, disabled, connected, type }) => {
+const Port = ({ title, isInput, id, disabled, connected, type, ...others }) => {
   const classes = useStyles({
     isInput,
     disabled: disabled && !connected,
@@ -14,7 +14,7 @@ const Port = ({ title, isInput, id, disabled, connected, type }) => {
   });
 
   return (
-    <span id={id} data-target-type="port" className={classes.port}>
+    <span id={id} className={classes.port} {...others}>
       <span className={classes.icon} />
       <span className={classes.label}>{title}</span>
     </span>

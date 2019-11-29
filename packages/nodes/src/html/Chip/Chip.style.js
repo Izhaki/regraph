@@ -3,18 +3,10 @@ import colours from './colours';
 const borderRadius = 4;
 
 export default {
-  '@global': {
-    '[data-target-type]': {
-      pointerEvents: 'auto',
-    },
-    '[data-target-type] > *': {
-      pointerEvents: 'none',
-    },
-  },
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
-    userSelect: 'node',
+    userSelect: 'none',
   },
   header: ({ type }) => ({
     padding: 5,

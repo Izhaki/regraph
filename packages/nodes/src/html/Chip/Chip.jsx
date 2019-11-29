@@ -15,13 +15,12 @@ const Chip = ({ id, title, box: { x, y }, inputs, outputs }) => {
     <span
       id={id}
       style={{ position: 'absolute', left: x, top: y }}
-      data-target-type="node"
       className={classes.wrapper}>
       <span className={classes.header}>{title}</span>
       <span className={classes.body}>
-        {inputs && (
-          <span className={classes.inputs}>
-            {inputs.map(props => (
+        <span className={classes.inputs}>
+          {inputs &&
+            inputs.map(props => (
               <Port
                 key={props.id}
                 {...props}
@@ -29,15 +28,13 @@ const Chip = ({ id, title, box: { x, y }, inputs, outputs }) => {
                 isInput
               />
             ))}
-          </span>
-        )}
-        {outputs && (
-          <span className={classes.outputs}>
-            {outputs.map(props => (
+        </span>
+        <span className={classes.outputs}>
+          {outputs &&
+            outputs.map(props => (
               <Port key={props.id} {...props} id={`${id}/${props.id}`} />
             ))}
-          </span>
-        )}
+        </span>
       </span>
     </span>
   );

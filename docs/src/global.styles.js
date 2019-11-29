@@ -22,5 +22,11 @@ export default {
       padding: 10,
       paddingInlineStart: 24,
     },
+    '[data-target]': {
+      pointerEvents: 'auto',
+    },
+    '[data-target] > *': {
+      pointerEvents: 'none',
+    },
   },
 };

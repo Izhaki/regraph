@@ -32,6 +32,10 @@ export default [
             pathname: '/examples/editors/basic-drag-editor',
             title: 'Basic Editor',
           },
+          {
+            pathname: '/examples/editors/chip-editor',
+            title: 'Chip Editor',
+          },
         ],
       },
     ],

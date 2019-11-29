@@ -5,8 +5,12 @@ import resolveAnchors from './resolveAnchors';
 
 const needsResolution = ({ src, dst }) => !isPoint(src) || !isPoint(dst);
 
+// TODO: core?
+const getEndId = end => (end.port ? `${end.id}/${end.port}` : end.id);
+
 const layoutConnections = (props, boxContext) => {
-  const missingBox = end => !isPoint(end) && !isRect(props.boxes[end.id]);
+  const missingBox = end =>
+    !isPoint(end) && !isRect(props.boxes[getEndId(end)]);
   const getEndsMissingBox = connection =>
     [connection.src, connection.dst].filter(missingBox);
   const requestBox = ({ id, port }) => {

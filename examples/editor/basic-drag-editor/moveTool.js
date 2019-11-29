@@ -20,11 +20,8 @@ export default () => {
       }
 
       case 'drag': {
-        if (dragged) {
-          const { delta } = action.event;
-          return next({ type: 'moveBox', id: dragged, delta });
-        }
-        break;
+        const { delta } = action.event;
+        return next({ type: 'moveBox', id: dragged, delta });
       }
 
       case 'dragEnd': {
