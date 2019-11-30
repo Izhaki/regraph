@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { graph, withPosition, useBoxContext } from '@regraph/graph';
+import { graph, withHtmlPosition, useBoxContext } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 import ContentEditable from 'react-contenteditable';
 import styles from './styles';
 
-const TextRect = withPosition(({ id, title }) => {
+const TextRect = withHtmlPosition(({ id, title }) => {
   const [content, setContent] = useState(title);
   const ref = useRef(null);
   const { requestBox } = useBoxContext();

@@ -6,7 +6,6 @@ const Nodes = ({ nodes, boxes, isHtml }) => {
     const { type, ...props } = {
       ...node,
       box: boxes[node.id],
-      isHtml,
       key: node.id,
     };
     return React.createElement(type, props);

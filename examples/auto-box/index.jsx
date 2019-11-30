@@ -1,10 +1,10 @@
 import React from 'react';
-import { graph, withPosition } from '@regraph/graph';
+import { graph, withHtmlPosition } from '@regraph/graph';
 import { Line } from '@regraph/connections';
 import { Triangle } from '@regraph/arrowheads';
 import styles from './styles';
 
-const Rect = withPosition(({ id }) => (
+const Rect = withHtmlPosition(({ id }) => (
   <div id={id} style={styles.rect}>
     {id}
   </div>

@@ -7,7 +7,7 @@ import { fromRect, toSvgProps } from '@regraph/geo/ellipse';
 import moveTool from './moveTool';
 import reducer from './reducer';
 
-const Circle = ({ box, isHtml, ...props }) => (
+const Circle = ({ box, ...props }) => (
   <ellipse {...props} {...toSvgProps(fromRect(box))} />
 );
 
