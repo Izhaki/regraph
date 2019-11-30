@@ -9,12 +9,13 @@ export default ({ getState }) => {
   return next => action => {
     switch (action.type) {
       case 'dragStart': {
-        const target = getDomainTarget(action.event.target, getState());
+        const state = getState();
+        const target = getDomainTarget(action.event.target, state);
         if (!isValidDragSource(target)) {
           return false; // Cancel drag
         }
         source = target;
-        const isValid = isValidConnection(source, target);
+        const isValid = isValidConnection(source, target, state.connections);
         return next({
           type: 'connectionStart',
           source,
@@ -25,8 +26,9 @@ export default ({ getState }) => {
       }
 
       case 'drag': {
-        const target = getDomainTarget(action.event.target, getState());
-        const isValid = isValidConnection(source, target);
+        const state = getState();
+        const target = getDomainTarget(action.event.target, state);
+        const isValid = isValidConnection(source, target, state.connections);
         return next({
           type: 'connectionDrag',
           source,
@@ -37,8 +39,9 @@ export default ({ getState }) => {
       }
 
       case 'dragEnd': {
-        const target = getDomainTarget(action.event.target, getState());
-        const isValid = isValidConnection(source, target);
+        const state = getState();
+        const target = getDomainTarget(action.event.target, state);
+        const isValid = isValidConnection(source, target, state.connections);
         return next({ type: 'connectionEnd', source, target, isValid });
       }
       default:
