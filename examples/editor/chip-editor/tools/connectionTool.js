@@ -1,21 +1,15 @@
-import getDomainTarget from './getDomainTarget';
-import isValidConnection from './isValidConnection';
-
-// TODO: out of here - also applies to node dragging
-const isValidDragSource = source => source && Boolean(source.port);
+import getDomainTarget from '../getDomainTarget';
+import isValidConnection from '../isValidConnection';
 
 export default ({ getState }) => {
   let source = null;
   return next => action => {
     switch (action.type) {
       case 'dragStart': {
-        const state = getState();
-        const target = getDomainTarget(action.event.target, state);
-        if (!isValidDragSource(target)) {
-          return false; // Cancel drag
-        }
+        const { connections } = getState();
+        const target = action.domainTarget;
         source = target;
-        const isValid = isValidConnection(source, target, state.connections);
+        const isValid = isValidConnection(source, target, connections);
         return next({
           type: 'connectionStart',
           source,

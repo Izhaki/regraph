@@ -7,7 +7,7 @@ import Port from './Port';
 
 const useStyles = makeStyles(styles);
 
-const Chip = ({ id, title, box: { x, y }, inputs, outputs }) => {
+const Chip = ({ id, title, box: { x, y }, inputs, outputs, ...others }) => {
   const mainOut = outputs.find(port => port.title === 'OUT');
   const type = mainOut ? mainOut.type : 'other';
   const classes = useStyles({ type });
@@ -15,7 +15,8 @@ const Chip = ({ id, title, box: { x, y }, inputs, outputs }) => {
     <span
       id={id}
       style={{ position: 'absolute', left: x, top: y }}
-      className={classes.wrapper}>
+      className={classes.wrapper}
+      {...others}>
       <span className={classes.header}>{title}</span>
       <span className={classes.body}>
         <span className={classes.inputs}>

@@ -8,6 +8,14 @@ export default ({ onBoxes, boxes: inBoxes }, graphRef) => {
   const updateBoxes = onBoxes || setStateBoxes;
 
   const outBoxes = onBoxes ? inBoxes : stateBoxes;
+
+  const originalBoxes = useRef(inBoxes).current;
+  if (process.env.NODE_ENV !== 'production') {
+    if (!onBoxes && inBoxes !== originalBoxes) {
+      console.error(`Regraph: New boxes in props but no onBoxes.`);
+    }
+  }
+
   const requests = useRef(new Map()).current;
 
   const boxContext = useRef({

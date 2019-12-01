@@ -7,6 +7,11 @@ export default ({ initialState, reducer, tool }) => {
 
   const store = createStore(reducer, initialState, enhancer);
   const { dispatch } = store;
+
+  const onBoxes = boxes => {
+    store.dispatch({ type: 'setBoxes', boxes });
+  };
+
   return WrappedComponent => {
     const WithEditor = props => {
       const state = useStore(store);
@@ -22,6 +27,7 @@ export default ({ initialState, reducer, tool }) => {
           onDragStart={onDragStart}
           onDrag={onDrag}
           onDragEnd={onDragEnd}
+          onBoxes={onBoxes}
         />
       );
     };

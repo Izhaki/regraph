@@ -1,15 +1,10 @@
-import { useReducer, useEffect } from 'react';
+import { useReducer, useMemo } from 'react';
 
 export default store => {
   const [, forceUpdate] = useReducer(() => Object.create(null));
 
-  useEffect(() => {
-    const unsubscribe = store.subscribe(() => {
-      forceUpdate();
-    });
-    return () => {
-      unsubscribe();
-    };
+  useMemo(() => {
+    store.subscribe(forceUpdate);
   }, [store]);
 
   return store.getState();

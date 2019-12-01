@@ -3,17 +3,18 @@ import { graph } from '@regraph/graph';
 import { withEditor } from '@regraph/editor';
 import { Line } from '@regraph/connections';
 import Chip from '@regraph/nodes/html/Chip';
-import connectionTool from './connectionTool';
+import multiTool from './tools/multiTool';
 import { fader, lfo, filter } from './chips';
 import reducer from './reducer';
 
-const markPorts = (ports, target) =>
+const targetifyPorts = (ports, target) =>
   ports && ports.map(port => ({ ...port, 'data-target': target }));
 
-const markTargets = node => ({
+const targetifyNode = node => ({
   ...node,
-  inputs: markPorts(node.inputs, 'input'),
-  outputs: markPorts(node.outputs, 'output'),
+  'data-target': 'chip',
+  inputs: targetifyPorts(node.inputs, 'input'),
+  outputs: targetifyPorts(node.outputs, 'output'),
 });
 
 const Graph = graph({
@@ -31,14 +32,14 @@ const Graph = graph({
 });
 
 const GraphEditor = withEditor({
-  tool: connectionTool,
+  tool: multiTool,
   reducer,
   initialState: {
     nodes: [
       { id: 'fader', ...fader },
       { id: 'lfo', ...lfo },
       { id: 'filter', ...filter },
-    ].map(markTargets),
+    ].map(targetifyNode),
     boxes: {
       fader: { x: 50, y: 50.5 },
       lfo: { x: 200, y: 50.5 },

@@ -15,6 +15,12 @@ export default (element, { nodes }) => {
         id,
       };
     }
+    case 'chip': {
+      return {
+        type,
+        id: element.id,
+      };
+    }
     default:
       return null;
   }
