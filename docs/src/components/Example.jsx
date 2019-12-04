@@ -39,6 +39,15 @@ const useStyles = makeStyles(theme => ({
     '& .regraph-connection': {
       stroke: connectionColor,
       fill: connectionColor,
+      '& > .regraph-selected': {
+        stroke: '#ff9800',
+      },
+    },
+    '& .regraph-connection-overlay': {
+      stroke: 'rgba(0, 0, 0, 0)',
+      strokeWidth: '6px',
+      fill: 'none',
+      cursor: 'pointer',
     },
   },
   codeWrapper: {

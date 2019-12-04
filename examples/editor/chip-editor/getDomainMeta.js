@@ -15,10 +15,18 @@ export default (element, { nodes }) => {
         id,
       };
     }
+
     case 'chip': {
       return {
         type,
         id: element.id,
+      };
+    }
+
+    case 'connection': {
+      return {
+        type,
+        id: element.getAttribute('data-target-id'),
       };
     }
     default:

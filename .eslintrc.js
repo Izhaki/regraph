@@ -60,6 +60,7 @@ module.exports = {
     'react/sort-prop-types': 'error',
     'react/jsx-props-no-spreading': 'off',
 
+    'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': [
       'error',
       { devDependencies: ['scripts/*.js', 'resolveAlias.js'] },

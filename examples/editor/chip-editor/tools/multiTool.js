@@ -1,30 +1,34 @@
-import getDomainTarget from '../getDomainTarget';
+import getDomainMeta from '../getDomainMeta';
 import connectionTool from './connectionTool';
 import moveTool from './moveTool';
+import selectionTool from './selectionTool';
 
-const isValidDragSource = target => target && target.type;
+const isValidDragSource = meta => meta && meta.type;
 
 export default store => {
   let currentTool = null;
   const tools = {
     connection: connectionTool(store),
     move: moveTool(store),
+    selection: selectionTool(store),
   };
 
   const targetTypeToTool = {
     input: tools.connection,
     output: tools.connection,
     chip: tools.move,
+    connection: tools.selection,
   };
 
   return next => action => {
     switch (action.type) {
+      // Note: react-draggable calls drag start upon on click.
       case 'dragStart': {
         const state = store.getState();
-        const source = getDomainTarget(action.event.target, state);
-        if (isValidDragSource(source)) {
-          action.domainTarget = source;
-          currentTool = targetTypeToTool[source.type];
+        const meta = getDomainMeta(action.event.target, state);
+        if (isValidDragSource(meta)) {
+          action.meta = meta;
+          currentTool = targetTypeToTool[meta.type];
           return currentTool(next)(action);
         }
         return false; // Cancel drag
@@ -33,6 +37,9 @@ export default store => {
       case 'drag':
       case 'dragEnd': {
         return currentTool(next)(action);
+      }
+      case 'click': {
+        return tools.selection(next)(action);
       }
       default:
     }

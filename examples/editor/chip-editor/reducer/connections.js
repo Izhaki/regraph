@@ -12,10 +12,11 @@ const generateId = ({ src, dst }) => `${getEndId(src)}->${getEndId(dst)}`;
 
 export const connectionStart = (
   { connections },
-  { source, event: { position }, isValid }
+  { srcMeta, event: { position }, isValid }
 ) => {
-  const [from, to] = source.type === 'output' ? ['src', 'dst'] : ['dst', 'src'];
-  const end = getEnd(source);
+  const [from, to] =
+    srcMeta.type === 'output' ? ['src', 'dst'] : ['dst', 'src'];
+  const end = getEnd(srcMeta);
   connections.push({
     id: '@@draggedConnection',
     [from]: end,
@@ -25,11 +26,11 @@ export const connectionStart = (
 
 export const connectionDrag = (
   { connections },
-  { source, target, event: { position }, isValid }
+  { srcMeta, dstMeta, event: { position }, isValid }
 ) => {
   const connection = connections.find(idEqual('@@draggedConnection'));
-  const end = source.type === 'output' ? 'dst' : 'src';
-  connection[end] = isValid ? getEnd(target) : position;
+  const end = srcMeta.type === 'output' ? 'dst' : 'src';
+  connection[end] = isValid ? getEnd(dstMeta) : position;
 };
 
 export const connectionCancel = state => {
@@ -41,6 +42,7 @@ export const connectionCancel = state => {
 export const connectionCommit = ({ connections }) => {
   const connection = connections.find(idEqual('@@draggedConnection'));
   connection.id = generateId(connection);
+  connection.overlay = true;
 };
 
 export const connectionEnd = (state, { isValid }) => {
@@ -49,4 +51,20 @@ export const connectionEnd = (state, { isValid }) => {
   } else {
     connectionCancel(state);
   }
+};
+
+const isConnection = item => item.type === 'connection';
+
+export const select = ({ connections }, { metas }) => {
+  metas.filter(isConnection).forEach(meta => {
+    const connection = connections.find(idEqual(meta.id));
+    connection.selected = true;
+  });
+};
+
+export const deselect = ({ connections }, { metas }) => {
+  metas.filter(isConnection).forEach(meta => {
+    const connection = connections.find(idEqual(meta.id));
+    connection.selected = false;
+  });
 };

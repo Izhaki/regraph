@@ -19,6 +19,7 @@ export default ({ initialState, reducer, tool }) => {
       const onDragStart = event => dispatch({ type: 'dragStart', event });
       const onDrag = event => dispatch({ type: 'drag', event });
       const onDragEnd = event => dispatch({ type: 'dragEnd', event });
+      const onClick = event => dispatch({ type: 'click', event });
 
       return (
         <WrappedComponent
@@ -27,6 +28,7 @@ export default ({ initialState, reducer, tool }) => {
           onDragStart={onDragStart}
           onDrag={onDrag}
           onDragEnd={onDragEnd}
+          onClick={onClick}
           onBoxes={onBoxes}
         />
       );

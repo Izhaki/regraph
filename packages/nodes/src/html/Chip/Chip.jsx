@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import { PointPropTypes } from '@regraph/core';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './Chip.style';
@@ -7,7 +8,15 @@ import Port from './Port';
 
 const useStyles = makeStyles(styles);
 
-const Chip = ({ id, title, box: { x, y }, inputs, outputs, ...others }) => {
+const Chip = ({
+  id,
+  title,
+  box: { x, y },
+  inputs,
+  outputs,
+  selected,
+  ...others
+}) => {
   const mainOut = outputs.find(port => port.title === 'OUT');
   const type = mainOut ? mainOut.type : 'other';
   const classes = useStyles({ type });
@@ -15,7 +24,7 @@ const Chip = ({ id, title, box: { x, y }, inputs, outputs, ...others }) => {
     <span
       id={id}
       style={{ position: 'absolute', left: x, top: y }}
-      className={classes.wrapper}
+      className={clsx(classes.wrapper, selected && classes.selected)}
       {...others}>
       <span className={classes.header}>{title}</span>
       <span className={classes.body}>
@@ -46,6 +55,7 @@ Chip.propTypes = {
   id: PropTypes.string.isRequired,
   inputs: PropTypes.array,
   outputs: PropTypes.array,
+  selected: PropTypes.bool,
   title: PropTypes.string,
 };
 

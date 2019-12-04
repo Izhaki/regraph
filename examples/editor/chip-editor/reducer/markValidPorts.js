@@ -21,9 +21,9 @@ const enableAllPorts = nodes => {
   });
 };
 
-export const connectionStart = ({ nodes, connections }, { source }) => {
-  forEachPort(nodes, target => {
-    target.port.disabled = !isValidConnection(source, target, connections);
+export const connectionStart = ({ nodes, connections }, { srcMeta }) => {
+  forEachPort(nodes, dstMeta => {
+    dstMeta.port.disabled = !isValidConnection(srcMeta, dstMeta, connections);
   });
 };
 

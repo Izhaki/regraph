@@ -1,4 +1,4 @@
-const getDomainTarget = element => ({
+const getDomainMeta = element => ({
   type: element.getAttribute('data-target'),
   id: element.id,
 });
@@ -10,9 +10,9 @@ export default () => {
   return next => action => {
     switch (action.type) {
       case 'dragStart': {
-        const target = getDomainTarget(action.event.target);
-        if (isValidDragSource(target)) {
-          dragged = target.id;
+        const meta = getDomainMeta(action.event.target);
+        if (isValidDragSource(meta)) {
+          dragged = meta.id;
         } else {
           return false; // Cancel drag
         }

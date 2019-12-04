@@ -44,7 +44,6 @@ const layoutConnections = (props, boxContext) => {
 };
 
 const layout = (props, boxContext) => ({
-  ...props,
   connections: layoutConnections(props, boxContext),
 });
 layout.deps = ({ boxes, connections }) => [boxes, connections];

@@ -6,16 +6,7 @@ import Chip from '@regraph/nodes/html/Chip';
 import multiTool from './tools/multiTool';
 import { fader, lfo, filter } from './chips';
 import reducer from './reducer';
-
-const targetifyPorts = (ports, target) =>
-  ports && ports.map(port => ({ ...port, 'data-target': target }));
-
-const targetifyNode = node => ({
-  ...node,
-  'data-target': 'chip',
-  inputs: targetifyPorts(node.inputs, 'input'),
-  outputs: targetifyPorts(node.outputs, 'output'),
-});
+import { targetifyNode, targetifyConnection } from './targetify';
 
 const Graph = graph({
   interactive: true,
@@ -51,7 +42,8 @@ const GraphEditor = withEditor({
         src: { id: 'lfo', port: 'out', anchor: 'right' },
         dst: { id: 'filter', port: 'cutoff', anchor: 'left' },
       },
-    ],
+    ].map(targetifyConnection),
+    selected: [],
   },
 })(Graph);
 

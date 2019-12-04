@@ -3,7 +3,7 @@ export default () => {
   return next => action => {
     switch (action.type) {
       case 'dragStart': {
-        dragged = action.domainTarget.id;
+        dragged = action.meta.id;
         break;
       }
 

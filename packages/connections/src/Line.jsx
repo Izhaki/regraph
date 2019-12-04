@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { PointPropTypes } from '@regraph/core';
 import clsx from 'clsx';
+import { PointPropTypes } from '@regraph/core';
 import {
   toElement as lineToElement,
   trim as trimLine,
@@ -27,6 +27,7 @@ const getTrimmedElement = {
 
 const Line = React.memo(
   ({
+    id,
     src,
     dst,
     bend = 0,
@@ -35,7 +36,8 @@ const Line = React.memo(
     markerEnd,
     srcTrim,
     dstTrim,
-    selectable,
+    overlay: showOverlay,
+    selected,
     className,
     strokeWidth,
     ...others
@@ -49,17 +51,23 @@ const Line = React.memo(
       ...elementProps,
       markerStart,
       markerEnd,
-      className: clsx('regraph-connection-line', className),
+      className: clsx(
+        'regraph-connection-line',
+        className,
+        selected && 'regraph-selected'
+      ),
       fill: 'none',
       style: { strokeWidth },
       ...others,
     });
 
     const overlay =
-      selectable &&
+      showOverlay &&
       React.createElement(type, {
         ...elementProps,
         className: 'regraph-connection-overlay',
+        'data-target': 'connection',
+        'data-target-id': id,
       });
 
     return (
@@ -79,9 +87,11 @@ Line.propTypes = {
   className: PropTypes.string,
   dst: PointPropTypes.isRequired,
   dstTrim: PropTypes.number,
+  id: PropTypes.string,
   markerEnd: PropTypes.string,
   markerStart: PropTypes.string,
-  selectable: PropTypes.bool,
+  overlay: PropTypes.bool,
+  selected: PropTypes.bool,
   shape: PropTypes.object,
   src: PointPropTypes.isRequired,
   srcTrim: PropTypes.number,

@@ -7,6 +7,10 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     userSelect: 'none',
+    borderRadius,
+  },
+  selected: {
+    boxShadow: '0 0 4px #ff9800',
   },
   header: ({ type }) => ({
     padding: 5,
