@@ -47,7 +47,6 @@ const useStyles = makeStyles(theme => ({
       stroke: 'rgba(0, 0, 0, 0)',
       strokeWidth: '6px',
       fill: 'none',
-      cursor: 'pointer',
     },
   },
   codeWrapper: {

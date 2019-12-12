@@ -24,6 +24,7 @@ export default {
     },
     '[data-target]': {
       pointerEvents: 'auto',
+      cursor: 'pointer',
     },
     '[data-target] > *': {
       pointerEvents: 'none',

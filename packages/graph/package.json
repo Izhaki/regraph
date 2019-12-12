@@ -35,7 +35,7 @@
   "dependencies": {
     "@regraph/geo": "^0.0.1",
     "prop-types": "^15.7.2",
-    "react-draggable": "^4.1.0"
+    "raf-schd": "^4.0.2"
   },
   "sideEffects": false,
   "publishConfig": {

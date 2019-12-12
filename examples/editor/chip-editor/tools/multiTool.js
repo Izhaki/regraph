@@ -22,7 +22,6 @@ export default store => {
 
   return next => action => {
     switch (action.type) {
-      // Note: react-draggable calls drag start upon on click.
       case 'dragStart': {
         const state = store.getState();
         const meta = getDomainMeta(action.event.target, state);

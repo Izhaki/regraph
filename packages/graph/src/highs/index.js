@@ -12,6 +12,6 @@ export { default as useNodeDefaults } from './useNodeDefaults';
 export { default as useNormaliseConnections } from './useNormaliseConnections';
 
 export { default as withAutoBox } from './withAutoBox';
-export { default as withInteraction } from './withInteraction';
+export { default as withInteraction } from './interaction/withInteraction';
 export { default as withSvgPosition } from './withSvgPosition';
 export { default as withHtmlPosition } from './withHtmlPosition';
