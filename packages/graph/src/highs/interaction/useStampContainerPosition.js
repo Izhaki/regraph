@@ -1,6 +1,3 @@
-import { useRef } from 'react';
-import { useForkRef } from './useClickAway';
-
 export default ({
   ref,
   onMouseDown: inMouseDown,
@@ -9,12 +6,6 @@ export default ({
   ...passThroughs
 }) => {
   let containerBox;
-
-  // We need an object-ref to access .current.getBoundingClientRect...
-  const objectRef = useRef(null);
-
-  // ...but the incoming ref may be a callback-ref, so fork it.
-  const outRef = useForkRef(ref, objectRef);
 
   const stampPosition = event => {
     // newApi
@@ -26,11 +17,11 @@ export default ({
   };
 
   const onMouseEnter = () => {
-    containerBox = objectRef.current.getBoundingClientRect();
+    containerBox = ref.current.getBoundingClientRect();
   };
 
   const onMouseDown = event => {
-    containerBox = objectRef.current.getBoundingClientRect();
+    containerBox = ref.current.getBoundingClientRect();
     stampPosition(event);
     inMouseDown(event);
   };
@@ -46,7 +37,7 @@ export default ({
   };
 
   return {
-    ref: outRef,
+    ref,
     onMouseEnter,
     onMouseDown,
     onMouseMove,

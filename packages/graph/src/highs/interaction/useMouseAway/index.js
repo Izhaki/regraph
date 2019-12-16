@@ -11,7 +11,7 @@ export { useForkRef };
 export default ({
   mouseEvent = 'onClick',
   touchEvent = 'onTouchEnd',
-  onClickAway,
+  onMouseAway,
   ref,
 }) => {
   const mountedRef = useMountedRef();
@@ -58,7 +58,7 @@ export default ({
       doc.documentElement.contains(event.target) &&
       !node.contains(event.target)
     ) {
-      onClickAway(event);
+      onMouseAway(event);
     }
   });
 
