@@ -12,14 +12,14 @@ export default ({ initialState, reducer, tool }) => {
     store.dispatch({ type: 'setBoxes', boxes });
   };
 
+  const onDragStart = event => dispatch({ type: 'dragStart', event });
+  const onDrag = event => dispatch({ type: 'drag', event });
+  const onDragEnd = event => dispatch({ type: 'dragEnd', event });
+  const onClick = event => dispatch({ type: 'click', event });
+
   return WrappedComponent => {
     const WithEditor = props => {
       const state = useStore(store);
-
-      const onDragStart = event => dispatch({ type: 'dragStart', event });
-      const onDrag = event => dispatch({ type: 'drag', event });
-      const onDragEnd = event => dispatch({ type: 'dragEnd', event });
-      const onClick = event => dispatch({ type: 'click', event });
 
       return (
         <WrappedComponent

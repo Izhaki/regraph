@@ -1,8 +1,4 @@
-export default ({
-  onMouseMove: inMouseMove,
-  onMouseEnter: inMouseEnter,
-  ...passThroughs
-}) => {
+export default ({ onMouseMove: inMouseMove, ...passThroughs }) => {
   let lastX;
   let lastY;
 
@@ -22,7 +18,6 @@ export default ({
 
   const onMouseEnter = event => {
     updateLast(event);
-    inMouseEnter(event);
   };
 
   const onMouseMove = event => {
