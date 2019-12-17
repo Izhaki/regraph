@@ -14,6 +14,8 @@ export default ({
     inDrag(event);
   };
 
+  const onDragCancelled = () => {};
+
   const onDragPre = event => {
     if (
       distance(
@@ -23,9 +25,13 @@ export default ({
         event.clientY
       ) > 4
     ) {
-      inDragStart(downEvent);
-      inDrag(event);
-      dragHandler = onDragPost;
+      const cancelDrag = inDragStart(downEvent) === false;
+      if (cancelDrag) {
+        dragHandler = onDragCancelled;
+      } else {
+        inDrag(event);
+        dragHandler = onDragPost;
+      }
     }
   };
 
@@ -37,8 +43,20 @@ export default ({
 
   const onDrag = event => dragHandler(event);
 
-  const isDragging = () => dragHandler === onDragPost;
-  const onDragEnd = event => (isDragging() ? inDragEnd(event) : inClick(event));
+  const onDragEnd = event => {
+    switch (dragHandler) {
+      case onDragPost: {
+        inDragEnd(event);
+        break;
+      }
+      case onDragPre: {
+        inClick(event);
+        break;
+      }
+      // Drag was cancelled
+      default:
+    }
+  };
 
   const onClick = event => {
     inClick(event);

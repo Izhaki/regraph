@@ -10,7 +10,10 @@ export default ({
 
   const onMouseDown = event => {
     isMouseDown = true;
-    onDragStart(event);
+    const cancelDrag = onDragStart(event) === false;
+    if (cancelDrag) {
+      isMouseDown = false;
+    }
   };
 
   const onMouseMove = event => {
@@ -21,7 +24,7 @@ export default ({
   };
 
   const onMouseUp = event => {
-    // Note that MouseDown can happen outside the element, but the move and up events in it
+    // MouseDown can happen outside the element, but the move and up events in it
     if (isMouseDown) {
       if (isDragging) {
         onDragEnd(event);
