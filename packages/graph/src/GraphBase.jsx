@@ -18,6 +18,9 @@ const GraphBase = React.forwardRef(function GraphBase(props, ref) {
     width,
     height: 'auto',
     maxWidth: '100%', // So it doesn't overflow on mobiles
+    WebkitTapHighlightColor: 'transparent',
+    touchAction: 'none',
+    userSelect: 'none',
   };
 
   const hasSvgNodes = nodes && nodeLayer === 'svg';

@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { compose } from '../../utils';
 import dropClickAway from './dropClickAway';
+import touchSupport from './touchSupport';
 import rafThrottle from './rafThrottle';
 import stampDelta from './stampDelta';
 import useStampContainerPosition from './useStampContainerPosition';
@@ -14,6 +15,7 @@ const noop = () => {};
 // { ref, onClick, onDragStart, onDrag, onDragEnd } → { ref, onMouseDown, onMouseMove, onMouseUp, onMouseEnter }
 const useInteraction = compose(
   dropClickAway,
+  touchSupport,
   rafThrottle,
   stampDelta,
   useStampContainerPosition,

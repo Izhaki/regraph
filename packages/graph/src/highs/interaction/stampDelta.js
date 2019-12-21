@@ -1,4 +1,8 @@
-export default ({ onMouseMove: inMouseMove, ...passThroughs }) => {
+export default ({
+  onMouseMove: inMouseMove,
+  onMouseDown: inMouseDown,
+  ...passThroughs
+}) => {
   let lastX;
   let lastY;
 
@@ -20,6 +24,11 @@ export default ({ onMouseMove: inMouseMove, ...passThroughs }) => {
     updateLast(event);
   };
 
+  const onMouseDown = event => {
+    updateLast(event);
+    inMouseDown(event);
+  };
+
   const onMouseMove = event => {
     stampDelta(event);
     updateLast(event);
@@ -28,6 +37,7 @@ export default ({ onMouseMove: inMouseMove, ...passThroughs }) => {
 
   return {
     onMouseEnter,
+    onMouseDown,
     onMouseMove,
     ...passThroughs,
   };
