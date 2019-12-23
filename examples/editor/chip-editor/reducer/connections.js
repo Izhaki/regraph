@@ -12,7 +12,7 @@ const generateId = ({ src, dst }) => `${getEndId(src)}->${getEndId(dst)}`;
 
 export const connectionStart = (
   { connections },
-  { srcMeta, event: { position }, isValid }
+  { srcMeta, event, isValid }
 ) => {
   const [from, to] =
     srcMeta.type === 'output' ? ['src', 'dst'] : ['dst', 'src'];
@@ -20,17 +20,17 @@ export const connectionStart = (
   connections.push({
     id: '@@draggedConnection',
     [from]: end,
-    [to]: isValid ? end : position,
+    [to]: isValid ? end : event.getPosition(),
   });
 };
 
 export const connectionDrag = (
   { connections },
-  { srcMeta, dstMeta, event: { position }, isValid }
+  { srcMeta, dstMeta, event, isValid }
 ) => {
   const connection = connections.find(idEqual('@@draggedConnection'));
   const end = srcMeta.type === 'output' ? 'dst' : 'src';
-  connection[end] = isValid ? getEnd(dstMeta) : position;
+  connection[end] = isValid ? getEnd(dstMeta) : event.getPosition();
 };
 
 export const connectionCancel = state => {

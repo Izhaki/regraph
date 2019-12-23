@@ -7,12 +7,9 @@ export default ({
   let lastY;
 
   const stampDelta = event => {
-    // New API
     event.deltaX = event.clientX - lastX;
     event.deltaY = event.clientY - lastY;
-
-    // Old API
-    event.delta = { x: event.deltaX, y: event.deltaY };
+    event.getDelta = () => ({ x: event.deltaX, y: event.deltaY });
   };
 
   const updateLast = event => {

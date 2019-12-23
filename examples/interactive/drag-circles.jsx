@@ -35,12 +35,12 @@ export default () => {
     }
   };
 
-  const onDrag = ({ delta }) => {
+  const onDrag = ({ getDelta }) => {
     const boxId = dragged.current;
     if (boxId) {
       setBoxes({
         ...boxes,
-        [boxId]: transpose(boxes[boxId], delta),
+        [boxId]: transpose(boxes[boxId], getDelta()),
       });
     }
   };

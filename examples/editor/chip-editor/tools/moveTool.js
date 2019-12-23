@@ -8,8 +8,11 @@ export default () => {
       }
 
       case 'drag': {
-        const { delta } = action.event;
-        return next({ type: 'moveBox', id: dragged, delta });
+        return next({
+          type: 'moveBox',
+          id: dragged,
+          delta: action.event.getDelta(),
+        });
       }
 
       case 'dragEnd': {

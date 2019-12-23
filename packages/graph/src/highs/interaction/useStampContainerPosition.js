@@ -10,12 +10,9 @@ export default ({
   const stampPosition = event => {
     containerBox = containerBox || ref.current.getBoundingClientRect();
 
-    // newApi
     event.containerX = event.clientX - containerBox.x;
     event.containerY = event.clientY - containerBox.y;
-
-    // oldApi
-    event.position = { x: event.containerX, y: event.containerY };
+    event.getPosition = () => ({ x: event.containerX, y: event.containerY });
   };
 
   const onMouseDown = event => {
