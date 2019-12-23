@@ -5,10 +5,6 @@ import PropTypes from 'prop-types';
 
 // Translating by half a pixel results in uniform anti-aliasing
 const antialiasingShift = 'translate(0.5 0.5)';
-const foreignObjectStyle = {
-  // foreignObject otherwise becomes the target of drag events
-  pointerEvents: 'none',
-};
 
 const GraphBase = React.forwardRef(function GraphBase(props, ref) {
   const { nodes, connections, boxes, width, height, nodeLayer = 'svg' } = props;
@@ -16,11 +12,13 @@ const GraphBase = React.forwardRef(function GraphBase(props, ref) {
   const style = {
     ...props.style,
     width,
-    height: 'auto',
+    height,
     maxWidth: '100%', // So it doesn't overflow on mobiles
     WebkitTapHighlightColor: 'transparent',
     touchAction: 'none',
     userSelect: 'none',
+    overflow: 'scroll',
+    display: 'grid',
   };
 
   const hasSvgNodes = nodes && nodeLayer === 'svg';
@@ -32,21 +30,21 @@ const GraphBase = React.forwardRef(function GraphBase(props, ref) {
     <div style={style} ref={ref}>
       <svg
         transform={transform}
-        viewBox={`0 0 ${width} ${height}`}
-        preserveAspectRatio="xMidYMid meet">
+        width={width}
+        height={height}
+        style={{ gridColumn: 1, gridRow: 1 }}>
         {connections && <Connections connections={connections} />}
         {hasSvgNodes && <Nodes nodes={nodes} boxes={boxes} />}
-        {hasHtmlNodes && (
-          <foreignObject
-            x={0}
-            y={0}
-            width={width}
-            height={height}
-            style={foreignObjectStyle}>
-            <Nodes nodes={nodes} boxes={boxes} isHtml />
-          </foreignObject>
-        )}
       </svg>
+      {hasHtmlNodes && (
+        <Nodes
+          nodes={nodes}
+          boxes={boxes}
+          width={width}
+          height={height}
+          isHtml
+        />
+      )}
     </div>
   );
 });

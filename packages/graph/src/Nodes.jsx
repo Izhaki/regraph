@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Nodes = ({ nodes, boxes, isHtml }) => {
+const Nodes = ({ nodes, boxes, width, height, isHtml }) => {
   const getNodeElement = node => {
     const { type, ...props } = {
       ...node,
@@ -15,8 +15,7 @@ const Nodes = ({ nodes, boxes, isHtml }) => {
 
   const props = {
     className: 'regraph-nodes',
-    // A foreignObject wrapper will set pointerEvents to none. So reinstate.
-    style: { pointerEvents: 'auto' },
+    style: { width, height, position: 'relative', gridColumn: 1, gridRow: 1 },
   };
 
   return React.createElement(isHtml ? 'div' : 'g', props, children);
