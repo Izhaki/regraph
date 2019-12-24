@@ -1,36 +1,33 @@
-import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
-import useStore from './useStore';
+import React from 'react';
+import { Provider, connect } from 'react-redux';
 
 export default ({ initialState, reducer, tool }) => {
   const enhancer = applyMiddleware(tool);
 
   const store = createStore(reducer, initialState, enhancer);
-  const { dispatch } = store;
 
-  const onBoxes = boxes => {
-    store.dispatch({ type: 'setBoxes', boxes });
-  };
+  const mapDispatchToProps = dispatch => ({
+    onDragStart: event => dispatch({ type: 'dragStart', event }),
+    onDrag: event => dispatch({ type: 'drag', event }),
+    onDragEnd: event => dispatch({ type: 'dragEnd', event }),
+    onClick: event => dispatch({ type: 'click', event }),
+    onBoxes: boxes => dispatch({ type: 'setBoxes', boxes }),
+  });
 
-  const onDragStart = event => dispatch({ type: 'dragStart', event });
-  const onDrag = event => dispatch({ type: 'drag', event });
-  const onDragEnd = event => dispatch({ type: 'dragEnd', event });
-  const onClick = event => dispatch({ type: 'click', event });
+  const mapStateToProps = state => state;
 
   return WrappedComponent => {
-    const WithEditor = props => {
-      const state = useStore(store);
+    const ConnectedComponent = connect(
+      mapStateToProps,
+      mapDispatchToProps
+    )(WrappedComponent);
 
+    const WithEditor = props => {
       return (
-        <WrappedComponent
-          {...props}
-          {...state}
-          onDragStart={onDragStart}
-          onDrag={onDrag}
-          onDragEnd={onDragEnd}
-          onClick={onClick}
-          onBoxes={onBoxes}
-        />
+        <Provider store={store}>
+          <ConnectedComponent {...props} />
+        </Provider>
       );
     };
 

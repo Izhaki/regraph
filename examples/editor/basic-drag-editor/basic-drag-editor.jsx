@@ -38,6 +38,4 @@ const GraphEditor = withEditor({
   },
 })(Graph);
 
-export default () => {
-  return <GraphEditor width={600} height={200} />;
-};
+export default () => <GraphEditor width={600} height={200} />;
