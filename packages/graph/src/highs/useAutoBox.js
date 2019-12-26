@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { queryRelativeBox } from './boxQueries';
 import useForceUpdate from './useForceUpdate';
 
-export default ({ onBoxes, boxes: inBoxes }, graphRef) => {
+export default (inBoxes, onBoxes, graphRef) => {
   const forceUpdate = useForceUpdate();
   const [stateBoxes, setStateBoxes] = useState(inBoxes);
   const updateBoxes = onBoxes || setStateBoxes;

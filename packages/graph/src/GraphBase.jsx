@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Nodes from './Nodes';
 import Connections from './Connections';
-import PropTypes from 'prop-types';
 
 // Translating by half a pixel results in uniform anti-aliasing
 const antialiasingShift = 'translate(0.5 0.5)';
