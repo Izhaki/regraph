@@ -7,7 +7,7 @@ import {
   useAutoConnectionId,
   useLoomer,
   useBoxExtractor,
-  useHiddenFirstRender,
+  useHideFirstRender,
   useLayout,
   useAutoViewportSize,
   withAutoBox,
@@ -24,7 +24,7 @@ export default ({
   looms,
   extractBoxesFromNodes,
   autoBox,
-  hiddenFirstRender,
+  hideFirstRender,
   layout,
   autoViewportSize,
   interactive,
@@ -55,8 +55,8 @@ export default ({
     features.push(useBoxExtractor);
   }
 
-  if (hiddenFirstRender || autoBox) {
-    features.push(useHiddenFirstRender);
+  if (hideFirstRender || autoBox) {
+    features.push(useHideFirstRender);
   }
 
   if (layout) {
