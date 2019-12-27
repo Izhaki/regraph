@@ -55,7 +55,7 @@ export default ({
     features.push(useBoxExtractor);
   }
 
-  if (hiddenFirstRender) {
+  if (hiddenFirstRender || autoBox) {
     features.push(useHiddenFirstRender);
   }
 

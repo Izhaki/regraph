@@ -14,7 +14,6 @@ const Graph = graph({
   autoBox: true,
   extractBoxesFromNodes: true,
   layout: true,
-  hiddenFirstRender: true,
   node: { type: Rect },
 });
 

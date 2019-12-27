@@ -12,7 +12,6 @@ const Graph = graph({
   interactive: true,
   layout: true,
   autoBox: true,
-  hiddenFirstRender: true,
   connection: {
     type: Line,
     strokeWidth: 1,

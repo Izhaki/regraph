@@ -31,7 +31,6 @@ const Graph = graph({
   normalizeConnections: true,
   layout: true,
   autoViewportSize: true,
-  hiddenFirstRender: true,
   node: { type: TextRect },
   connection: {
     type: Line,

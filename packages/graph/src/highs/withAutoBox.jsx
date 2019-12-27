@@ -21,7 +21,7 @@ export default WraapedComponent => {
   });
 
   WithAutoBox.propTypes = {
-    boxes: PropTypes.object.isRequired,
+    boxes: PropTypes.object,
     onBoxes: PropTypes.func,
   };
 
