@@ -7,10 +7,19 @@ import Connections from './Connections';
 const antialiasingShift = 'translate(0.5 0.5)';
 
 const GraphBase = React.forwardRef(function GraphBase(props, ref) {
-  const { nodes, connections, boxes, width, height, nodeLayer = 'svg' } = props;
+  const {
+    nodes,
+    connections,
+    boxes,
+    width,
+    height,
+    nodeLayer = 'svg',
+    style: propStyle,
+    ...others
+  } = props;
 
   const style = {
-    ...props.style,
+    ...propStyle,
     width,
     height,
     maxWidth: '100%', // So it doesn't overflow on mobiles
@@ -27,7 +36,7 @@ const GraphBase = React.forwardRef(function GraphBase(props, ref) {
   const transform = nodeLayer === 'html' ? null : antialiasingShift;
 
   return (
-    <div style={style} ref={ref}>
+    <div {...others} style={style} ref={ref}>
       <svg
         transform={transform}
         width={width}

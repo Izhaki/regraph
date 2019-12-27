@@ -18,12 +18,8 @@ export default WrappedComponent => {
       onDrag,
       onDragEnd,
     });
-    // TODO: get rid of div
-    return (
-      <div {...interactionProps}>
-        <WrappedComponent {...props} />
-      </div>
-    );
+
+    return <WrappedComponent {...interactionProps} {...props} />;
   };
 
   WithInteraction.propTypes = {

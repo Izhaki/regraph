@@ -15,7 +15,11 @@ export default ({ initialState, reducer, tool }) => {
     onBoxes: boxes => dispatch({ type: 'setBoxes', boxes }),
   });
 
-  const mapStateToProps = state => state;
+  const mapStateToProps = ({ nodes, boxes, connections }) => ({
+    nodes,
+    boxes,
+    connections,
+  });
 
   return WrappedComponent => {
     const ConnectedComponent = connect(
