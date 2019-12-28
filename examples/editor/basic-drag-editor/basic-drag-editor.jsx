@@ -1,6 +1,6 @@
 import React from 'react';
 import { graph } from '@regraph/graph';
-import { withEditor, graphConnect } from '@regraph/editor';
+import { editor, graphConnect } from '@regraph/editor';
 import { Line } from '@regraph/connections';
 import { Triangle } from '@regraph/arrowheads';
 import { fromRect, toSvgProps } from '@regraph/geo/ellipse';
@@ -24,7 +24,7 @@ const Graph = graph({
   },
 });
 
-const GraphEditor = withEditor({
+const GraphEditor = editor({
   tool: moveTool,
   reducer,
   initialState: {
@@ -37,6 +37,10 @@ const GraphEditor = withEditor({
       { id: 'ping->pong', src: { id: 'ping' }, dst: { id: 'pong' } },
     ],
   },
-})(Graph);
+});
 
-export default () => <GraphEditor width={600} height={200} />;
+export default () => (
+  <GraphEditor>
+    <Graph width={600} height={200} />
+  </GraphEditor>
+);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { graph } from '@regraph/graph';
-import { withEditor, graphConnect } from '@regraph/editor';
+import { editor, graphConnect } from '@regraph/editor';
 import { Line } from '@regraph/connections';
 import Chip from '@regraph/nodes/html/Chip';
 import multiTool from './tools/multiTool';
@@ -22,7 +22,7 @@ const Graph = graph({
   },
 });
 
-const GraphEditor = withEditor({
+const GraphEditor = editor({
   tool: multiTool,
   reducer,
   initialState: {
@@ -45,6 +45,10 @@ const GraphEditor = withEditor({
     ].map(targetifyConnection),
     selected: [],
   },
-})(Graph);
+});
 
-export default () => <GraphEditor width={480} height={200} nodeLayer="html" />;
+export default () => (
+  <GraphEditor>
+    <Graph width={480} height={200} nodeLayer="html" />
+  </GraphEditor>
+);

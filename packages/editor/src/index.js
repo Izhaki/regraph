@@ -1,2 +1,2 @@
-export { default as withEditor } from './withEditor';
+export { default as editor } from './editor';
 export { default as graphConnect } from './graphConnect';
