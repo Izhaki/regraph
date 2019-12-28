@@ -28,6 +28,7 @@ export default ({
   layout,
   autoViewportSize,
   interactive,
+  connector,
 }) => {
   const features = [];
 
@@ -73,6 +74,9 @@ export default ({
   });
 
   const hocs = [];
+  if (connector) {
+    hocs.push(connector);
+  }
   if (interactive) {
     hocs.push(withInteraction);
   }
