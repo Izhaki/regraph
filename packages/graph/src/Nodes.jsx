@@ -15,7 +15,16 @@ const Nodes = ({ nodes, boxes, width, height, isHtml }) => {
 
   const props = {
     className: 'regraph-nodes',
-    style: { width, height, position: 'relative', gridColumn: 1, gridRow: 1 },
+    style: {
+      width,
+      height,
+      // The nodes element is really a layer, so we don't want it to block pointer
+      // events for layers below (like connections). Elements that should receive
+      // pointer events will override this.
+      pointerEvents: 'none',
+      gridColumn: 1,
+      gridRow: 1,
+    },
   };
 
   return React.createElement(isHtml ? 'div' : 'g', props, children);
@@ -23,8 +32,10 @@ const Nodes = ({ nodes, boxes, width, height, isHtml }) => {
 
 Nodes.propTypes = {
   boxes: PropTypes.object.isRequired,
+  height: PropTypes.number,
   isHtml: PropTypes.bool,
   nodes: PropTypes.array,
+  width: PropTypes.number,
 };
 
 export default Nodes;

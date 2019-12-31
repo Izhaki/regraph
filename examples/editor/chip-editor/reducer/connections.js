@@ -68,3 +68,9 @@ export const deselect = ({ connections }, { metas }) => {
     connection.selected = false;
   });
 };
+
+export const deleteSelected = ({ connections, selected }) => {
+  selected.filter(isConnection).forEach(meta => {
+    connections.splice(connections.findIndex(idEqual(meta.id)), 1);
+  });
+};

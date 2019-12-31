@@ -9,7 +9,7 @@ export default ({ getState, dispatch }) => next => action => {
         dispatch({ type: 'deselect', metas: state.selected, all: true });
         return next({ type: 'select', metas: [meta] });
       }
-      return next({ type: 'deselect', metas: state.selected });
+      return next({ type: 'deselect', metas: state.selected, all: true });
     }
     default:
   }

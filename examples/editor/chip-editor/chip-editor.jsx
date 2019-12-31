@@ -7,6 +7,7 @@ import multiTool from './tools/multiTool';
 import { fader, lfo, filter } from './chips';
 import reducer from './reducer';
 import { targetifyNode, targetifyConnection } from './targetify';
+import Actions from './components/actions/Actions';
 
 const Graph = graph({
   connector: graphConnect,
@@ -50,5 +51,6 @@ const GraphEditor = editor({
 export default () => (
   <GraphEditor>
     <Graph width={480} height={200} nodeLayer="html" />
+    <Actions />
   </GraphEditor>
 );
