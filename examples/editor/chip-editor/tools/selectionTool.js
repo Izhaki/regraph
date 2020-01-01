@@ -5,7 +5,7 @@ export default ({ getState, dispatch }) => next => action => {
     case 'click': {
       const state = getState();
       const meta = getDomainMeta(action.event.target, state);
-      if (meta) {
+      if (meta.selectable) {
         dispatch({ type: 'deselect', metas: state.selected, all: true });
         return next({ type: 'select', metas: [meta] });
       }

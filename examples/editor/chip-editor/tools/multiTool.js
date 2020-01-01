@@ -3,10 +3,14 @@ import connectionTool from './connectionTool';
 import moveTool from './moveTool';
 import selectionTool from './selectionTool';
 
-const isValidDragSource = meta => meta && meta.type;
-
 export default store => {
   let currentTool = null;
+
+  const getMeta = action => {
+    const state = store.getState();
+    return getDomainMeta(action.event.target, state);
+  };
+
   const tools = {
     connection: connectionTool(store),
     move: moveTool(store),
@@ -23,9 +27,8 @@ export default store => {
   return next => action => {
     switch (action.type) {
       case 'dragStart': {
-        const state = store.getState();
-        const meta = getDomainMeta(action.event.target, state);
-        if (isValidDragSource(meta)) {
+        const meta = getMeta(action);
+        if (meta.draggable) {
           action.meta = meta;
           currentTool = targetTypeToTool[meta.type];
           return currentTool(next)(action);
