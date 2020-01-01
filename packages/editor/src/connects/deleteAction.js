@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
-import { deleteSelected } from '../../actions';
-import DeleteSelected from './DeleteSelected';
+import { deleteSelected } from '../actions';
 
 const mapStateToProps = ({ selected }) => ({
   selected,
@@ -14,4 +13,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DeleteSelected);
+);

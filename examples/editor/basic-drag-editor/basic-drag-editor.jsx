@@ -1,6 +1,6 @@
 import React from 'react';
 import { graph } from '@regraph/graph';
-import { editor, graphConnect } from '@regraph/editor';
+import { editor, connectGraph } from '@regraph/editor';
 import { Line } from '@regraph/connections';
 import { Triangle } from '@regraph/arrowheads';
 import { fromRect, toSvgProps } from '@regraph/geo/ellipse';
@@ -12,7 +12,7 @@ const Circle = ({ box, ...props }) => (
 );
 
 const Graph = graph({
-  connector: graphConnect,
+  connector: connectGraph,
   interactive: true,
   layout: true,
   node: { type: Circle, 'data-target': 'node' },

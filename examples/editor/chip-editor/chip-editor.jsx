@@ -1,6 +1,6 @@
 import React from 'react';
 import { graph } from '@regraph/graph';
-import { editor, graphConnect } from '@regraph/editor';
+import { editor, connectGraph } from '@regraph/editor';
 import { Line } from '@regraph/connections';
 import Chip from '@regraph/nodes/html/Chip';
 import multiTool from './tools/multiTool';
@@ -10,7 +10,7 @@ import { targetifyNode, targetifyConnection } from './targetify';
 import Actions from './components/actions/Actions';
 
 const Graph = graph({
-  connector: graphConnect,
+  connector: connectGraph,
   interactive: true,
   layout: true,
   autoBox: true,
