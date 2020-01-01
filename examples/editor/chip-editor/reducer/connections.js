@@ -1,4 +1,5 @@
-const idEqual = id => item => item.id === id;
+import { find, remove } from './utils';
+
 const idDifferent = id => item => item.id !== id;
 
 const getEnd = ({ id, port, type }) => ({
@@ -28,19 +29,17 @@ export const connectionDrag = (
   { connections },
   { srcMeta, dstMeta, event, isValid }
 ) => {
-  const connection = connections.find(idEqual('@@draggedConnection'));
+  const connection = find(connections, '@@draggedConnection');
   const end = srcMeta.type === 'output' ? 'dst' : 'src';
   connection[end] = isValid ? getEnd(dstMeta) : event.getPosition();
 };
 
-export const connectionCancel = state => {
-  state.connections = state.connections.filter(
-    idDifferent('@@draggedConnection')
-  );
+export const connectionCancel = ({ connections }) => {
+  remove(connections, '@@draggedConnection');
 };
 
 export const connectionCommit = ({ connections }) => {
-  const connection = connections.find(idEqual('@@draggedConnection'));
+  const connection = find(connections, '@@draggedConnection');
   connection.id = generateId(connection);
   connection.overlay = true;
 };
@@ -57,20 +56,20 @@ const isConnection = item => item.type === 'connection';
 
 export const select = ({ connections }, { metas }) => {
   metas.filter(isConnection).forEach(meta => {
-    const connection = connections.find(idEqual(meta.id));
+    const connection = find(connections, meta.id);
     connection.selected = true;
   });
 };
 
 export const deselect = ({ connections }, { metas }) => {
   metas.filter(isConnection).forEach(meta => {
-    const connection = connections.find(idEqual(meta.id));
+    const connection = find(connections, meta.id);
     connection.selected = false;
   });
 };
 
 export const deleteSelected = ({ connections, selected }) => {
   selected.filter(isConnection).forEach(meta => {
-    connections.splice(connections.findIndex(idEqual(meta.id)), 1);
+    remove(connections, meta.id);
   });
 };
