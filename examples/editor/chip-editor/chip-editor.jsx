@@ -10,7 +10,7 @@ import { targetifyNode, targetifyConnection } from './targetify';
 import Actions from './components/actions/Actions';
 
 const Graph = graph({
-  connector: connectGraph,
+  connector: connectGraph({ autoBox: true }),
   interactive: true,
   layout: true,
   autoBox: true,

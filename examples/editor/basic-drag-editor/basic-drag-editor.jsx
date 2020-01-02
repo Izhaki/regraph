@@ -12,7 +12,7 @@ const Circle = ({ box, ...props }) => (
 );
 
 const Graph = graph({
-  connector: connectGraph,
+  connector: connectGraph(),
   interactive: true,
   layout: true,
   node: { type: Circle, 'data-target': 'node' },
