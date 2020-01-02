@@ -9,15 +9,15 @@ const needsResolution = ({ src, dst }) => !isPoint(src) || !isPoint(dst);
 const getEndId = end => (end.port ? `${end.id}/${end.port}` : end.id);
 
 const layoutConnections = (props, boxContext) => {
-  const missingBox = end =>
-    !isPoint(end) && !isRect(props.boxes[getEndId(end)]);
+  const { connections = [], boxes } = props;
+  const missingBox = end => !isPoint(end) && !isRect(boxes[getEndId(end)]);
   const getEndsMissingBox = connection =>
     [connection.src, connection.dst].filter(missingBox);
   const requestBox = ({ id, port }) => {
     boxContext.requestBox({ id, port });
   };
 
-  return props.connections.reduce((connections, connection) => {
+  return connections.reduce((acc, connection) => {
     const endsMissingBoxes = getEndsMissingBox(connection);
 
     if (endsMissingBoxes.length) {
@@ -32,14 +32,14 @@ const layoutConnections = (props, boxContext) => {
       // meaning it won't be rendered.
       if (updates) {
         // Add resolved connections
-        connections.push(mergeConnections(connection, updates));
+        acc.push(mergeConnections(connection, updates));
       }
     } else {
       // Add original connection
-      connections.push(connection);
+      acc.push(connection);
     }
 
-    return connections;
+    return acc;
   }, []);
 };
 
