@@ -3,7 +3,7 @@ const targetifyPorts = (ports, target) =>
 
 export const targetifyNode = node => ({
   ...node,
-  'data-target': 'chip',
+  'data-target': 'node',
   inputs: targetifyPorts(node.inputs, 'input'),
   outputs: targetifyPorts(node.outputs, 'output'),
 });

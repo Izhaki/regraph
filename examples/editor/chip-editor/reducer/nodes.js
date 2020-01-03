@@ -1,6 +1,6 @@
 import { find, remove } from './utils';
 
-const isNode = item => item.type === 'chip';
+const isNode = item => item.type === 'node';
 
 export const select = ({ nodes }, { metas }) => {
   metas.filter(isNode).forEach(meta => {

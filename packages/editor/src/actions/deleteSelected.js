@@ -1,4 +1,4 @@
-const isNode = item => item.type === 'chip';
+const isNode = item => item.type === 'node';
 const isConnection = item => item.type === 'connection';
 const getId = item => item.id;
 

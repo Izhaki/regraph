@@ -20,8 +20,7 @@ export default store => {
   const targetTypeToTool = {
     input: tools.connection,
     output: tools.connection,
-    chip: tools.move,
-    connection: tools.selection,
+    node: tools.move,
   };
 
   return next => action => {
