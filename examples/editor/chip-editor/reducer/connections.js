@@ -1,7 +1,5 @@
 import { find, remove } from './utils';
 
-const idDifferent = id => item => item.id !== id;
-
 const getEnd = ({ id, port, type }) => ({
   id,
   port: port.id,
@@ -68,8 +66,8 @@ export const deselect = ({ connections }, { metas }) => {
   });
 };
 
-export const deleteSelected = ({ connections, selected }) => {
-  selected.filter(isConnection).forEach(meta => {
-    remove(connections, meta.id);
+export const deleteConnections = ({ connections }, { payload: ids }) => {
+  ids.forEach(id => {
+    remove(connections, id);
   });
 };

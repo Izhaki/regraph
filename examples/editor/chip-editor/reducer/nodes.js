@@ -16,16 +16,8 @@ export const deselect = ({ nodes }, { metas }) => {
   });
 };
 
-const isConnectedTo = nodeId => connection =>
-  connection.src.id === nodeId || connection.dst.id === nodeId;
-
-export const deleteSelected = ({ nodes, connections, selected }) => {
-  selected.filter(isNode).forEach(meta => {
-    remove(nodes, meta.id);
-
-    const nodeConnections = connections.filter(isConnectedTo(meta.id));
-    nodeConnections.forEach(connection => {
-      remove(connections, connection.id);
-    });
+export const deleteNodes = ({ nodes }, { payload: ids }) => {
+  ids.forEach(id => {
+    remove(nodes, id);
   });
 };
