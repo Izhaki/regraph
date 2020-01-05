@@ -1,5 +1,15 @@
+import { find } from '../reducer/utils';
 import getDomainMeta from '../getDomainMeta';
 import isValidConnection from '../isValidConnection';
+
+const getEnd = ({ id, port, type }) => ({
+  id,
+  port: port.id,
+  anchor: type === 'input' ? 'left' : 'right',
+});
+
+const getEndId = end => `${end.id}/${end.port}`;
+const generateId = ({ src, dst }) => `${getEndId(src)}->${getEndId(dst)}`;
 
 export default ({ getState }) => {
   let srcMeta = null;
@@ -10,12 +20,16 @@ export default ({ getState }) => {
         const dstMeta = action.meta;
         srcMeta = dstMeta;
         const isValid = isValidConnection(srcMeta, dstMeta, connections);
+
+        const [from, to] =
+          srcMeta.type === 'output' ? ['src', 'dst'] : ['dst', 'src'];
+        const end = getEnd(srcMeta);
+
         return next({
-          type: 'connectionStart',
-          srcMeta,
-          dstMeta,
-          event: action.event,
-          isValid,
+          type: 'connectionsAdd',
+          id: '@@draggedConnection',
+          [from]: end,
+          [to]: isValid ? end : action.event.getPosition(),
         });
       }
 
@@ -23,12 +37,15 @@ export default ({ getState }) => {
         const state = getState();
         const dstMeta = getDomainMeta(action.event.target, state);
         const isValid = isValidConnection(srcMeta, dstMeta, state.connections);
+
+        const end = srcMeta.type === 'output' ? 'dst' : 'src';
+        const updates = {};
+        updates[end] = isValid ? getEnd(dstMeta) : action.event.getPosition();
+
         return next({
-          type: 'connectionDrag',
-          srcMeta,
-          dstMeta,
-          event: action.event,
-          isValid,
+          type: 'connectionsUpdate',
+          id: '@@draggedConnection',
+          updates,
         });
       }
 
@@ -36,11 +53,22 @@ export default ({ getState }) => {
         const state = getState();
         const dstMeta = getDomainMeta(action.event.target, state);
         const isValid = isValidConnection(srcMeta, dstMeta, state.connections);
+
+        if (!isValid) {
+          return next({
+            type: 'connectionsRemove',
+            ids: ['@@draggedConnection'],
+          });
+        }
+
+        const connection = find(state.connections, '@@draggedConnection');
         return next({
-          type: 'connectionEnd',
-          srcMeta,
-          dstMeta,
-          isValid,
+          type: 'connectionsUpdate',
+          id: '@@draggedConnection',
+          updates: {
+            id: generateId(connection),
+            overlay: true,
+          },
         });
       }
       default:
