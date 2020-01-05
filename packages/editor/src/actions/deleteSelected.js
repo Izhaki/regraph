@@ -26,8 +26,8 @@ export default () => (dispatch, getState) => {
 
   dispatch({ type: 'deleteNodes', payload: nodeIds });
   dispatch({
-    type: 'deleteConnections',
-    payload: [...connectionIds, ...nodeConnectionsIds],
+    type: 'connectionsRemove',
+    ids: [...connectionIds, ...nodeConnectionsIds],
   });
 
   // Providing empty `metas` means connections and nodes won't remove the
