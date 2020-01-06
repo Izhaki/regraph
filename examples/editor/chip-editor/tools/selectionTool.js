@@ -5,7 +5,11 @@ const getId = item => item.id;
 
 const deselectAll = (dispatch, selected) => {
   const connectionIds = selected.filter(isConnection).map(getId);
-  dispatch({ type: 'connectionsDeselect', ids: connectionIds });
+  dispatch({
+    type: 'connectionsUpdate',
+    ids: connectionIds,
+    updates: { selected: false },
+  });
   return dispatch({ type: 'deselect', metas: selected, all: true });
 };
 
@@ -17,7 +21,11 @@ export default ({ getState, dispatch }) => next => action => {
       if (meta.selectable) {
         deselectAll(dispatch, state.selected);
         if (isConnection(meta)) {
-          next({ type: 'connectionsSelect', ids: [meta.id] });
+          dispatch({
+            type: 'connectionsUpdate',
+            ids: [meta.id],
+            updates: { selected: true },
+          });
         }
         return next({ type: 'select', metas: [meta] });
       }
