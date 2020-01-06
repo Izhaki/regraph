@@ -39,13 +39,13 @@ export default ({ getState }) => {
         const isValid = isValidConnection(srcMeta, dstMeta, state.connections);
 
         const end = srcMeta.type === 'output' ? 'dst' : 'src';
-        const updates = {};
-        updates[end] = isValid ? getEnd(dstMeta) : action.event.getPosition();
 
         return next({
           type: 'connectionsUpdate',
-          id: '@@draggedConnection',
-          updates,
+          ids: ['@@draggedConnection'],
+          updates: {
+            [end]: isValid ? getEnd(dstMeta) : action.event.getPosition(),
+          },
         });
       }
 
@@ -64,7 +64,7 @@ export default ({ getState }) => {
         const connection = find(state.connections, '@@draggedConnection');
         return next({
           type: 'connectionsUpdate',
-          id: '@@draggedConnection',
+          ids: ['@@draggedConnection'],
           updates: {
             id: generateId(connection),
             overlay: true,
