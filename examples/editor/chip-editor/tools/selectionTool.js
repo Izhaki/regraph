@@ -1,15 +1,22 @@
 import getDomainMeta from '../getDomainMeta';
 
 const isConnection = item => item.type === 'connection';
+const isNode = item => item.type === 'node';
 const getId = item => item.id;
 
 const deselectAll = (dispatch, selected) => {
-  const connectionIds = selected.filter(isConnection).map(getId);
   dispatch({
     type: 'connectionsUpdate',
-    ids: connectionIds,
+    ids: selected.filter(isConnection).map(getId),
     updates: { selected: false },
   });
+
+  dispatch({
+    type: 'nodesUpdate',
+    ids: selected.filter(isNode).map(getId),
+    updates: { selected: false },
+  });
+
   return dispatch({ type: 'deselect', metas: selected, all: true });
 };
 
@@ -23,6 +30,13 @@ export default ({ getState, dispatch }) => next => action => {
         if (isConnection(meta)) {
           dispatch({
             type: 'connectionsUpdate',
+            ids: [meta.id],
+            updates: { selected: true },
+          });
+        }
+        if (isNode(meta)) {
+          dispatch({
+            type: 'nodesUpdate',
             ids: [meta.id],
             updates: { selected: true },
           });
