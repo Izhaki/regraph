@@ -1,22 +1,10 @@
-import { find, remove } from './utils';
+import { remove, update } from './utils';
 
-const isNode = item => item.type === 'node';
-
-export const select = ({ nodes }, { metas }) => {
-  metas.filter(isNode).forEach(meta => {
-    const node = find(nodes, meta.id);
-    node.selected = true;
-  });
+export const nodesUpdate = ({ nodes }, { ids, updates }) => {
+  update(nodes, ids, updates);
 };
 
-export const deselect = ({ nodes }, { metas }) => {
-  metas.filter(isNode).forEach(meta => {
-    const node = find(nodes, meta.id);
-    node.selected = false;
-  });
-};
-
-export const deleteNodes = ({ nodes }, { payload: ids }) => {
+export const nodesRemove = ({ nodes }, { ids }) => {
   ids.forEach(id => {
     remove(nodes, id);
   });

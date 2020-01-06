@@ -24,7 +24,7 @@ export default () => (dispatch, getState) => {
     connectionIds,
   });
 
-  dispatch({ type: 'deleteNodes', payload: nodeIds });
+  dispatch({ type: 'nodesRemove', ids: nodeIds });
   dispatch({
     type: 'connectionsRemove',
     ids: [...connectionIds, ...nodeConnectionsIds],
