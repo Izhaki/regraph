@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const slice = createSlice({
+export default createSlice({
   name: 'selection',
   initialState: [],
   reducers: {
@@ -16,7 +16,3 @@ const slice = createSlice({
     },
   },
 });
-
-export const { select, deselect } = slice.actions;
-
-export default slice.reducer;

@@ -1,7 +1,10 @@
 import getDomainMeta from '../getDomainMeta';
-import { select, deselect } from '../reducer/selected';
-import { updateConnections } from '../reducer/connections';
-import { updateNodes } from '../reducer/nodes';
+import {
+  select,
+  deselect,
+  updateConnections,
+  updateNodes,
+} from '@regraph/editor/actions';
 
 const isConnection = item => item.type === 'connection';
 const isNode = item => item.type === 'node';

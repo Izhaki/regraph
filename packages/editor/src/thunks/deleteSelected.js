@@ -1,6 +1,4 @@
-import { removeConnections } from '../../../../examples/editor/chip-editor/reducer/connections';
-import { removeNodes } from '../../../../examples/editor/chip-editor/reducer/nodes';
-import { deselect } from '../../../../examples/editor/chip-editor/reducer/selected';
+import { deselect, removeConnections, removeNodes } from '../slices/actions';
 
 const isNode = item => item.type === 'node';
 const isConnection = item => item.type === 'connection';

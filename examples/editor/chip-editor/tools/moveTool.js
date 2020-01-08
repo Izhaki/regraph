@@ -1,4 +1,4 @@
-import { moveBox } from '../reducer/boxes';
+import { moveBox } from '@regraph/editor/actions';
 
 export default () => {
   let dragged;
