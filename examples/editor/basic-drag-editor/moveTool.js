@@ -1,3 +1,5 @@
+import { moveBox } from '@regraph/editor/actions';
+
 const getDomainMeta = element => ({
   type: element.getAttribute('data-target'),
   id: element.id,
@@ -20,11 +22,12 @@ export default () => {
       }
 
       case 'drag': {
-        return next({
-          type: 'moveBox',
-          id: dragged,
-          delta: action.event.getDelta(),
-        });
+        return next(
+          moveBox({
+            id: dragged,
+            delta: action.event.getDelta(),
+          })
+        );
       }
 
       case 'dragEnd': {
