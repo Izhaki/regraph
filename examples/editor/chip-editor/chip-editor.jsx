@@ -5,7 +5,6 @@ import { Line } from '@regraph/connections';
 import Chip from '@regraph/nodes/html/Chip';
 import multiTool from './tools/multiTool';
 import { fader, lfo, filter } from './chips';
-import reducer from './reducer';
 import { targetifyNode, targetifyConnection } from './targetify';
 import Actions from './components/actions/Actions';
 
@@ -25,7 +24,6 @@ const Graph = graph({
 
 const GraphEditor = editor({
   tool: multiTool,
-  reducer,
   initialState: {
     nodes: [
       { id: 'fader', ...fader },

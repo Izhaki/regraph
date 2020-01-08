@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setBoxes } from '../../../../examples/editor/chip-editor/reducer/boxes';
+import { setBoxes } from '../actions';
 
 const mapDispatchToProps = autoBox => dispatch => {
   const handlers = {

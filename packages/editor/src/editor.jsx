@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import reducer from './reducer';
 import { Provider } from 'react-redux';
 
-export default ({ initialState: preloadedState, reducer, tool }) => {
+export default ({ initialState, tool }) => {
   const store = configureStore({
     reducer,
-    preloadedState,
+    preloadedState: initialState,
+    devTools: false,
     middleware: [...getDefaultMiddleware({ serializableCheck: false }), tool],
   });
 

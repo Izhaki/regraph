@@ -1,11 +1,11 @@
-import { find } from '../reducer/utils';
+import { find } from '../../../../packages/editor/src/slices/utils';
 import getDomainMeta from '../getDomainMeta';
 import isValidConnection from '../isValidConnection';
 import {
   addConnection,
   updateConnections,
   removeConnections,
-} from '../reducer/connections';
+} from '@regraph/editor/actions';
 
 const getEnd = ({ id, port, type }) => ({
   id,
