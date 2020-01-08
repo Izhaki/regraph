@@ -1,23 +1,34 @@
 import getDomainMeta from '../getDomainMeta';
+import { select, deselect } from '../reducer/selected';
+import { updateConnections } from '../reducer/connections';
+import { updateNodes } from '../reducer/nodes';
 
 const isConnection = item => item.type === 'connection';
 const isNode = item => item.type === 'node';
 const getId = item => item.id;
 
+const isEmpty = connection => connection.length === 0;
+
 const deselectAll = (dispatch, selected) => {
-  dispatch({
-    type: 'connectionsUpdate',
-    ids: selected.filter(isConnection).map(getId),
-    updates: { selected: false },
-  });
+  if (isEmpty(selected)) {
+    return false;
+  }
 
-  dispatch({
-    type: 'nodesUpdate',
-    ids: selected.filter(isNode).map(getId),
-    updates: { selected: false },
-  });
+  dispatch(
+    updateConnections({
+      ids: selected.filter(isConnection).map(getId),
+      updates: { selected: false },
+    })
+  );
 
-  return dispatch({ type: 'deselect', metas: selected, all: true });
+  dispatch(
+    updateNodes({
+      ids: selected.filter(isNode).map(getId),
+      updates: { selected: false },
+    })
+  );
+
+  return dispatch(deselect({ metas: selected, all: true }));
 };
 
 export default ({ getState, dispatch }) => next => action => {
@@ -28,20 +39,22 @@ export default ({ getState, dispatch }) => next => action => {
       if (meta.selectable) {
         deselectAll(dispatch, state.selected);
         if (isConnection(meta)) {
-          dispatch({
-            type: 'connectionsUpdate',
-            ids: [meta.id],
-            updates: { selected: true },
-          });
+          dispatch(
+            updateConnections({
+              ids: [meta.id],
+              updates: { selected: true },
+            })
+          );
         }
         if (isNode(meta)) {
-          dispatch({
-            type: 'nodesUpdate',
-            ids: [meta.id],
-            updates: { selected: true },
-          });
+          dispatch(
+            updateNodes({
+              ids: [meta.id],
+              updates: { selected: true },
+            })
+          );
         }
-        return next({ type: 'select', metas: [meta] });
+        return next(select({ metas: [meta] }));
       }
       return deselectAll(next, state.selected);
     }

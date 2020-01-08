@@ -1,15 +1,31 @@
-import { remove, update } from './utils';
+import { createSlice } from '@reduxjs/toolkit';
+import { remove as removeFromList, update } from './utils';
 
-export const connectionsAdd = ({ connections }, { type, ...connection }) => {
-  connections.push(connection);
-};
+const slice = createSlice({
+  name: 'connections',
+  initialState: [],
+  reducers: {
+    addConnection(connections, action) {
+      const connection = action.payload;
+      connections.push(connection);
+    },
+    updateConnections(connections, action) {
+      const { ids, updates } = action.payload;
+      update(connections, ids, updates);
+    },
+    removeConnections(connections, action) {
+      const { ids } = action.payload;
+      ids.forEach(id => {
+        removeFromList(connections, id);
+      });
+    },
+  },
+});
 
-export const connectionsUpdate = ({ connections }, { ids, updates }) => {
-  update(connections, ids, updates);
-};
+export const {
+  addConnection,
+  updateConnections,
+  removeConnections,
+} = slice.actions;
 
-export const connectionsRemove = ({ connections }, { ids }) => {
-  ids.forEach(id => {
-    remove(connections, id);
-  });
-};
+export default slice.reducer;

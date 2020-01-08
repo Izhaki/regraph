@@ -1,3 +1,7 @@
+import { removeConnections } from '../../../../examples/editor/chip-editor/reducer/connections';
+import { removeNodes } from '../../../../examples/editor/chip-editor/reducer/nodes';
+import { deselect } from '../../../../examples/editor/chip-editor/reducer/selected';
+
 const isNode = item => item.type === 'node';
 const isConnection = item => item.type === 'connection';
 const getId = item => item.id;
@@ -24,14 +28,15 @@ export default () => (dispatch, getState) => {
     connectionIds,
   });
 
-  dispatch({ type: 'nodesRemove', ids: nodeIds });
-  dispatch({
-    type: 'connectionsRemove',
-    ids: [...connectionIds, ...nodeConnectionsIds],
-  });
+  dispatch(removeNodes({ ids: nodeIds }));
+  dispatch(
+    removeConnections({
+      ids: [...connectionIds, ...nodeConnectionsIds],
+    })
+  );
 
   // Providing empty `metas` means connections and nodes won't remove the
   // selected flag from the (already deleted) items.
   // `all` will clear the `selected` array.
-  dispatch({ type: 'deselect', metas: [], all: true });
+  dispatch(deselect({ metas: [], all: true }));
 };

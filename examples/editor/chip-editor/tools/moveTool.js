@@ -1,3 +1,5 @@
+import { moveBox } from '../reducer/boxes';
+
 export default () => {
   let dragged;
   return next => action => {
@@ -8,11 +10,12 @@ export default () => {
       }
 
       case 'drag': {
-        return next({
-          type: 'moveBox',
-          id: dragged,
-          delta: action.event.getDelta(),
-        });
+        return next(
+          moveBox({
+            id: dragged,
+            delta: action.event.getDelta(),
+          })
+        );
       }
 
       case 'dragEnd': {

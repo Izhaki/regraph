@@ -1,6 +1,11 @@
 import { find } from '../reducer/utils';
 import getDomainMeta from '../getDomainMeta';
 import isValidConnection from '../isValidConnection';
+import {
+  addConnection,
+  updateConnections,
+  removeConnections,
+} from '../reducer/connections';
 
 const getEnd = ({ id, port, type }) => ({
   id,
@@ -25,12 +30,13 @@ export default ({ getState }) => {
           srcMeta.type === 'output' ? ['src', 'dst'] : ['dst', 'src'];
         const end = getEnd(srcMeta);
 
-        return next({
-          type: 'connectionsAdd',
-          id: '@@draggedConnection',
-          [from]: end,
-          [to]: isValid ? end : action.event.getPosition(),
-        });
+        return next(
+          addConnection({
+            id: '@@draggedConnection',
+            [from]: end,
+            [to]: isValid ? end : action.event.getPosition(),
+          })
+        );
       }
 
       case 'drag': {
@@ -40,13 +46,14 @@ export default ({ getState }) => {
 
         const end = srcMeta.type === 'output' ? 'dst' : 'src';
 
-        return next({
-          type: 'connectionsUpdate',
-          ids: ['@@draggedConnection'],
-          updates: {
-            [end]: isValid ? getEnd(dstMeta) : action.event.getPosition(),
-          },
-        });
+        return next(
+          updateConnections({
+            ids: ['@@draggedConnection'],
+            updates: {
+              [end]: isValid ? getEnd(dstMeta) : action.event.getPosition(),
+            },
+          })
+        );
       }
 
       case 'dragEnd': {
@@ -55,21 +62,23 @@ export default ({ getState }) => {
         const isValid = isValidConnection(srcMeta, dstMeta, state.connections);
 
         if (!isValid) {
-          return next({
-            type: 'connectionsRemove',
-            ids: ['@@draggedConnection'],
-          });
+          return next(
+            removeConnections({
+              ids: ['@@draggedConnection'],
+            })
+          );
         }
 
         const connection = find(state.connections, '@@draggedConnection');
-        return next({
-          type: 'connectionsUpdate',
-          ids: ['@@draggedConnection'],
-          updates: {
-            id: generateId(connection),
-            overlay: true,
-          },
-        });
+        return next(
+          updateConnections({
+            ids: ['@@draggedConnection'],
+            updates: {
+              id: generateId(connection),
+              overlay: true,
+            },
+          })
+        );
       }
       default:
     }
