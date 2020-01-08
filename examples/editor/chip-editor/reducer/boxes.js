@@ -1,9 +1,20 @@
+import { createSlice } from '@reduxjs/toolkit';
 import { transpose } from '@regraph/geo/rect';
 
-export const moveBox = (state, { id, delta }) => {
-  state.boxes[id] = transpose(state.boxes[id], delta);
-};
+const slice = createSlice({
+  name: 'boxes',
+  initialState: [],
+  reducers: {
+    moveBox(boxes, action) {
+      const { id, delta } = action.payload;
+      boxes[id] = transpose(boxes[id], delta);
+    },
+    setBoxes(_boxes, action) {
+      return action.payload.boxes;
+    },
+  },
+});
 
-export const setBoxes = (state, { boxes }) => {
-  state.boxes = boxes;
-};
+export const { moveBox, setBoxes } = slice.actions;
+
+export default slice.reducer;

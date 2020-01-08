@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 
-export default ({ initialState, reducer, tool }) => {
-  const enhancer = applyMiddleware(thunk, tool);
-
-  const store = createStore(reducer, initialState, enhancer);
+export default ({ initialState: preloadedState, reducer, tool }) => {
+  const store = configureStore({
+    reducer,
+    preloadedState,
+    middleware: [...getDefaultMiddleware({ serializableCheck: false }), tool],
+  });
 
   const Editor = ({ children }) => (
     <Provider store={store}>{children}</Provider>
