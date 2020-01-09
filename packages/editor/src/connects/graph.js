@@ -3,10 +3,9 @@ import { setBoxes } from '../actions';
 
 const mapDispatchToProps = autoBox => dispatch => {
   const handlers = {
-    onDragStart: event => dispatch({ type: 'dragStart', event }),
-    onDrag: event => dispatch({ type: 'drag', event }),
-    onDragEnd: event => dispatch({ type: 'dragEnd', event }),
-    onClick: event => dispatch({ type: 'click', event }),
+    onMouseDown: event => dispatch({ type: 'mouseDown', event }),
+    onMouseMove: event => dispatch({ type: 'mouseMove', event }),
+    onMouseUp: event => dispatch({ type: 'mouseUp', event }),
   };
   if (autoBox) {
     handlers.onBoxes = boxes => dispatch(setBoxes({ boxes }));

@@ -6,7 +6,7 @@ import { fromRect, toSvgProps } from '@regraph/geo/ellipse';
 import { transpose } from '@regraph/geo/rect';
 
 const Circle = ({ id, box }) => (
-  <ellipse id={id} {...toSvgProps(fromRect(box))} />
+  <ellipse id={id} data-target {...toSvgProps(fromRect(box))} />
 );
 
 const Graph = graph({
@@ -29,13 +29,13 @@ export default () => {
 
   const dragged = useRef(null);
 
-  const onDragStart = ({ target: { id } }) => {
+  const onMouseDown = ({ target: { id } }) => {
     if (boxes[id]) {
       dragged.current = id;
     }
   };
 
-  const onDrag = ({ getDelta }) => {
+  const onMouseMove = ({ getDelta }) => {
     const boxId = dragged.current;
     if (boxId) {
       setBoxes({
@@ -45,7 +45,7 @@ export default () => {
     }
   };
 
-  const onDragEnd = () => {
+  const onMouseUp = () => {
     dragged.current = null;
   };
 
@@ -58,9 +58,9 @@ export default () => {
       connections={[
         { id: 'ping->pong', src: { id: 'ping' }, dst: { id: 'pong' } },
       ]}
-      onDragStart={onDragStart}
-      onDrag={onDrag}
-      onDragEnd={onDragEnd}
+      onMouseDown={onMouseDown}
+      onMouseMove={onMouseMove}
+      onMouseUp={onMouseUp}
     />
   );
 };

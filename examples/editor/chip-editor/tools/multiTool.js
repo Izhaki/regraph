@@ -25,22 +25,30 @@ export default store => {
 
   return next => action => {
     switch (action.type) {
-      case 'dragStart': {
+      case 'mouseDown': {
         const meta = getMeta(action);
+        tools.selection(next)(action);
         if (meta.draggable) {
           action.meta = meta;
           currentTool = targetTypeToTool[meta.type];
           return currentTool(next)(action);
         }
-        return false; // Cancel drag
+        break;
       }
 
-      case 'drag':
-      case 'dragEnd': {
-        return currentTool(next)(action);
+      case 'mouseMove': {
+        if (currentTool) {
+          return currentTool(next)(action);
+        }
+        break;
       }
-      case 'click': {
-        return tools.selection(next)(action);
+      case 'mouseUp': {
+        if (currentTool) {
+          const result = currentTool(next)(action);
+          currentTool = null;
+          return result;
+        }
+        break;
       }
       default:
     }

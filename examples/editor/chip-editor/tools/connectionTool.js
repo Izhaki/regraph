@@ -20,7 +20,7 @@ export default ({ getState }) => {
   let srcMeta = null;
   return next => action => {
     switch (action.type) {
-      case 'dragStart': {
+      case 'mouseDown': {
         const { connections } = getState();
         const dstMeta = action.meta;
         srcMeta = dstMeta;
@@ -39,7 +39,7 @@ export default ({ getState }) => {
         );
       }
 
-      case 'drag': {
+      case 'mouseMove': {
         const state = getState();
         const dstMeta = getDomainMeta(action.event.target, state);
         const isValid = isValidConnection(srcMeta, dstMeta, state.connections);
@@ -56,7 +56,7 @@ export default ({ getState }) => {
         );
       }
 
-      case 'dragEnd': {
+      case 'mouseUp': {
         const state = getState();
         const dstMeta = getDomainMeta(action.event.target, state);
         const isValid = isValidConnection(srcMeta, dstMeta, state.connections);

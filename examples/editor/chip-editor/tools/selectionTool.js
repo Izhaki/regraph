@@ -36,7 +36,7 @@ const deselectAll = (dispatch, selected) => {
 
 export default ({ getState, dispatch }) => next => action => {
   switch (action.type) {
-    case 'click': {
+    case 'mouseDown': {
       const state = getState();
       const meta = getDomainMeta(action.event.target, state);
       if (meta.selectable) {

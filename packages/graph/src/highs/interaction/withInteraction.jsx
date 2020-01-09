@@ -4,9 +4,9 @@ import useInteraction from './useInteraction';
 
 export default WrappedComponent => {
   const WithInteraction = ({
-    onDragStart,
-    onDrag,
-    onDragEnd,
+    onMouseDown,
+    onMouseMove,
+    onMouseUp,
     onClick,
     ...props
   }) => {
@@ -14,9 +14,9 @@ export default WrappedComponent => {
     const interactionProps = useInteraction({
       ref,
       onClick,
-      onDragStart,
-      onDrag,
-      onDragEnd,
+      onMouseDown,
+      onMouseMove,
+      onMouseUp,
     });
 
     return <WrappedComponent {...interactionProps} {...props} />;
@@ -24,9 +24,9 @@ export default WrappedComponent => {
 
   WithInteraction.propTypes = {
     onClick: PropTypes.func,
-    onDrag: PropTypes.func,
-    onDragEnd: PropTypes.func,
-    onDragStart: PropTypes.func,
+    onMouseDown: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    onMouseUp: PropTypes.func,
   };
 
   return WithInteraction;

@@ -4,12 +4,12 @@ export default () => {
   let dragged;
   return next => action => {
     switch (action.type) {
-      case 'dragStart': {
+      case 'mouseDown': {
         dragged = action.meta.id;
         break;
       }
 
-      case 'drag': {
+      case 'mouseMove': {
         return next(
           moveBox({
             id: dragged,
@@ -18,7 +18,7 @@ export default () => {
         );
       }
 
-      case 'dragEnd': {
+      case 'mouseUp': {
         dragged = null;
         break;
       }

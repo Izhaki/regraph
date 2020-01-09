@@ -11,7 +11,7 @@ export default () => {
   let dragged;
   return next => action => {
     switch (action.type) {
-      case 'dragStart': {
+      case 'mouseDown': {
         const meta = getDomainMeta(action.event.target);
         if (isValidDragSource(meta)) {
           dragged = meta.id;
@@ -21,16 +21,19 @@ export default () => {
         break;
       }
 
-      case 'drag': {
-        return next(
-          moveBox({
-            id: dragged,
-            delta: action.event.getDelta(),
-          })
-        );
+      case 'mouseMove': {
+        if (dragged) {
+          return next(
+            moveBox({
+              id: dragged,
+              delta: action.event.getDelta(),
+            })
+          );
+        }
+        break;
       }
 
-      case 'dragEnd': {
+      case 'mouseUp': {
         dragged = null;
         break;
       }
