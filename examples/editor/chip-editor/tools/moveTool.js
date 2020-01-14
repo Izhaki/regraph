@@ -5,7 +5,7 @@ export default () => {
   return next => action => {
     switch (action.type) {
       case 'mouseDown': {
-        dragged = action.meta.id;
+        dragged = action.event.target.id;
         break;
       }
 
@@ -13,7 +13,7 @@ export default () => {
         return next(
           moveBox({
             id: dragged,
-            delta: action.event.getDelta(),
+            delta: action.event.delta,
           })
         );
       }

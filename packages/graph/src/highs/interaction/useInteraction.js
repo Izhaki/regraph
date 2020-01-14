@@ -20,14 +20,22 @@ const useInteraction = compose(
 );
 
 export default ({
+  eventMapper = event => event,
   ref,
   onMouseDown = noop,
   onMouseMove = noop,
   onMouseUp = noop,
+  props,
 }) => {
-  const onMouseDownStable = useEventCallback(onMouseDown);
-  const onMouseMoveStable = useEventCallback(onMouseMove);
-  const onMouseUpStable = useEventCallback(onMouseUp);
+  const onMouseDownStable = useEventCallback(event =>
+    onMouseDown(eventMapper(event, props))
+  );
+  const onMouseMoveStable = useEventCallback(event =>
+    onMouseMove(eventMapper(event, props))
+  );
+  const onMouseUpStable = useEventCallback(event =>
+    onMouseUp(eventMapper(event, props))
+  );
 
   const interactionProps = useMemo(
     () =>
@@ -37,7 +45,7 @@ export default ({
         onMouseMove: onMouseMoveStable,
         onMouseUp: onMouseUpStable,
       }),
-    [onMouseUpStable, onMouseMoveStable, onMouseDownStable, ref]
+    [ref, onMouseDownStable, onMouseMoveStable, onMouseUpStable]
   );
 
   const clickAwayRef = useMouseAway({

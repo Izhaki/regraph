@@ -2,21 +2,21 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import useInteraction from './useInteraction';
 
-export default WrappedComponent => {
+export default eventMapper => WrappedComponent => {
   const WithInteraction = ({
     onMouseDown,
     onMouseMove,
     onMouseUp,
-    onClick,
     ...props
   }) => {
     const ref = useRef(null);
     const interactionProps = useInteraction({
+      eventMapper,
       ref,
-      onClick,
       onMouseDown,
       onMouseMove,
       onMouseUp,
+      props,
     });
 
     return <WrappedComponent {...interactionProps} {...props} />;

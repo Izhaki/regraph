@@ -78,7 +78,8 @@ export default ({
     hocs.push(connector);
   }
   if (interactive) {
-    hocs.push(withInteraction);
+    const eventMapper = interactive === true ? undefined : interactive;
+    hocs.push(withInteraction(eventMapper));
   }
   if (autoBox) {
     hocs.push(withAutoBox);

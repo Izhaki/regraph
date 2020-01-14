@@ -5,8 +5,8 @@ export default createSlice({
   initialState: [],
   reducers: {
     select(selected, action) {
-      const { metas } = action.payload;
-      selected.push(...metas);
+      const { targets } = action.payload;
+      selected.push(...targets);
     },
     deselect(selected, action) {
       const { all } = action.payload;

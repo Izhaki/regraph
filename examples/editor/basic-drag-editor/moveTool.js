@@ -12,9 +12,9 @@ export default () => {
   return next => action => {
     switch (action.type) {
       case 'mouseDown': {
-        const meta = getDomainMeta(action.event.target);
-        if (isValidDragSource(meta)) {
-          dragged = meta.id;
+        const target = getDomainMeta(action.event.target);
+        if (isValidDragSource(target)) {
+          dragged = target.id;
         } else {
           return false; // Cancel drag
         }

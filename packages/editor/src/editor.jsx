@@ -8,8 +8,7 @@ export default ({ initialState, tool }) => {
   const store = configureStore({
     reducer,
     preloadedState: initialState,
-    devTools: false,
-    middleware: [...getDefaultMiddleware({ serializableCheck: false }), tool],
+    middleware: [...getDefaultMiddleware(), tool],
   });
 
   const Editor = ({ children }) => (

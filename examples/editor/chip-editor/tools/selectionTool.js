@@ -1,4 +1,3 @@
-import getDomainMeta from '../getDomainMeta';
 import {
   select,
   deselect,
@@ -31,35 +30,35 @@ const deselectAll = (dispatch, selected) => {
     })
   );
 
-  return dispatch(deselect({ metas: selected, all: true }));
+  return dispatch(deselect({ targets: selected, all: true }));
 };
 
 export default ({ getState, dispatch }) => next => action => {
   switch (action.type) {
     case 'mouseDown': {
-      const state = getState();
-      const meta = getDomainMeta(action.event.target, state);
-      if (meta.selectable) {
-        deselectAll(dispatch, state.selected);
-        if (isConnection(meta)) {
+      const { selected } = getState();
+      const { target } = action.event;
+      if (target.selectable) {
+        deselectAll(dispatch, selected);
+        if (isConnection(target)) {
           dispatch(
             updateConnections({
-              ids: [meta.id],
+              ids: [target.id],
               updates: { selected: true },
             })
           );
         }
-        if (isNode(meta)) {
+        if (isNode(target)) {
           dispatch(
             updateNodes({
-              ids: [meta.id],
+              ids: [target.id],
               updates: { selected: true },
             })
           );
         }
-        return next(select({ metas: [meta] }));
+        return next(select({ targets: [target] }));
       }
-      return deselectAll(next, state.selected);
+      return deselectAll(next, selected);
     }
     default:
   }

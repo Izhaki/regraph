@@ -10,10 +10,12 @@ const getNodeConnectionsIds = ({ connections, nodeIds, connectionIds }) => {
     nodeIds.some(
       nodeId => connection.src.id === nodeId || connection.dst.id === nodeId
     );
-  return connections.filter(
-    connection =>
-      notSelected(connection) && isSelectedNodeConnection(connection)
-  );
+  return connections
+    .filter(
+      connection =>
+        notSelected(connection) && isSelectedNodeConnection(connection)
+    )
+    .map(getId);
 };
 
 export default () => (dispatch, getState) => {
@@ -33,8 +35,8 @@ export default () => (dispatch, getState) => {
     })
   );
 
-  // Providing empty `metas` means connections and nodes won't remove the
+  // Providing empty `targets` means connections and nodes won't remove the
   // selected flag from the (already deleted) items.
   // `all` will clear the `selected` array.
-  dispatch(deselect({ metas: [], all: true }));
+  dispatch(deselect({ targets: [], all: true }));
 };

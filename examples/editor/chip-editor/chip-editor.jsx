@@ -7,10 +7,17 @@ import multiTool from './tools/multiTool';
 import { fader, lfo, filter } from './chips';
 import { targetifyNode, targetifyConnection } from './targetify';
 import Actions from './components/actions/Actions';
+import getDomainTarget from './getDomainTarget';
+
+const eventMapper = (event, props) => ({
+  target: getDomainTarget(event.target, props),
+  delta: event.getDelta && event.getDelta(),
+  position: event.getPosition(),
+});
 
 const Graph = graph({
   connector: connectGraph({ autoBox: true }),
-  interactive: true,
+  interactive: eventMapper,
   layout: true,
   autoBox: true,
   connection: {

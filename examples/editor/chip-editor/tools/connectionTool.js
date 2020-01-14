@@ -1,5 +1,4 @@
 import { find } from '../../../../packages/editor/src/slices/utils';
-import getDomainMeta from '../getDomainMeta';
 import isValidConnection from '../isValidConnection';
 import {
   addConnection,
@@ -17,40 +16,45 @@ const getEndId = end => `${end.id}/${end.port}`;
 const generateId = ({ src, dst }) => `${getEndId(src)}->${getEndId(dst)}`;
 
 export default ({ getState }) => {
-  let srcMeta = null;
+  let source = null;
   return next => action => {
     switch (action.type) {
       case 'mouseDown': {
         const { connections } = getState();
-        const dstMeta = action.meta;
-        srcMeta = dstMeta;
-        const isValid = isValidConnection(srcMeta, dstMeta, connections);
+        const { target } = action.event;
+        source = target;
+        const isValid = isValidConnection(source, target, connections);
 
         const [from, to] =
-          srcMeta.type === 'output' ? ['src', 'dst'] : ['dst', 'src'];
-        const end = getEnd(srcMeta);
+          source.type === 'output' ? ['src', 'dst'] : ['dst', 'src'];
+        const end = getEnd(source);
 
         return next(
           addConnection({
             id: '@@draggedConnection',
             [from]: end,
-            [to]: isValid ? end : action.event.getPosition(),
+            [to]: isValid ? end : action.event.position,
           })
         );
       }
 
       case 'mouseMove': {
         const state = getState();
-        const dstMeta = getDomainMeta(action.event.target, state);
-        const isValid = isValidConnection(srcMeta, dstMeta, state.connections);
+        const isValid = isValidConnection(
+          source,
+          action.event.target,
+          state.connections
+        );
 
-        const end = srcMeta.type === 'output' ? 'dst' : 'src';
+        const end = source.type === 'output' ? 'dst' : 'src';
 
         return next(
           updateConnections({
             ids: ['@@draggedConnection'],
             updates: {
-              [end]: isValid ? getEnd(dstMeta) : action.event.getPosition(),
+              [end]: isValid
+                ? getEnd(action.event.target)
+                : action.event.position,
             },
           })
         );
@@ -58,8 +62,11 @@ export default ({ getState }) => {
 
       case 'mouseUp': {
         const state = getState();
-        const dstMeta = getDomainMeta(action.event.target, state);
-        const isValid = isValidConnection(srcMeta, dstMeta, state.connections);
+        const isValid = isValidConnection(
+          source,
+          action.event.target,
+          state.connections
+        );
 
         if (!isValid) {
           return next(

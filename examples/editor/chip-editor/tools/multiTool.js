@@ -1,15 +1,9 @@
-import getDomainMeta from '../getDomainMeta';
 import connectionTool from './connectionTool';
 import moveTool from './moveTool';
 import selectionTool from './selectionTool';
 
 export default store => {
   let currentTool = null;
-
-  const getMeta = action => {
-    const state = store.getState();
-    return getDomainMeta(action.event.target, state);
-  };
 
   const tools = {
     connection: connectionTool(store),
@@ -26,11 +20,10 @@ export default store => {
   return next => action => {
     switch (action.type) {
       case 'mouseDown': {
-        const meta = getMeta(action);
         tools.selection(next)(action);
-        if (meta.draggable) {
-          action.meta = meta;
-          currentTool = targetTypeToTool[meta.type];
+        const { target } = action.event;
+        if (target.draggable) {
+          currentTool = targetTypeToTool[target.type];
           return currentTool(next)(action);
         }
         break;
