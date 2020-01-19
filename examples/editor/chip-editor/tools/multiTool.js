@@ -1,5 +1,4 @@
 import connectionTool from './connectionTool';
-import moveTool from './moveTool';
 import selectionTool from './selectionTool';
 
 export default store => {
@@ -7,14 +6,13 @@ export default store => {
 
   const tools = {
     connection: connectionTool(store),
-    move: moveTool(store),
     selection: selectionTool(store),
   };
 
   const targetTypeToTool = {
     input: tools.connection,
     output: tools.connection,
-    node: tools.move,
+    node: tools.selection,
   };
 
   return next => action => {

@@ -1,91 +1,37 @@
-import { find } from '../../../../packages/editor/src/slices/utils';
-import isValidConnection from '../isValidConnection';
-import {
-  addConnection,
-  updateConnections,
-  removeConnections,
-} from '@regraph/editor/actions';
-
-const getEnd = ({ id, port, type }) => ({
-  id,
-  port: port.id,
-  anchor: type === 'input' ? 'left' : 'right',
-});
-
-const getEndId = end => `${end.id}/${end.port}`;
-const generateId = ({ src, dst }) => `${getEndId(src)}->${getEndId(dst)}`;
+import getEditPolicies from '../editPolicies';
 
 export default ({ getState }) => {
   let source = null;
   return next => action => {
     switch (action.type) {
       case 'mouseDown': {
-        const { connections } = getState();
         const { target } = action.event;
-        source = target;
-        const isValid = isValidConnection(source, target, connections);
-
-        const [from, to] =
-          source.type === 'output' ? ['src', 'dst'] : ['dst', 'src'];
-        const end = getEnd(source);
-
-        return next(
-          addConnection({
-            id: '@@draggedConnection',
-            [from]: end,
-            [to]: isValid ? end : action.event.position,
-          })
-        );
+        const { connection } = getEditPolicies(target);
+        if (connection) {
+          source = target;
+          return next(connection.start(target, action.event, getState()));
+        }
+        break;
       }
 
       case 'mouseMove': {
-        const state = getState();
-        const isValid = isValidConnection(
-          source,
-          action.event.target,
-          state.connections
-        );
-
-        const end = source.type === 'output' ? 'dst' : 'src';
-
-        return next(
-          updateConnections({
-            ids: ['@@draggedConnection'],
-            updates: {
-              [end]: isValid
-                ? getEnd(action.event.target)
-                : action.event.position,
-            },
-          })
-        );
+        if (source) {
+          const { target } = action.event;
+          const { connection } = getEditPolicies(source);
+          return next(
+            connection.drag(source, target, action.event, getState())
+          );
+        }
+        break;
       }
 
       case 'mouseUp': {
-        const state = getState();
-        const isValid = isValidConnection(
-          source,
-          action.event.target,
-          state.connections
-        );
-
-        if (!isValid) {
-          return next(
-            removeConnections({
-              ids: ['@@draggedConnection'],
-            })
-          );
+        if (source) {
+          const { target } = action.event;
+          const { connection } = getEditPolicies(source);
+          return next(connection.end(source, target, action.event, getState()));
         }
-
-        const connection = find(state.connections, '@@draggedConnection');
-        return next(
-          updateConnections({
-            ids: ['@@draggedConnection'],
-            updates: {
-              id: generateId(connection),
-              overlay: true,
-            },
-          })
-        );
+        break;
       }
       default:
     }

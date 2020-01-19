@@ -48,6 +48,7 @@ export default ({
     [ref, onMouseDownStable, onMouseMoveStable, onMouseUpStable]
   );
 
+  // This one's here and not within useMemo as putting it their means a hook within a hook
   const clickAwayRef = useMouseAway({
     mouseEvent: 'onMouseUp',
     onMouseAway: interactionProps.onMouseUp,
