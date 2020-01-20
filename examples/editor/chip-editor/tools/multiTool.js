@@ -1,11 +1,10 @@
 import connectionTool from './connectionTool';
 import selectionTool from './selectionTool';
-import getEditPolicies from '../editPolicies';
 
-export default store => {
+export default getEditPolicies => store => {
   const tools = {
-    connection: connectionTool(store),
-    selection: selectionTool(store),
+    connection: connectionTool(getEditPolicies)(store),
+    selection: selectionTool(getEditPolicies)(store),
   };
 
   const defaultToll = tools.selection;

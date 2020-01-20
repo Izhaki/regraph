@@ -4,11 +4,17 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import reducer from './reducer';
 import { Provider } from 'react-redux';
 
-export default ({ initialState, tool }) => {
+export default ({ initialState, tool, getEditPolicies }) => {
+  const defaultMiddleware = getDefaultMiddleware({
+    thunk: {
+      extraArgument: getEditPolicies,
+    },
+  });
+
   const store = configureStore({
     reducer,
     preloadedState: initialState,
-    middleware: [...getDefaultMiddleware(), tool],
+    middleware: [...defaultMiddleware, tool(getEditPolicies)],
   });
 
   const Editor = ({ children }) => (

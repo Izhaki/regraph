@@ -1,6 +1,4 @@
-import getEditPolicies from '../editPolicies';
-
-export default ({ getState }) => {
+export default getEditPolicies => ({ getState }) => {
   let source = null;
   return next => action => {
     switch (action.type) {

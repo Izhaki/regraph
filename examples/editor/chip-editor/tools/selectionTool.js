@@ -1,9 +1,8 @@
 import { select, deselect } from '@regraph/editor/actions';
-import getEditPolicies from '../editPolicies';
 
-const isEmpty = connection => connection.length === 0;
+const isEmpty = collection => collection.length === 0;
 
-const deselectAll = (dispatch, selected) => {
+const deselectAll = (getEditPolicies, dispatch, selected) => {
   if (isEmpty(selected)) {
     return false;
   }
@@ -18,13 +17,13 @@ const deselectAll = (dispatch, selected) => {
   return dispatch(deselect({ targets: selected, all: true }));
 };
 
-export default ({ getState, dispatch }) => {
+export default getEditPolicies => ({ getState, dispatch }) => {
   let current;
   return next => action => {
     switch (action.type) {
       case 'mouseDown': {
         const { selected } = getState();
-        deselectAll(dispatch, selected);
+        deselectAll(getEditPolicies, dispatch, selected);
 
         const { target } = action.event;
         const { select: selectPolicy } = getEditPolicies(target);

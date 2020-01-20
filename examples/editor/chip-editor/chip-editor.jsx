@@ -8,6 +8,7 @@ import { fader, lfo, filter } from './chips';
 import { targetifyNode, targetifyConnection } from './targetify';
 import Actions from './components/actions/Actions';
 import getDomainTarget from './getDomainTarget';
+import getEditPolicies from './editPolicies';
 
 const eventMapper = (event, props) => ({
   target: getDomainTarget(event.target, props),
@@ -31,6 +32,7 @@ const Graph = graph({
 
 const GraphEditor = editor({
   tool: multiTool,
+  getEditPolicies,
   initialState: {
     nodes: [
       { id: 'fader', ...fader },
