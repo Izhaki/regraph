@@ -13,8 +13,6 @@ export default (element, { nodes }) => {
         type,
         port,
         id,
-        draggable: true,
-        selectable: false,
       };
     }
 
@@ -22,8 +20,6 @@ export default (element, { nodes }) => {
       return {
         type,
         id: element.id,
-        draggable: true,
-        selectable: true,
       };
     }
 
@@ -31,14 +27,9 @@ export default (element, { nodes }) => {
       return {
         type,
         id: element.getAttribute('data-target-id'),
-        draggable: false,
-        selectable: true,
       };
     }
     default:
-      return {
-        draggable: false,
-        selectable: false,
-      };
+      return {};
   }
 };
