@@ -1,4 +1,4 @@
-import { select, deselect } from '@regraph/editor/actions';
+import { select, deselect } from '../actions';
 
 const isEmpty = collection => collection.length === 0;
 
