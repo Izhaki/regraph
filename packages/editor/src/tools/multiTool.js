@@ -7,15 +7,15 @@ export default getEditPolicies => store => {
     selection: selectionTool(getEditPolicies)(store),
   };
 
-  const defaultToll = tools.selection;
-  let currentTool = defaultToll;
+  const defaultTool = tools.selection;
+  let currentTool = defaultTool;
 
   return next => action => {
     switch (action.type) {
       case 'mouseDown': {
         const { target } = action.event;
         const { connection: connectionPolicy } = getEditPolicies(target);
-        currentTool = connectionPolicy ? tools.connection : defaultToll;
+        currentTool = connectionPolicy ? tools.connection : defaultTool;
         return currentTool(next)(action);
       }
 
@@ -28,7 +28,7 @@ export default getEditPolicies => store => {
       case 'mouseUp': {
         if (currentTool) {
           const result = currentTool(next)(action);
-          currentTool = defaultToll;
+          currentTool = defaultTool;
           return result;
         }
         break;

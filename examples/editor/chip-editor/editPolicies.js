@@ -1,4 +1,3 @@
-import { find } from '../../../packages/editor/src/slices/utils';
 import isValidConnection from './isValidConnection';
 import {
   addConnection,
@@ -6,7 +5,13 @@ import {
   removeConnections,
   updateConnections,
   updateNodes,
+  removeNodes,
 } from '@regraph/editor/actions';
+
+import {
+  getConnectionById,
+  getNodeConnectionsIds,
+} from '@regraph/editor/selectors';
 
 const getEndId = end => `${end.id}/${end.port}`;
 const generateId = ({ src, dst }) => `${getEndId(src)}->${getEndId(dst)}`;
@@ -44,7 +49,8 @@ const port = {
         },
       });
     },
-    end: (source, target, event, { connections }) => {
+    end: (source, target, _, state) => {
+      const { connections } = state;
       const isValid = isValidConnection(source, target, connections);
 
       if (!isValid) {
@@ -53,7 +59,7 @@ const port = {
         });
       }
 
-      const connection = find(connections, '@@draggedConnection');
+      const connection = getConnectionById(state, '@@draggedConnection');
       return updateConnections({
         ids: ['@@draggedConnection'],
         updates: {
@@ -69,10 +75,15 @@ const editPolicies = {
   connection: {
     select: setSelection(updateConnections, true),
     deselect: setSelection(updateConnections, false),
+    delete: target => removeConnections({ ids: [target.id] }),
   },
   node: {
     select: setSelection(updateNodes, true),
     deselect: setSelection(updateNodes, false),
+    delete: (target, state) => [
+      removeNodes({ ids: [target.id] }),
+      removeConnections({ ids: getNodeConnectionsIds(state, target.id) }),
+    ],
     move: (target, event) =>
       moveBox({
         id: target.id,
