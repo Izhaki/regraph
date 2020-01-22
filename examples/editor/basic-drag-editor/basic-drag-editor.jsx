@@ -1,18 +1,28 @@
 import React from 'react';
 import { graph } from '@regraph/graph';
-import { editor, connectGraph } from '@regraph/editor';
+import { editor, connectGraph, selectionTool } from '@regraph/editor';
 import { Line } from '@regraph/connections';
 import { Triangle } from '@regraph/arrowheads';
 import { fromRect, toSvgProps } from '@regraph/geo/ellipse';
-import moveTool from './moveTool';
+import getEditPolicies from './editPolicies';
 
 const Circle = ({ box, ...props }) => (
   <ellipse {...props} {...toSvgProps(fromRect(box))} />
 );
 
+const getDomainTarget = element => ({
+  type: element.getAttribute('data-target'),
+  id: element.id,
+});
+
+const eventMapper = event => ({
+  target: getDomainTarget(event.target),
+  delta: event.getDelta && event.getDelta(),
+});
+
 const Graph = graph({
   connector: connectGraph(),
-  interactive: true,
+  interactive: eventMapper,
   layout: true,
   node: { type: Circle, 'data-target': 'node' },
   connection: {
@@ -24,7 +34,8 @@ const Graph = graph({
 });
 
 const GraphEditor = editor({
-  tool: moveTool,
+  tool: selectionTool,
+  getEditPolicies,
   initialState: {
     nodes: [{ id: 'ping' }, { id: 'pong' }],
     boxes: {
