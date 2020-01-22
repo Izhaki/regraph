@@ -1,4 +1,4 @@
-import { deselect } from '../slices/actions';
+import { clearSelection } from '../slices/actions';
 
 const { isArray } = Array;
 
@@ -18,5 +18,5 @@ export default () => (dispatch, getState, getEditPolicies) => {
   // Providing empty `targets` means connections and nodes won't remove the
   // selected flag from the (already deleted) items.
   // `all` will clear the `selected` array.
-  dispatch(deselect({ targets: [], all: true }));
+  dispatch(clearSelection());
 };

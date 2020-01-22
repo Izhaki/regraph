@@ -1,4 +1,4 @@
-import { select, deselect } from '../actions';
+import { select, clearSelection } from '../actions';
 
 const isEmpty = collection => collection.length === 0;
 
@@ -14,7 +14,7 @@ const deselectAll = (getEditPolicies, dispatch, selected) => {
     }
   });
 
-  return dispatch(deselect({ targets: selected, all: true }));
+  return dispatch(clearSelection());
 };
 
 export default getEditPolicies => ({ getState, dispatch }) => {

@@ -17,4 +17,4 @@ export const {
 
 export const { set: setBoxes, move: moveBox } = boxes.actions;
 
-export const { select, deselect } = selected.actions;
+export const { select, clearSelection } = selected.actions;
