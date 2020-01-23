@@ -5,6 +5,9 @@ export default createSlice({
   name: 'nodes',
   initialState: [],
   reducers: {
+    set(_, action) {
+      return action.payload;
+    },
     add(nodes, action) {
       const { node } = action.payload;
       nodes.push(node);

@@ -1,5 +1,5 @@
-import isValidConnection from './isValidConnection';
 import {
+  setNodes,
   addConnection,
   moveBox,
   removeConnections,
@@ -12,6 +12,8 @@ import {
   getConnectionById,
   getNodeConnectionsIds,
 } from '@regraph/editor/selectors';
+import isValidConnection from './isValidConnection';
+import { markValidPorts, unmarkValidPorts } from './markValidPorts';
 
 const getEndId = end => `${end.id}/${end.port}`;
 const generateId = ({ src, dst }) => `${getEndId(src)}->${getEndId(dst)}`;
@@ -29,19 +31,24 @@ const port = {
   connection: () => {
     let source;
     return {
-      start: (event, { connections }) => {
+      start: (event, state) => {
+        const { connections } = state;
         const { target } = event;
         source = target;
+        const nextNodes = markValidPorts(state, source);
         const isValid = isValidConnection(source, target, connections);
         const [from, to] =
           target.type === 'output' ? ['src', 'dst'] : ['dst', 'src'];
         const end = getEnd(target);
 
-        return addConnection({
-          id: '@@draggedConnection',
-          [from]: end,
-          [to]: isValid ? end : event.position,
-        });
+        return [
+          setNodes(nextNodes),
+          addConnection({
+            id: '@@draggedConnection',
+            [from]: end,
+            [to]: isValid ? end : event.position,
+          }),
+        ];
       },
       drag: (event, { connections }) => {
         const isValid = isValidConnection(source, event.target, connections);
@@ -54,23 +61,29 @@ const port = {
         });
       },
       end: (event, state) => {
-        const { connections } = state;
+        const { connections, nodes } = state;
         const isValid = isValidConnection(source, event.target, connections);
-
+        const nextNodes = unmarkValidPorts(nodes);
         if (!isValid) {
-          return removeConnections({
-            ids: ['@@draggedConnection'],
-          });
+          return [
+            setNodes(nextNodes),
+            removeConnections({
+              ids: ['@@draggedConnection'],
+            }),
+          ];
         }
 
         const connection = getConnectionById(state, '@@draggedConnection');
-        return updateConnections({
-          ids: ['@@draggedConnection'],
-          updates: {
-            id: generateId(connection),
-            overlay: true,
-          },
-        });
+        return [
+          setNodes(nextNodes),
+          updateConnections({
+            ids: ['@@draggedConnection'],
+            updates: {
+              id: generateId(connection),
+              overlay: true,
+            },
+          }),
+        ];
       },
     };
   },
