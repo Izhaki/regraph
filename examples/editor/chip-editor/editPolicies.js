@@ -26,48 +26,53 @@ const getEnd = ({ id, port, type }) => ({
 });
 
 const port = {
-  connection: {
-    start: (target, event, { connections }) => {
-      const isValid = isValidConnection(target, target, connections);
-      const [from, to] =
-        target.type === 'output' ? ['src', 'dst'] : ['dst', 'src'];
-      const end = getEnd(target);
+  connection: () => {
+    let source;
+    return {
+      start: (event, { connections }) => {
+        const { target } = event;
+        source = target;
+        const isValid = isValidConnection(source, target, connections);
+        const [from, to] =
+          target.type === 'output' ? ['src', 'dst'] : ['dst', 'src'];
+        const end = getEnd(target);
 
-      return addConnection({
-        id: '@@draggedConnection',
-        [from]: end,
-        [to]: isValid ? end : event.position,
-      });
-    },
-    drag: (source, target, event, { connections }) => {
-      const isValid = isValidConnection(source, target, connections);
-      const end = source.type === 'output' ? 'dst' : 'src';
-      return updateConnections({
-        ids: ['@@draggedConnection'],
-        updates: {
-          [end]: isValid ? getEnd(target) : event.position,
-        },
-      });
-    },
-    end: (source, target, _, state) => {
-      const { connections } = state;
-      const isValid = isValidConnection(source, target, connections);
-
-      if (!isValid) {
-        return removeConnections({
-          ids: ['@@draggedConnection'],
+        return addConnection({
+          id: '@@draggedConnection',
+          [from]: end,
+          [to]: isValid ? end : event.position,
         });
-      }
+      },
+      drag: (event, { connections }) => {
+        const isValid = isValidConnection(source, event.target, connections);
+        const end = source.type === 'output' ? 'dst' : 'src';
+        return updateConnections({
+          ids: ['@@draggedConnection'],
+          updates: {
+            [end]: isValid ? getEnd(event.target) : event.position,
+          },
+        });
+      },
+      end: (event, state) => {
+        const { connections } = state;
+        const isValid = isValidConnection(source, event.target, connections);
 
-      const connection = getConnectionById(state, '@@draggedConnection');
-      return updateConnections({
-        ids: ['@@draggedConnection'],
-        updates: {
-          id: generateId(connection),
-          overlay: true,
-        },
-      });
-    },
+        if (!isValid) {
+          return removeConnections({
+            ids: ['@@draggedConnection'],
+          });
+        }
+
+        const connection = getConnectionById(state, '@@draggedConnection');
+        return updateConnections({
+          ids: ['@@draggedConnection'],
+          updates: {
+            id: generateId(connection),
+            overlay: true,
+          },
+        });
+      },
+    };
   },
 };
 
