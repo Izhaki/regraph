@@ -13,6 +13,7 @@ const eventMapper = (event, props) => ({
   target: getDomainTarget(event.target, props),
   delta: event.getDelta && event.getDelta(),
   position: event.getPosition(),
+  shiftKey: event.shiftKey,
 });
 
 const Graph = graph({

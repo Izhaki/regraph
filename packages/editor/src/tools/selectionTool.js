@@ -24,9 +24,12 @@ export default getEditPolicies => ({ getState, dispatch }) => {
     switch (action.type) {
       case 'mouseDown': {
         const { selected } = getState();
-        deselectAll(getEditPolicies, dispatch, selected);
+        const { target, shiftKey } = action.event;
 
-        const { target } = action.event;
+        if (!shiftKey) {
+          deselectAll(getEditPolicies, dispatch, selected);
+        }
+
         const policies = getEditPolicies(target);
         if (policies.select) {
           ensureArray(policies.select(target)).forEach(dispatch);
