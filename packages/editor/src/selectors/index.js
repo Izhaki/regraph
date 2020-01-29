@@ -3,6 +3,7 @@ import { createSelector } from '@reduxjs/toolkit';
 const liftId = (_, id) => id;
 
 const getConnections = state => state.connections;
+const getCommands = state => state.commands;
 
 export const getConnectionById = createSelector(
   [getConnections, liftId],
@@ -21,4 +22,9 @@ export const getNodeConnections = createSelector(
 export const getNodeConnectionsIds = createSelector(
   [getNodeConnections],
   connections => connections.map(connection => connection.id)
+);
+
+export const getUndoCommand = createSelector(
+  [getCommands],
+  ({ stack }) => stack[stack.length - 1]
 );

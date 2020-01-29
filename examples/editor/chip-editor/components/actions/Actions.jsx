@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import DeleteSelected from './DeleteSelected';
+import Undo from './Undo';
 
 const useStyles = makeStyles(theme => ({
   actions: {
@@ -19,6 +20,7 @@ const Actions = () => {
       <Divider />
       <div className={classes.actions}>
         <DeleteSelected />
+        <Undo />
       </div>
     </>
   );

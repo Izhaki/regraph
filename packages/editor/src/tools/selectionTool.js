@@ -1,4 +1,4 @@
-import { select, clearSelection } from '../actions';
+import { select, clearSelection, addCommand } from '../actions';
 import { ensureArray } from '../utils';
 
 const isEmpty = collection => collection.length === 0;
@@ -20,17 +20,23 @@ const deselectAll = (getEditPolicies, dispatch, selected) => {
 
 export default getEditPolicies => ({ getState, dispatch }) => {
   let current;
+  let policies;
+  let beforeState;
+  let hasMoved = false;
   return next => action => {
     switch (action.type) {
       case 'mouseDown': {
         const { selected } = getState();
         const { target, shiftKey } = action.event;
 
+        beforeState = getState();
+        hasMoved = false;
+
         if (!shiftKey) {
           deselectAll(getEditPolicies, dispatch, selected);
         }
 
-        const policies = getEditPolicies(target);
+        policies = getEditPolicies(target);
         if (policies.select) {
           ensureArray(policies.select(target)).forEach(dispatch);
         }
@@ -42,8 +48,8 @@ export default getEditPolicies => ({ getState, dispatch }) => {
       }
       case 'mouseMove': {
         if (current) {
-          const policies = getEditPolicies(current);
           if (policies.move) {
+            hasMoved = true;
             return next(policies.move(current, action.event));
           }
         }
@@ -51,6 +57,14 @@ export default getEditPolicies => ({ getState, dispatch }) => {
       }
 
       case 'mouseUp': {
+        if (hasMoved) {
+          const state = getState();
+          dispatch(
+            addCommand({ title: 'Move', beforeState, afterState: state })
+          );
+          hasMoved = false;
+          beforeState = null;
+        }
         current = null;
         break;
       }
