@@ -24,5 +24,6 @@ export const { select, clearSelection } = selected.actions;
 
 export const { add: addCommand } = commands.actions;
 export const { undo: undoCommand } = commands.actions;
+export const { redo: redoCommand } = commands.actions;
 
 export const reinstate = createAction('reinstate');

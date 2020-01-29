@@ -6,13 +6,13 @@ import { useKeyboardListener } from 'actionsack';
 import { connectUndoAction } from '@regraph/editor';
 
 const Undo = ({ canUndo, undo }) => {
-  useKeyboardListener('⌘-z', undo);
+  useKeyboardListener('cmd-z', () => canUndo && undo());
   return (
     <IconButton
       onClick={undo}
       disabled={!canUndo}
       size="small"
-      aria-label="delete">
+      aria-label="undo">
       <UndoIcon />
     </IconButton>
   );

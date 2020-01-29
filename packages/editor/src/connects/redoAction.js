@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
-import { undo } from '../actions';
+import { redo } from '../actions';
+
+const isLast = (list, index) => index === list.length - 1;
 
 const mapStateToProps = ({ commands }) => ({
-  canUndo: commands.head >= 0,
+  canRedo: !isLast(commands.stack, commands.head),
 });
 
 const mapDispatchToProps = {
-  undo,
+  redo,
 };
 
 export default connect(

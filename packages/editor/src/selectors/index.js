@@ -26,5 +26,10 @@ export const getNodeConnectionsIds = createSelector(
 
 export const getUndoCommand = createSelector(
   [getCommands],
-  ({ stack }) => stack[stack.length - 1]
+  ({ stack, head }) => stack[head]
+);
+
+export const getRedoCommand = createSelector(
+  [getCommands],
+  ({ stack, head }) => stack[head + 1]
 );

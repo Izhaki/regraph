@@ -4,14 +4,19 @@ export default createSlice({
   name: 'commands',
   initialState: {
     stack: [],
-    current: null,
+    head: -1,
   },
   reducers: {
-    add({ stack }, action) {
-      stack.push(action.payload);
+    add(commands, action) {
+      commands.head += 1;
+      commands.stack.splice(commands.head);
+      commands.stack.push(action.payload);
     },
-    undo({ stack }) {
-      stack.pop();
+    undo(commands) {
+      commands.head -= 1;
+    },
+    redo(commands) {
+      commands.head += 1;
     },
   },
 });
