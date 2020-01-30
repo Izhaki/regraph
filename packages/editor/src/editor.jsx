@@ -9,6 +9,10 @@ export default ({ initialState, tool, getEditPolicies }) => {
     thunk: {
       extraArgument: getEditPolicies,
     },
+    // We disable these as they choke even a modern MacBook.
+    // We should enable in Test mode only.
+    serializableCheck: false,
+    immutableCheck: false,
   });
 
   const store = configureStore({

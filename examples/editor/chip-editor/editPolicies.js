@@ -6,6 +6,7 @@ import {
   updateConnections,
   updateNodes,
   removeNodes,
+  addCommand,
 } from '@regraph/editor/actions';
 
 import {
@@ -30,8 +31,10 @@ const getEnd = ({ id, port, type }) => ({
 const port = {
   connection: () => {
     let source;
+    let beforeState;
     return {
       start: (event, state) => {
+        beforeState = state;
         const { connections } = state;
         const { target } = event;
         source = target;
@@ -64,26 +67,33 @@ const port = {
         const { connections, nodes } = state;
         const isValid = isValidConnection(source, event.target, connections);
         const nextNodes = unmarkValidPorts(nodes);
-        if (!isValid) {
-          return [
-            setNodes(nextNodes),
+        const actions = [setNodes(nextNodes)];
+        if (isValid) {
+          const connection = getConnectionById(state, '@@draggedConnection');
+          actions.push(
+            updateConnections({
+              ids: ['@@draggedConnection'],
+              updates: {
+                id: generateId(connection),
+                overlay: true,
+              },
+            }),
+            addCommand({
+              title: 'New Connection',
+              beforeState,
+              afterState: state,
+            })
+          );
+        } else {
+          actions.push(
             removeConnections({
               ids: ['@@draggedConnection'],
-            }),
-          ];
+            })
+          );
         }
 
-        const connection = getConnectionById(state, '@@draggedConnection');
-        return [
-          setNodes(nextNodes),
-          updateConnections({
-            ids: ['@@draggedConnection'],
-            updates: {
-              id: generateId(connection),
-              overlay: true,
-            },
-          }),
-        ];
+        beforeState = null;
+        return actions;
       },
     };
   },
