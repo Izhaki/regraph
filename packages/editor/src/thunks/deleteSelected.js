@@ -1,8 +1,9 @@
-import { clearSelection } from '../slices/actions';
+import { clearSelection, addCommand } from '../slices/actions';
 import { ensureArray } from '../utils';
 
 export default () => (dispatch, getState, getEditPolicies) => {
   const state = getState();
+
   const { selected } = state;
   selected.forEach(target => {
     const deletePolicy = getEditPolicies(target).delete;
@@ -12,4 +13,12 @@ export default () => (dispatch, getState, getEditPolicies) => {
   });
 
   dispatch(clearSelection());
+
+  dispatch(
+    addCommand({
+      title: 'Delete',
+      beforeState: state,
+      afterState: getState(),
+    })
+  );
 };
