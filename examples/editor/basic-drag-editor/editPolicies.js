@@ -2,11 +2,13 @@ import { moveBox } from '@regraph/editor/actions';
 
 const editPolicies = {
   node: {
-    move: (target, event) =>
-      moveBox({
-        id: target.id,
-        delta: event.delta,
-      }),
+    move: {
+      drag: (target, event) =>
+        moveBox({
+          id: target.id,
+          delta: event.delta,
+        }),
+    },
   },
 };
 

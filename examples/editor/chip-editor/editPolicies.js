@@ -112,11 +112,32 @@ const editPolicies = {
       removeNodes({ ids: [target.id] }),
       removeConnections({ ids: getNodeConnectionsIds(state, target.id) }),
     ],
-    move: (target, event) =>
-      moveBox({
-        id: target.id,
-        delta: event.delta,
-      }),
+    move: () => {
+      let beforeState;
+      let hasMoved = false;
+      return {
+        start: (target, event, state) => {
+          beforeState = state;
+        },
+        drag: (target, event) => {
+          hasMoved = true;
+          return moveBox({
+            id: target.id,
+            delta: event.delta,
+          });
+        },
+        end: (target, event, state) => {
+          if (hasMoved) {
+            return addCommand({
+              title: 'Move',
+              beforeState,
+              afterState: state,
+            });
+          }
+          return undefined;
+        },
+      };
+    },
   },
   output: port,
   input: port,
