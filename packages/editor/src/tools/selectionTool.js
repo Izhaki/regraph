@@ -1,5 +1,5 @@
 import { isFunction } from '@regraph/core/';
-import { select, clearSelection, addCommand } from '../actions';
+import { select, clearSelection } from '../actions';
 import { ensureArray } from '../utils';
 
 const isEmpty = collection => collection.length === 0;
@@ -63,7 +63,9 @@ export default getEditPolicies => ({ getState, dispatch }) => {
 
       case 'mouseUp': {
         if (current && movePolicy && movePolicy.end) {
-          dispatch(movePolicy.end(current, action.event, getState()));
+          ensureArray(
+            movePolicy.end(current, action.event, getState())
+          ).forEach(dispatch);
         }
 
         current = null;
