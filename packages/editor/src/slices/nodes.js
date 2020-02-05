@@ -9,7 +9,7 @@ export default createSlice({
       return action.payload;
     },
     add(nodes, action) {
-      const { node } = action.payload;
+      const node = action.payload;
       nodes.push(node);
     },
     update(nodes, action) {

@@ -1,11 +1,14 @@
+import { uuid } from '@regraph/core/';
 import {
+  addNode,
   setNodes,
-  addConnection,
-  moveBox,
-  removeConnections,
-  updateConnections,
   updateNodes,
   removeNodes,
+  addConnection,
+  removeConnections,
+  updateConnections,
+  addBox,
+  moveBox,
   addCommand,
 } from '@regraph/editor/actions';
 
@@ -13,8 +16,10 @@ import {
   getConnectionById,
   getNodeConnectionsIds,
 } from '@regraph/editor/selectors';
+
 import isValidConnection from './isValidConnection';
 import { markValidPorts, unmarkValidPorts } from './markValidPorts';
+import { targetifyNode } from './targetify';
 
 const getEndId = end => `${end.id}/${end.port}`;
 const generateId = ({ src, dst }) => `${getEndId(src)}->${getEndId(dst)}`;
@@ -106,6 +111,16 @@ const editPolicies = {
     delete: target => removeConnections({ ids: [target.id] }),
   },
   node: {
+    new: node => {
+      const newNode = targetifyNode({
+        ...node,
+        id: node.id || uuid(),
+      });
+      return [
+        addBox({ id: newNode.id, box: { x: 20, y: 20 } }),
+        addNode(newNode),
+      ];
+    },
     select: setSelection(updateNodes, true),
     deselect: setSelection(updateNodes, false),
     delete: (target, state) => [

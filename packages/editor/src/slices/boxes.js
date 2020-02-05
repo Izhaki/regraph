@@ -5,7 +5,11 @@ export default createSlice({
   name: 'boxes',
   initialState: [],
   reducers: {
-    set(_boxes, action) {
+    add(boxes, action) {
+      const { id, box } = action.payload;
+      boxes[id] = box;
+    },
+    set(_, action) {
       return action.payload.boxes;
     },
     move(boxes, action) {

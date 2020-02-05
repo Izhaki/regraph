@@ -18,12 +18,14 @@ export const {
   remove: removeNodes,
 } = nodes.actions;
 
-export const { set: setBoxes, move: moveBox } = boxes.actions;
+export const { add: addBox, set: setBoxes, move: moveBox } = boxes.actions;
 
 export const { select, clearSelection } = selected.actions;
 
-export const { add: addCommand } = commands.actions;
-export const { undo: undoCommand } = commands.actions;
-export const { redo: redoCommand } = commands.actions;
+export const {
+  add: addCommand,
+  undo: undoCommand,
+  redo: redoCommand,
+} = commands.actions;
 
 export const reinstate = createAction('reinstate');
