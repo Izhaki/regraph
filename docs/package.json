@@ -39,5 +39,8 @@
     "@types/node": "^12.7.5",
     "gh-pages": "^2.1.1",
     "typescript": "^3.6.3"
+  },
+  "resolutions": {
+    "**/terser-webpack-plugin": "^1.4.3"
   }
 }
