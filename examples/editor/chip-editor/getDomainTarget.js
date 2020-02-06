@@ -1,11 +1,26 @@
 const idEqual = id => item => item.id === id;
 
+const getTargetType = element => element.getAttribute('data-target');
+
+let target;
+let type;
+
 export default (element, { nodes }) => {
-  const type = element.getAttribute('data-target');
+  // This will work for all bug g elements
+  target = element;
+  type = getTargetType(target);
+  if (!type) {
+    // This is for the case of svg g elements - they emit no pointer events
+    // as they have no geometry. So we search the closest parent that has
+    // [data-target], stopping at the svg itself.
+    target = element.closest('[data-target], svg');
+    type = getTargetType(target);
+  }
+
   switch (type) {
     case 'input':
     case 'output': {
-      const [id, portId] = element.id.split('/');
+      const [id, portId] = target.id.split('/');
       const node = nodes.find(idEqual(id));
       const ports = node[type === 'input' ? 'inputs' : 'outputs'];
       const port = ports.find(idEqual(portId));
@@ -19,14 +34,14 @@ export default (element, { nodes }) => {
     case 'node': {
       return {
         type,
-        id: element.id,
+        id: target.id,
       };
     }
 
     case 'connection': {
       return {
         type,
-        id: element.getAttribute('data-target-id'),
+        id: target.id,
       };
     }
     default:

@@ -36,7 +36,7 @@ const Line = React.memo(
     markerEnd,
     srcTrim,
     dstTrim,
-    overlay: showOverlay,
+    targeting,
     selected,
     className,
     strokeWidth,
@@ -62,12 +62,10 @@ const Line = React.memo(
     });
 
     const overlay =
-      showOverlay &&
+      targeting &&
       React.createElement(type, {
         ...elementProps,
         className: 'regraph-connection-overlay',
-        'data-target': 'connection',
-        'data-target-id': id,
       });
 
     return (

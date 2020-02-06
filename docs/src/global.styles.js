@@ -26,7 +26,12 @@ export default {
       pointerEvents: 'auto',
       cursor: 'pointer',
     },
-    '[data-target] > *': {
+    // data-target is dropped on the root element, which is the only one we
+    // care about - we don't want mouse events from children.
+    // But svg elements get no pointer events (they have no geometry), so we
+    // actually want to get mouse events from all children, and then we'll
+    // use closest('[data-target]') to find the root.
+    '[data-target]:not(g) > *': {
       pointerEvents: 'none',
     },
   },

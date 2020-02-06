@@ -10,5 +10,5 @@ export const targetifyNode = node => ({
 
 export const targetifyConnection = connection => ({
   ...connection,
-  overlay: true,
+  targeting: { 'data-target': 'connection' },
 });

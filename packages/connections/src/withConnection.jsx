@@ -5,7 +5,7 @@ import { PointPropTypes } from '@regraph/core';
 
 export default WrappedComponent => {
   const Connection = props => {
-    const { id, src, dst, strokeWidth } = props;
+    const { id, src, dst, strokeWidth, targeting } = props;
     const { srcMarker, dstMarker, srcTrim, dstTrim } = useMarkers(
       id,
       src,
@@ -22,7 +22,7 @@ export default WrappedComponent => {
     const dstMarkerId = dstMarker && dstMarker.props.id;
 
     return (
-      <g id={id} className="regraph-connection">
+      <g id={id} className="regraph-connection" {...targeting}>
         {srcMarker}
         {dstMarker}
         <WrappedComponent
@@ -43,6 +43,7 @@ export default WrappedComponent => {
     id: PropTypes.string.isRequired,
     src: PointPropTypes.isRequired,
     strokeWidth: PropTypes.number,
+    targeting: PropTypes.object,
   };
 
   return Connection;
