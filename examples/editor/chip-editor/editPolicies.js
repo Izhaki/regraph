@@ -86,7 +86,6 @@ const port = {
             addCommand({
               title: 'New Connection',
               beforeState,
-              afterState: state,
             })
           );
         } else {
@@ -111,7 +110,7 @@ const editPolicies = {
     delete: target => removeConnections({ ids: [target.id] }),
   },
   node: {
-    new: node => {
+    new: (node, state) => {
       const newNode = targetifyNode({
         ...node,
         id: node.id || uuid(),
@@ -119,6 +118,10 @@ const editPolicies = {
       return [
         addBox({ id: newNode.id, box: { x: 20, y: 20 } }),
         addNode(newNode),
+        addCommand({
+          title: 'New Node',
+          beforeState: state,
+        }),
       ];
     },
     select: setSelection(updateNodes, true),
@@ -141,12 +144,11 @@ const editPolicies = {
             delta: event.delta,
           });
         },
-        end: (target, event, state) => {
+        end: () => {
           if (hasMoved) {
             return addCommand({
               title: 'Move',
               beforeState,
-              afterState: state,
             });
           }
           return undefined;

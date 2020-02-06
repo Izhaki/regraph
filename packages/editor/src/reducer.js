@@ -16,13 +16,15 @@ const slices = combineReducers({
 
 // Used for undo/redo.
 // Restores the a state, but without the commands slice
-const rootReducer = (state, action) =>
-  action.type === reinstate.type
-    ? {
-        ...action.payload,
-        commands: state.commands,
-      }
-    : state;
+const rootReducer = (state, { type, payload: newRootState }) => {
+  if (type === reinstate.type) {
+    return {
+      ...newRootState,
+      commands: state.commands,
+    };
+  }
+  return state;
+};
 
 export default (state, action) => {
   const intermediateState = slices(state, action);

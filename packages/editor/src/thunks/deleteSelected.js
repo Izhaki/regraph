@@ -18,7 +18,6 @@ export default () => (dispatch, getState, getEditPolicies) => {
     addCommand({
       title: 'Delete',
       beforeState: state,
-      afterState: getState(),
     })
   );
 };

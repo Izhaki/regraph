@@ -22,10 +22,12 @@ export const { add: addBox, set: setBoxes, move: moveBox } = boxes.actions;
 
 export const { select, clearSelection } = selected.actions;
 
-export const {
-  add: addCommand,
-  undo: undoCommand,
-  redo: redoCommand,
-} = commands.actions;
+export const { undo: undoCommand, redo: redoCommand } = commands.actions;
+
+// We enrich the addCommand payload with the afterState property.
+// This is used for redo.
+export const addCommand = payload => (dispatch, getState) => {
+  dispatch(commands.actions.add({ ...payload, afterState: getState() }));
+};
 
 export const reinstate = createAction('reinstate');
