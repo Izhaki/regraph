@@ -4,6 +4,7 @@ import boxes from './slices/boxes';
 import connections from './slices/connections';
 import selected from './slices/selected';
 import commands from './slices/commands';
+import tools from './slices/tools';
 import { reinstate } from './actions';
 
 const slices = combineReducers({
@@ -12,6 +13,7 @@ const slices = combineReducers({
   connections: connections.reducer,
   selected: selected.reducer,
   commands: commands.reducer,
+  tools: tools.reducer,
 });
 
 // Used for undo/redo.

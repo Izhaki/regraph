@@ -34,7 +34,7 @@ const Graph = graph({
 });
 
 const GraphEditor = editor({
-  tool: selectionTool,
+  tools: [selectionTool],
   getEditPolicies,
   initialState: {
     nodes: [{ id: 'ping' }, { id: 'pong' }],

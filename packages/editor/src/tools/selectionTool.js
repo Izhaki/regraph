@@ -19,7 +19,7 @@ const deselectAll = (getEditPolicies, dispatch, selected) => {
   return dispatch(clearSelection());
 };
 
-export default getEditPolicies => ({ getState, dispatch }) => {
+const selectionTool = getEditPolicies => ({ getState, dispatch }) => {
   let current;
   let movePolicy;
   return next => action => {
@@ -78,3 +78,5 @@ export default getEditPolicies => ({ getState, dispatch }) => {
     return next(action);
   };
 };
+
+export default selectionTool;

@@ -1,4 +1,4 @@
-import { redoCommand, reinstate } from '../slices/actions';
+import { redoCommand, reinstate } from '../actions';
 import { getRedoCommand } from '../selectors';
 
 export default () => (dispatch, getState) => {

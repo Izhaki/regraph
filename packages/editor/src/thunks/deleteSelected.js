@@ -1,4 +1,4 @@
-import { clearSelection, addCommand } from '../slices/actions';
+import { clearSelection, addCommand } from '../actions';
 import { ensureArray } from '../utils';
 
 export default () => (dispatch, getState, getEditPolicies) => {

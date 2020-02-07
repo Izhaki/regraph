@@ -31,7 +31,7 @@ const Graph = graph({
 });
 
 const GraphEditor = editor({
-  tool: multiTool,
+  tools: [multiTool],
   getEditPolicies,
   initialState: {
     nodes: [

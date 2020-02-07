@@ -1,7 +1,7 @@
 import connectionTool from './connectionTool';
 import selectionTool from './selectionTool';
 
-export default getEditPolicies => store => {
+const multiTool = getEditPolicies => store => {
   const tools = {
     connection: connectionTool(getEditPolicies)(store),
     selection: selectionTool(getEditPolicies)(store),
@@ -39,3 +39,5 @@ export default getEditPolicies => store => {
     return next(action);
   };
 };
+
+export default multiTool;
