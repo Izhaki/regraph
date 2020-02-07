@@ -15,6 +15,7 @@ export default ({
 
   const onMouseUp = event => {
     if (isMouseDown) {
+      isMouseDown = false;
       inMouseUp(event);
     }
   };
