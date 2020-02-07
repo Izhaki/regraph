@@ -88,12 +88,12 @@ Line.propTypes = {
   id: PropTypes.string,
   markerEnd: PropTypes.string,
   markerStart: PropTypes.string,
-  overlay: PropTypes.bool,
   selected: PropTypes.bool,
   shape: PropTypes.object,
   src: PointPropTypes.isRequired,
   srcTrim: PropTypes.number,
   strokeWidth: PropTypes.number,
+  targeting: PropTypes.object,
 };
 
 export default withConnection(Line);

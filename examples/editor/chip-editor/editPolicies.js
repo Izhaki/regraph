@@ -19,7 +19,7 @@ import {
 
 import isValidConnection from './isValidConnection';
 import { markValidPorts, unmarkValidPorts } from './markValidPorts';
-import { targetifyNode } from './targetify';
+import { targetifyNode, targetifyConnection } from './targetify';
 
 const getEndId = end => `${end.id}/${end.port}`;
 const generateId = ({ src, dst }) => `${getEndId(src)}->${getEndId(dst)}`;
@@ -80,7 +80,7 @@ const port = {
               ids: ['@@draggedConnection'],
               updates: {
                 id: generateId(connection),
-                overlay: true,
+                ...targetifyConnection(connection),
               },
             }),
             addCommand({
