@@ -5,4 +5,9 @@ export default createSlice({
   initialState: {
     current: 0,
   },
+  reducers: {
+    setCurrent(tools, action) {
+      tools.current = action.payload;
+    },
+  },
 });

@@ -45,7 +45,9 @@ const selectionTool = getEditPolicies => ({ getState, dispatch }) => {
         }
 
         if (policies.select) {
-          ensureArray(policies.select(target)).forEach(dispatch);
+          ensureArray(
+            policies.select(target, action.event, getState())
+          ).forEach(dispatch);
         }
 
         if (policies.select || movePolicy) {

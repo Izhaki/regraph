@@ -33,6 +33,10 @@ export default [
             title: 'Basic Editor',
           },
           {
+            pathname: '/examples/editors/mutli-tool-editor',
+            title: 'Multi-tool Editor',
+          },
+          {
             pathname: '/examples/editors/chip-editor',
             title: 'Chip Editor',
           },

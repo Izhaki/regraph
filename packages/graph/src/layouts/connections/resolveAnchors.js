@@ -49,8 +49,8 @@ export default ({ boxes }, connection) => {
     const { getShape } = connection.type;
     const connectionShape = getShape({
       ...connection,
-      src: updates.src,
-      dst: updates.dst,
+      src: updates.src || src,
+      dst: updates.dst || dst,
     });
 
     if (srcNeedsIntersection) {
@@ -58,6 +58,7 @@ export default ({ boxes }, connection) => {
       if (noIntersection(updates.src)) {
         return undefined;
       }
+      connectionShape.src = updates.src;
     }
 
     if (dstNeedsIntersection) {
@@ -65,11 +66,10 @@ export default ({ boxes }, connection) => {
       if (noIntersection(updates.dst)) {
         return undefined;
       }
+      connectionShape.dst = updates.dst;
     }
 
     // Keep the shape in the connection so no need to recalculate later.
-    connectionShape.src = updates.src;
-    connectionShape.dst = updates.dst;
     updates.shape = connectionShape;
   }
 
