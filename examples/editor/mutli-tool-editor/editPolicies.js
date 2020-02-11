@@ -40,64 +40,59 @@ const editPolicies = {
   },
   node: {
     move: {
-      drag(target, event) {
-        return moveBox({
-          id: target.id,
+      drag: event =>
+        moveBox({
+          id: event.source.id,
           delta: event.delta,
+        }),
+    },
+    connection: {
+      start(event) {
+        const { source, target } = event;
+        const isValid = isValidConnection(source, target);
+        const end = getEnd(target);
+
+        return [
+          addConnection({
+            id: '@@draggedConnection',
+            src: end,
+            dst: isValid ? end : event.position,
+          }),
+        ];
+      },
+      drag(event) {
+        const isValid = isValidConnection(event.source, event.target);
+        return updateConnections({
+          ids: ['@@draggedConnection'],
+          updates: {
+            dst: isValid ? getEnd(event.target) : event.position,
+          },
         });
       },
-    },
-    connection() {
-      let source;
-      return {
-        start(event) {
-          const { target } = event;
-          source = target;
-          const isValid = isValidConnection(source, target);
-          const end = getEnd(target);
+      end(event, state) {
+        const isValid = isValidConnection(event.source, event.target);
+        const actions = [];
+        if (isValid) {
+          const connection = getConnectionById(state, '@@draggedConnection');
 
-          return [
-            addConnection({
-              id: '@@draggedConnection',
-              src: end,
-              dst: isValid ? end : event.position,
-            }),
-          ];
-        },
-        drag(event) {
-          const isValid = isValidConnection(source, event.target);
-          return updateConnections({
-            ids: ['@@draggedConnection'],
-            updates: {
-              dst: isValid ? getEnd(event.target) : event.position,
-            },
-          });
-        },
-        end(event, state) {
-          const isValid = isValidConnection(source, event.target);
-          const actions = [];
-          if (isValid) {
-            const connection = getConnectionById(state, '@@draggedConnection');
+          actions.push(
+            updateConnections({
+              ids: ['@@draggedConnection'],
+              updates: {
+                id: generateId(connection, state.connections),
+              },
+            })
+          );
+        } else {
+          actions.push(
+            removeConnections({
+              ids: ['@@draggedConnection'],
+            })
+          );
+        }
 
-            actions.push(
-              updateConnections({
-                ids: ['@@draggedConnection'],
-                updates: {
-                  id: generateId(connection, state.connections),
-                },
-              })
-            );
-          } else {
-            actions.push(
-              removeConnections({
-                ids: ['@@draggedConnection'],
-              })
-            );
-          }
-
-          return actions;
-        },
-      };
+        return actions;
+      },
     },
   },
 };

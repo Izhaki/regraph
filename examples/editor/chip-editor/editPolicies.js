@@ -35,14 +35,12 @@ const getEnd = ({ id, port, type }) => ({
 
 const port = {
   connection: () => {
-    let source;
     let beforeState;
     return {
       start: (event, state) => {
         beforeState = state;
         const { connections } = state;
-        const { target } = event;
-        source = target;
+        const { source, target } = event;
         const nextNodes = markValidPorts(state, source);
         const isValid = isValidConnection(source, target, connections);
         const [from, to] =
@@ -59,8 +57,12 @@ const port = {
         ];
       },
       drag: (event, { connections }) => {
-        const isValid = isValidConnection(source, event.target, connections);
-        const end = source.type === 'output' ? 'dst' : 'src';
+        const isValid = isValidConnection(
+          event.source,
+          event.target,
+          connections
+        );
+        const end = event.source.type === 'output' ? 'dst' : 'src';
         return updateConnections({
           ids: ['@@draggedConnection'],
           updates: {
@@ -70,7 +72,11 @@ const port = {
       },
       end: (event, state) => {
         const { connections, nodes } = state;
-        const isValid = isValidConnection(source, event.target, connections);
+        const isValid = isValidConnection(
+          event.source,
+          event.target,
+          connections
+        );
         const nextNodes = unmarkValidPorts(nodes);
         const actions = [setNodes(nextNodes)];
         if (isValid) {
@@ -134,13 +140,13 @@ const editPolicies = {
       let beforeState;
       let hasMoved = false;
       return {
-        start: (target, event, state) => {
+        start: (event, state) => {
           beforeState = state;
         },
-        drag: (target, event) => {
+        drag: event => {
           hasMoved = true;
           return moveBox({
-            id: target.id,
+            id: event.source.id,
             delta: event.delta,
           });
         },

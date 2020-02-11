@@ -27,6 +27,7 @@ const selectionTool = getEditPolicies => ({ getState, dispatch }) => {
       case 'mouseDown': {
         const { selected } = getState();
         const { target, shiftKey } = action.event;
+        action.event.source = target;
 
         const policies = getEditPolicies(target);
         movePolicy = policies.move;
@@ -35,9 +36,9 @@ const selectionTool = getEditPolicies => ({ getState, dispatch }) => {
         }
 
         if (movePolicy && movePolicy.start) {
-          ensureArray(
-            movePolicy.start(target, action.event, getState())
-          ).forEach(dispatch);
+          ensureArray(movePolicy.start(action.event, getState())).forEach(
+            dispatch
+          );
         }
 
         if (!shiftKey) {
@@ -58,16 +59,18 @@ const selectionTool = getEditPolicies => ({ getState, dispatch }) => {
       }
       case 'mouseMove': {
         if (current && movePolicy) {
-          return next(movePolicy.drag(current, action.event));
+          action.event.source = current;
+          return next(movePolicy.drag(action.event));
         }
         break;
       }
 
       case 'mouseUp': {
         if (current && movePolicy && movePolicy.end) {
-          ensureArray(
-            movePolicy.end(current, action.event, getState())
-          ).forEach(dispatch);
+          action.event.source = current;
+          ensureArray(movePolicy.end(action.event, getState())).forEach(
+            dispatch
+          );
         }
 
         current = null;

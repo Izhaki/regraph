@@ -2,16 +2,19 @@ import { isFunction } from '@regraph/core/';
 import { ensureArray } from '../utils';
 
 export default getEditPolicies => ({ dispatch, getState }) => {
+  let source = null;
   let policy = null;
   return next => action => {
     switch (action.type) {
       case 'mouseDown': {
         const { target } = action.event;
+        action.event.source = target;
         policy = getEditPolicies(target).connection;
         if (isFunction(policy)) {
           policy = policy();
         }
         if (policy) {
+          source = target;
           ensureArray(policy.start(action.event, getState())).forEach(dispatch);
           return undefined;
         }
@@ -20,6 +23,7 @@ export default getEditPolicies => ({ dispatch, getState }) => {
 
       case 'mouseMove': {
         if (policy) {
+          action.event.source = source;
           return next(policy.drag(action.event, getState()));
         }
         break;
@@ -27,6 +31,7 @@ export default getEditPolicies => ({ dispatch, getState }) => {
 
       case 'mouseUp': {
         if (policy) {
+          action.event.source = source;
           ensureArray(policy.end(action.event, getState())).forEach(dispatch);
           policy = null;
           return undefined;
