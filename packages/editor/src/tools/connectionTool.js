@@ -1,7 +1,7 @@
 import { isFunction } from '@regraph/core/';
 import { ensureArray } from '../utils';
 
-export default getEditPolicies => ({ dispatch, getState }) => {
+const connectionTool = getEditPolicies => ({ dispatch, getState }) => {
   let source = null;
   let policy = null;
   return action => {
@@ -40,3 +40,5 @@ export default getEditPolicies => ({ dispatch, getState }) => {
     }
   };
 };
+
+export default connectionTool;
