@@ -22,7 +22,7 @@ const deselectAll = (getEditPolicies, dispatch, selected) => {
 const selectionTool = getEditPolicies => ({ getState, dispatch }) => {
   let current;
   let movePolicy;
-  return next => action => {
+  return action => {
     switch (action.type) {
       case 'mouseDown': {
         const { selected } = getState();
@@ -53,14 +53,14 @@ const selectionTool = getEditPolicies => ({ getState, dispatch }) => {
 
         if (policies.select || movePolicy) {
           current = target;
-          return next(select({ targets: [target] }));
+          dispatch(select({ targets: [target] }));
         }
         break;
       }
       case 'mouseMove': {
         if (current && movePolicy) {
           action.event.source = current;
-          return next(movePolicy.drag(action.event));
+          dispatch(movePolicy.drag(action.event));
         }
         break;
       }
@@ -79,8 +79,6 @@ const selectionTool = getEditPolicies => ({ getState, dispatch }) => {
 
       default:
     }
-
-    return next(action);
   };
 };
 

@@ -4,7 +4,7 @@ import { ensureArray } from '../utils';
 export default getEditPolicies => ({ dispatch, getState }) => {
   let source = null;
   let policy = null;
-  return next => action => {
+  return action => {
     switch (action.type) {
       case 'mouseDown': {
         const { target } = action.event;
@@ -24,7 +24,7 @@ export default getEditPolicies => ({ dispatch, getState }) => {
       case 'mouseMove': {
         if (policy) {
           action.event.source = source;
-          return next(policy.drag(action.event, getState()));
+          dispatch(policy.drag(action.event, getState()));
         }
         break;
       }
@@ -40,7 +40,5 @@ export default getEditPolicies => ({ dispatch, getState }) => {
       }
       default:
     }
-
-    return next(action);
   };
 };

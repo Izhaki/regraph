@@ -3,7 +3,8 @@ const toolRouter = (preAppliedTools, getEditPolicies) => store => {
   const { getState } = store;
   return next => action => {
     const { current } = getState().tools;
-    return tools[current](next)(action);
+    tools[current](action);
+    return next(action);
   };
 };
 

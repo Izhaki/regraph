@@ -10,33 +10,31 @@ const multiTool = getEditPolicies => store => {
   const defaultTool = tools.selection;
   let currentTool = defaultTool;
 
-  return next => action => {
+  return action => {
     switch (action.type) {
       case 'mouseDown': {
         const { target } = action.event;
         const { connection: connectionPolicy } = getEditPolicies(target);
         currentTool = connectionPolicy ? tools.connection : defaultTool;
-        return currentTool(next)(action);
+        currentTool(action);
+        break;
       }
 
       case 'mouseMove': {
         if (currentTool) {
-          return currentTool(next)(action);
+          currentTool(action);
         }
         break;
       }
       case 'mouseUp': {
         if (currentTool) {
-          const result = currentTool(next)(action);
+          currentTool(action);
           currentTool = defaultTool;
-          return result;
         }
         break;
       }
       default:
     }
-
-    return next(action);
   };
 };
 
