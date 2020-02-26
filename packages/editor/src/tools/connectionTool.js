@@ -16,7 +16,6 @@ export default getEditPolicies => ({ dispatch, getState }) => {
         if (policy) {
           source = target;
           ensureArray(policy.start(action.event, getState())).forEach(dispatch);
-          return undefined;
         }
         break;
       }
@@ -34,7 +33,6 @@ export default getEditPolicies => ({ dispatch, getState }) => {
           action.event.source = source;
           ensureArray(policy.end(action.event, getState())).forEach(dispatch);
           policy = null;
-          return undefined;
         }
         break;
       }

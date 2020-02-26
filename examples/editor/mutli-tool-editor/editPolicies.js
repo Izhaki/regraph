@@ -21,7 +21,7 @@ const getEnd = ({ id }) => ({ id });
 
 const editPolicies = {
   background: {
-    select(target, event) {
+    create(event) {
       const id = uuid();
       const { position } = event;
       return [

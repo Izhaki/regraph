@@ -3,10 +3,16 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
-import { connectTools, selectionTool, connectionTool } from '@regraph/editor';
+import {
+  multi,
+  connectTools,
+  moveTool,
+  creationTool,
+  connectionTool,
+} from '@regraph/editor';
 
 export const tools = [
-  { tool: selectionTool, icon: <RadioButtonUncheckedIcon /> },
+  { tool: multi(moveTool, creationTool), icon: <RadioButtonUncheckedIcon /> },
   { tool: connectionTool, icon: <TrendingFlatIcon /> },
 ];
 
