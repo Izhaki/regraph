@@ -1,6 +1,5 @@
 import React from 'react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
-import 'prismjs/themes/prism-solarizedlight.css';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';

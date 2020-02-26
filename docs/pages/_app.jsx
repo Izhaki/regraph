@@ -7,6 +7,8 @@ import theme from 'docs/src/theme';
 import globalStyles from 'docs/src/global.styles';
 import Drawer from 'docs/src/components/Drawer';
 
+import 'prismjs/themes/prism-solarizedlight.css';
+
 class MyApp extends App {
   componentDidMount() {
     // Remove the server-side injected CSS.
