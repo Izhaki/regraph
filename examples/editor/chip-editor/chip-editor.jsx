@@ -1,6 +1,12 @@
 import React from 'react';
 import { graph } from '@regraph/graph';
-import { editor, connectGraph, multiTool } from '@regraph/editor';
+import {
+  editor,
+  connectGraph,
+  multi,
+  connectionTool,
+  selectionTool,
+} from '@regraph/editor';
 import { Line } from '@regraph/connections';
 import Chip from '@regraph/nodes/html/Chip';
 import { fader, lfo, filter } from './chips';
@@ -31,7 +37,7 @@ const Graph = graph({
 });
 
 const GraphEditor = editor({
-  tools: [multiTool],
+  tools: [multi(selectionTool, connectionTool)],
   getEditPolicies,
   initialState: {
     nodes: [
