@@ -84,10 +84,9 @@ const port = {
           actions.push(
             updateConnections({
               ids: ['@@draggedConnection'],
-              updates: {
+              updates: targetifyConnection({
                 id: generateId(connection),
-                ...targetifyConnection(connection),
-              },
+              }),
             }),
             addCommand({
               title: 'New Connection',
