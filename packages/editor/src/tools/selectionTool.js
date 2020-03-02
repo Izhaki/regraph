@@ -3,6 +3,8 @@ import { ensureArray } from '../utils';
 
 const isEmpty = collection => collection.length === 0;
 
+const isEqual = a => b => JSON.stringify(a) === JSON.stringify(b);
+
 const deselectAll = (getEditPolicies, dispatch, selected) => {
   if (isEmpty(selected)) {
     return false;
@@ -28,17 +30,20 @@ const selectionTool = getEditPolicies => ({ getState, dispatch }) => {
 
         const policies = getEditPolicies(target);
 
-        if (!shiftKey) {
-          deselectAll(getEditPolicies, dispatch, selected);
-        }
+        const alreadySelected = selected.some(isEqual(target));
 
-        if (policies.select) {
-          ensureArray(
-            policies.select(target, action.event, getState())
-          ).forEach(dispatch);
-          dispatch(select({ targets: [target] }));
-        }
+        if (!alreadySelected) {
+          if (!shiftKey) {
+            deselectAll(getEditPolicies, dispatch, selected);
+          }
 
+          if (policies.select) {
+            ensureArray(
+              policies.select(target, action.event, getState())
+            ).forEach(dispatch);
+            dispatch(select({ targets: [target] }));
+          }
+        }
         break;
       }
 
