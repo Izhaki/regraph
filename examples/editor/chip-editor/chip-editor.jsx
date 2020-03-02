@@ -3,7 +3,7 @@ import { graph } from '@regraph/graph';
 import {
   editor,
   connectGraph,
-  multi,
+  multiTool,
   connectionTool,
   selectionTool,
 } from '@regraph/editor';
@@ -37,7 +37,7 @@ const Graph = graph({
 });
 
 const GraphEditor = editor({
-  tools: [multi(selectionTool, connectionTool)],
+  tools: [multiTool(selectionTool, connectionTool)],
   getEditPolicies,
   initialState: {
     nodes: [
