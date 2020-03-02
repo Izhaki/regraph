@@ -6,6 +6,7 @@ import {
   multiTool,
   connectionTool,
   selectionTool,
+  moveSelectionTool,
 } from '@regraph/editor';
 import { Line } from '@regraph/connections';
 import Chip from '@regraph/nodes/html/Chip';
@@ -37,7 +38,9 @@ const Graph = graph({
 });
 
 const GraphEditor = editor({
-  tools: [multiTool(selectionTool, connectionTool)],
+  tools: [
+    multiTool(multiTool(selectionTool, moveSelectionTool), connectionTool),
+  ],
   getEditPolicies,
   initialState: {
     nodes: [

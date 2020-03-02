@@ -1,6 +1,6 @@
 import React from 'react';
 import { graph } from '@regraph/graph';
-import { editor, connectGraph, selectionTool } from '@regraph/editor';
+import { editor, connectGraph, moveTool } from '@regraph/editor';
 import { Line } from '@regraph/connections';
 import { Triangle } from '@regraph/arrowheads';
 import { fromRect, toSvgProps } from '@regraph/geo/ellipse';
@@ -34,7 +34,7 @@ const Graph = graph({
 });
 
 const GraphEditor = editor({
-  tools: [selectionTool],
+  tools: [moveTool],
   getEditPolicies,
   initialState: {
     nodes: [{ id: 'ping' }, { id: 'pong' }],
