@@ -3,7 +3,7 @@ import { ensureArray } from '../utils';
 const creationTool = getEditPolicies => ({ getState, dispatch }) => {
   return action => {
     switch (action.type) {
-      case 'mouseDown': {
+      case 'mouseUp': {
         const { target } = action.event;
 
         const policies = getEditPolicies(target);
