@@ -8,14 +8,10 @@ import {
   moveBox,
 } from '@regraph/editor/actions';
 import { getConnectionById } from '@regraph/editor/selectors';
+import { getUniqueId } from '@regraph/connections';
 
 const isValidConnection = (src, dst) =>
   Boolean(src && dst && src.id && dst.id && src.id !== dst.id);
-const generateId = ({ src, dst }, connections) => {
-  const id = `${src.id}->${dst.id}`;
-  const similarCount = connections.filter(con => con.id === id).length;
-  return similarCount ? `${similarCount}.${id}` : id;
-};
 
 const getEnd = ({ id }) => ({ id });
 
@@ -79,7 +75,7 @@ const editPolicies = {
             updateConnections({
               ids: ['@@draggedConnection'],
               updates: {
-                id: generateId(connection, state.connections),
+                id: getUniqueId(connection, state.connections),
               },
             })
           );
