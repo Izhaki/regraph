@@ -1,6 +1,6 @@
 import { isPoint } from '@regraph/geo/point';
 import { isRect } from '@regraph/geo/rect';
-import { mergeConnections } from '../../utils';
+import { mergeConnections } from '../../utils'; // TODO: move to connections?
 import resolveAnchors from './resolveAnchors';
 
 const needsResolution = ({ src, dst }) => !isPoint(src) || !isPoint(dst);
@@ -8,44 +8,47 @@ const needsResolution = ({ src, dst }) => !isPoint(src) || !isPoint(dst);
 // TODO: core?
 const getEndId = end => (end.port ? `${end.id}/${end.port}` : end.id);
 
-const layoutConnections = (props, boxContext) => {
+const layout = props => {
   const { connections = [], boxes } = props;
   const missingBox = end => !isPoint(end) && !isRect(boxes[getEndId(end)]);
   const getEndsMissingBox = connection =>
     [connection.src, connection.dst].filter(missingBox);
-  const requestBox = ({ id, port }) => {
-    boxContext.requestBox({ id, port });
-  };
 
-  return connections.reduce((acc, connection) => {
-    const endsMissingBoxes = getEndsMissingBox(connection);
+  const updates = connections.reduce(
+    (acc, connection) => {
+      const endsMissingBoxes = getEndsMissingBox(connection);
+      endsMissingBoxes.forEach(end => {
+        acc.endsMissingBoxes[getEndId(end)] = end;
+      });
 
-    if (endsMissingBoxes.length) {
-      endsMissingBoxes.forEach(requestBox);
-      // Don't add the connection to the accumulator - it won't be rendered
-    } else if (needsResolution(connection)) {
-      const updates = resolveAnchors(props, connection);
+      if (endsMissingBoxes.length) {
+        // Don't push
+      } else if (needsResolution(connection)) {
+        const anchors = resolveAnchors(props, connection);
 
-      // updates will be undefined if resolution failed.
-      // This can happen, for example, when there is no intersection because a source node
-      // is dragged over a destination node. In such case we don't push the connection -
-      // meaning it won't be rendered.
-      if (updates) {
-        // Add resolved connections
-        acc.push(mergeConnections(connection, updates));
+        // anchors will be undefined if resolution failed.
+        // This can happen, for example, when there is no intersection because a source node
+        // is dragged over a destination node. In such case we don't push the connection -
+        // meaning it won't be rendered.
+        if (anchors) {
+          // Add resolved connections
+          acc.connections.push(mergeConnections(connection, anchors));
+        }
+      } else {
+        // Add original connection
+        acc.connections.push(connection);
       }
-    } else {
-      // Add original connection
-      acc.push(connection);
-    }
 
-    return acc;
-  }, []);
+      return acc;
+    },
+    { connections: [], endsMissingBoxes: {} }
+  );
+  return {
+    ...props,
+    ...updates,
+  };
 };
 
-const layout = (props, boxContext) => ({
-  connections: layoutConnections(props, boxContext),
-});
 layout.deps = ({ boxes, connections }) => [boxes, connections];
 
 export default layout;
