@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import reducer from './reducer';
 import toolRouter from './toolRouter';
 
-export default ({ initialState, tools, getEditPolicies }) => {
+export default ({ initialState, tools, getEditPolicies, layout }) => {
   const defaultMiddleware = getDefaultMiddleware({
     thunk: {
       extraArgument: getEditPolicies,
@@ -18,7 +18,7 @@ export default ({ initialState, tools, getEditPolicies }) => {
 
   const store = configureStore({
     reducer,
-    preloadedState: initialState,
+    preloadedState: layout ? layout(initialState) : initialState,
     middleware: [...defaultMiddleware, toolRouter(tools, getEditPolicies)],
   });
 

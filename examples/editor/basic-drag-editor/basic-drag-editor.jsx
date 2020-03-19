@@ -1,5 +1,6 @@
 import React from 'react';
 import { graph } from '@regraph/graph';
+import connectionLayout from '@regraph/graph/layouts/connections';
 import { editor, connectGraph, moveTool } from '@regraph/editor';
 import { Line } from '@regraph/connections';
 import { Triangle } from '@regraph/arrowheads';
@@ -23,19 +24,13 @@ const eventMapper = event => ({
 const Graph = graph({
   connector: connectGraph(),
   interactive: eventMapper,
-  layout: true,
   node: { type: Circle, 'data-target': 'node' },
-  connection: {
-    type: Line,
-    strokeWidth: 1,
-    dst: { anchor: 'chop-ellipse', marker: <Triangle /> },
-    src: { anchor: 'chop-ellipse' },
-  },
 });
 
 const GraphEditor = editor({
   tools: [moveTool],
   getEditPolicies,
+  layout: connectionLayout,
   initialState: {
     nodes: [{ id: 'ping' }, { id: 'pong' }],
     boxes: {
@@ -43,7 +38,13 @@ const GraphEditor = editor({
       pong: { x: 400 - 15, y: 100 - 15, width: 30, height: 30 },
     },
     connections: [
-      { id: 'ping->pong', src: { id: 'ping' }, dst: { id: 'pong' } },
+      {
+        id: 'ping->pong',
+        type: Line,
+        strokeWidth: 1,
+        src: { id: 'ping', anchor: 'chop-ellipse' },
+        dst: { id: 'pong', anchor: 'chop-ellipse', marker: <Triangle /> },
+      },
     ],
   },
 });
