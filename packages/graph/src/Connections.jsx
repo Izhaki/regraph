@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const createConnection = connection => {
+  if (connection.ignore) {
+    return null;
+  }
   const { type, ...props } = connection;
   props.key = connection.id;
   return React.createElement(type, props);
