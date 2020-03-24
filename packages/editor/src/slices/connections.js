@@ -19,5 +19,8 @@ export default createSlice({
         removeFromList(connections, id);
       });
     },
+    replace(connections, action) {
+      return action.payload;
+    },
   },
 });

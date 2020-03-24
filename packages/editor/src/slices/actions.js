@@ -10,6 +10,7 @@ export const {
   add: addConnection,
   update: updateConnections,
   remove: removeConnections,
+  replace: replaceConnections,
 } = connections.actions;
 
 export const {

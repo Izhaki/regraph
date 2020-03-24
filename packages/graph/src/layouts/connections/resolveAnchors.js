@@ -1,4 +1,3 @@
-import { isPoint } from '@regraph/geo/point';
 import { transpose } from '@regraph/geo/rect';
 import resolvers from './anchorResolvers';
 
@@ -22,30 +21,20 @@ export default ({ boxes }, connection) => {
   const updates = {};
   const { src, dst } = connection;
 
-  const srcIsPoint = isPoint(src);
   const srcBox = getBox(src);
   const srcResolver = resolvers[src.anchor || 'chop-box'];
 
-  const dstIsPoint = isPoint(dst);
   const dstBox = getBox(dst);
   const dstResolver = resolvers[dst.anchor || 'chop-box'];
 
   // Anchor
 
-  if (!srcIsPoint) {
-    updates.src = srcResolver.getAnchor(srcBox);
-  }
-
-  if (!dstIsPoint) {
-    updates.dst = dstResolver.getAnchor(dstBox);
-  }
+  updates.src = srcResolver.getAnchor(srcBox);
+  updates.dst = dstResolver.getAnchor(dstBox);
 
   // Intersection
 
-  const srcNeedsIntersection = !srcIsPoint && srcResolver.intersect;
-  const dstNeedsIntersection = !dstIsPoint && dstResolver.intersect;
-
-  if (srcNeedsIntersection || dstNeedsIntersection) {
+  if (srcResolver.intersect || dstResolver.intersect) {
     const { getShape } = connection.type;
     const connectionShape = getShape({
       ...connection,
@@ -53,7 +42,7 @@ export default ({ boxes }, connection) => {
       dst: updates.dst || dst,
     });
 
-    if (srcNeedsIntersection) {
+    if (srcResolver.intersect) {
       updates.src = doIntersect(srcResolver, connectionShape, srcBox);
       if (noIntersection(updates.src)) {
         return undefined;
@@ -61,7 +50,7 @@ export default ({ boxes }, connection) => {
       connectionShape.src = updates.src;
     }
 
-    if (dstNeedsIntersection) {
+    if (dstResolver.intersect) {
       updates.dst = doIntersect(dstResolver, connectionShape, dstBox);
       if (noIntersection(updates.dst)) {
         return undefined;

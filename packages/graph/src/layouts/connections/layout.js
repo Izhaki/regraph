@@ -1,9 +1,9 @@
-import { isPoint } from '@regraph/geo/point';
 import { isRect } from '@regraph/geo/rect';
 import { mergeConnections } from '../../utils'; // TODO: move to connections?
 import resolveAnchors from './resolveAnchors';
 
-const needsResolution = ({ src, dst }) => !isPoint(src) || !isPoint(dst);
+// Temporary return true so layouts work with editors
+const needsResolution = () => true;
 
 // TODO: core?
 const getEndId = end => (end.port ? `${end.id}/${end.port}` : end.id);
@@ -35,6 +35,7 @@ const layout = props => {
       // destination node yielding a connection with negative length.
       if (anchors) {
         const resolvedConnection = mergeConnections(connection, anchors);
+        delete resolvedConnection.ignore;
         return resolvedConnection;
       }
       return ignore(connection);
