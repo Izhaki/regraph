@@ -47,7 +47,6 @@ export default ({ boxes }, connection) => {
       if (noIntersection(updates.src)) {
         return undefined;
       }
-      connectionShape.src = updates.src;
     }
 
     if (dstResolver.intersect) {
@@ -55,11 +54,7 @@ export default ({ boxes }, connection) => {
       if (noIntersection(updates.dst)) {
         return undefined;
       }
-      connectionShape.dst = updates.dst;
     }
-
-    // Keep the shape in the connection so no need to recalculate later.
-    updates.shape = connectionShape;
   }
 
   return updates;
