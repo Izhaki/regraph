@@ -13,6 +13,7 @@ import {
 } from '@regraph/geo/quadratic';
 import withConnection from './withConnection';
 
+const pointFrom = ({ x, y }) => ({ x, y });
 const getShape = ({ bend, src, dst }) =>
   bend
     ? fromBentLine({ type: 'quad', src, dst }, bend)
@@ -31,7 +32,6 @@ const Line = React.memo(
     src,
     dst,
     bend = 0,
-    shape,
     markerStart,
     markerEnd,
     srcTrim,
@@ -43,9 +43,14 @@ const Line = React.memo(
     ...others
   }) => {
     const { type, props: elementProps } = useMemo(() => {
-      const shp = shape || getShape({ bend, src, dst });
-      return getTrimmedElement[shp.type](shp, srcTrim, dstTrim);
-    }, [bend, dst, dstTrim, shape, src, srcTrim]);
+      const shape = getShape({
+        bend,
+        // src and dst are read-only, so extract points
+        src: pointFrom(src),
+        dst: pointFrom(dst),
+      });
+      return getTrimmedElement[shape.type](shape, srcTrim, dstTrim);
+    }, [bend, dst, dstTrim, src, srcTrim]);
 
     const line = React.createElement(type, {
       ...elementProps,
@@ -89,7 +94,6 @@ Line.propTypes = {
   markerEnd: PropTypes.string,
   markerStart: PropTypes.string,
   selected: PropTypes.bool,
-  shape: PropTypes.object,
   src: PointPropTypes.isRequired,
   srcTrim: PropTypes.number,
   strokeWidth: PropTypes.number,
