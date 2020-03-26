@@ -1,5 +1,6 @@
 import { transpose } from '@regraph/geo/rect';
 import resolvers from './anchorResolvers';
+import { endNeedsResolution } from './utils';
 
 const doIntersect = ({ intersect, fromRect }, connectionShape, box) => {
   const nodeShape = fromRect(box);
@@ -21,20 +22,30 @@ export default ({ boxes }, connection) => {
   const updates = {};
   const { src, dst } = connection;
 
+  const srcNeedResolution = endNeedsResolution(src);
   const srcBox = getBox(src);
   const srcResolver = resolvers[src.anchor || 'chop-box'];
 
+  const dstNeedResolution = endNeedsResolution(dst);
   const dstBox = getBox(dst);
   const dstResolver = resolvers[dst.anchor || 'chop-box'];
 
   // Anchor
 
-  updates.src = srcResolver.getAnchor(srcBox);
-  updates.dst = dstResolver.getAnchor(dstBox);
+  if (srcNeedResolution) {
+    updates.src = srcResolver.getAnchor(srcBox);
+  }
+
+  if (dstNeedResolution) {
+    updates.dst = dstResolver.getAnchor(dstBox);
+  }
 
   // Intersection
 
-  if (srcResolver.intersect || dstResolver.intersect) {
+  const srcNeedsIntersection = srcNeedResolution && srcResolver.intersect;
+  const dstNeedsIntersection = dstNeedResolution && dstResolver.intersect;
+
+  if (srcNeedsIntersection || dstNeedsIntersection) {
     const { getShape } = connection.type;
     const connectionShape = getShape({
       ...connection,
@@ -42,14 +53,14 @@ export default ({ boxes }, connection) => {
       dst: updates.dst || dst,
     });
 
-    if (srcResolver.intersect) {
+    if (srcNeedsIntersection) {
       updates.src = doIntersect(srcResolver, connectionShape, srcBox);
       if (noIntersection(updates.src)) {
         return undefined;
       }
     }
 
-    if (dstResolver.intersect) {
+    if (dstNeedsIntersection) {
       updates.dst = doIntersect(dstResolver, connectionShape, dstBox);
       if (noIntersection(updates.dst)) {
         return undefined;

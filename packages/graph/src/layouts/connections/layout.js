@@ -1,6 +1,7 @@
 import { isRect } from '@regraph/geo/rect';
 import { mergeConnections } from '../../utils'; // TODO: move to connections?
 import resolveAnchors from './resolveAnchors';
+import { endNeedsResolution } from './utils';
 
 // Temporary return true so layouts work with editors
 const needsResolution = () => true;
@@ -14,7 +15,9 @@ const layout = props => {
   const { connections = [], boxes } = props;
   const missingBox = end => !isRect(boxes[getEndId(end)]);
   const getEndsMissingBox = connection =>
-    [connection.src, connection.dst].filter(missingBox);
+    [connection.src, connection.dst]
+      .filter(endNeedsResolution)
+      .filter(missingBox);
 
   const allEndsMissingBoxes = {};
 
