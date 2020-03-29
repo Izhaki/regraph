@@ -8,7 +8,7 @@ const mapDispatchToProps = autoBox => dispatch => {
     onMouseUp: event => dispatch({ type: 'mouseUp', event }),
   };
   if (autoBox) {
-    handlers.onBoxes = boxes => dispatch(setBoxes({ boxes }));
+    handlers.onBoxes = boxes => dispatch(setBoxes(boxes));
   }
   return handlers;
 };

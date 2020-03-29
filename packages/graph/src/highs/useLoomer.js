@@ -1,5 +1,5 @@
 import update from './update';
-import { pipe } from '../utils';
+import { pipe } from '@regraph/core';
 
 const getEndId = end => end.id || `(${end.x},${end.y})`;
 

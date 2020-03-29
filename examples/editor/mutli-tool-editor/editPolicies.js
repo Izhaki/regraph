@@ -46,13 +46,13 @@ const editPolicies = {
       start(event) {
         const { source, target } = event;
         const isValid = isValidConnection(source, target);
-        const end = getEnd(target);
+        const src = getEnd(target);
 
         return [
           addConnection({
             id: '@@draggedConnection',
-            src: end,
-            dst: isValid ? end : event.position,
+            src,
+            dst: isValid ? src : event.position,
           }),
         ];
       },

@@ -1,4 +1,4 @@
-import { moveBox, replaceConnections } from './actions';
+import { moveBox, setConnections } from '../actions';
 
 const layouter = layout => store => next => action => {
   const result = next(action);
@@ -6,7 +6,7 @@ const layouter = layout => store => next => action => {
     case moveBox.type: {
       const state = store.getState();
       const { connections } = layout(state);
-      store.dispatch(replaceConnections(connections));
+      store.dispatch(setConnections(connections));
       break;
     }
     default:

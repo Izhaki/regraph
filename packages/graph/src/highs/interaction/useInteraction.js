@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { compose } from '../../utils';
+import { compose } from '@regraph/core';
 import dropClickAway from './dropClickAway';
 import touchSupport from './touchSupport';
 import rafThrottle from './rafThrottle';
