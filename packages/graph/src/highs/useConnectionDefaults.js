@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import update from './update';
-import { mergeConnections } from '../utils';
+import { mergeConnections } from '@regraph/core';
 
 export default defaults =>
   update(({ connections = [] }) => ({

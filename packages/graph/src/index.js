@@ -1,5 +1,3 @@
-export { compose } from './utils';
-
 export { default as graph } from './graph';
 export { default as GraphBase } from './GraphBase';
 

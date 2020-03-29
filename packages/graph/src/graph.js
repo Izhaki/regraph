@@ -1,4 +1,5 @@
 import { forwardRef, createElement } from 'react';
+import { pipe, compose } from '@regraph/core';
 import GraphBase from './GraphBase';
 import {
   useNodeDefaults,
@@ -14,7 +15,6 @@ import {
   withInteraction,
 } from './highs';
 import connectionLayout from './layouts/connections';
-import { pipe, compose } from './utils';
 
 export default ({
   node,

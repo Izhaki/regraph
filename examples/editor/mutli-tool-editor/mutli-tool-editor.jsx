@@ -40,28 +40,30 @@ const Graph = graph({
   interactive: eventMapper,
   layout: true,
   looms: true,
-  node: { type: Circle, 'data-target': 'node' },
-  connection: {
-    type: Line,
-    strokeWidth: 1,
-    dst: { anchor: 'chop-ellipse', marker: <Triangle /> },
-    src: { anchor: 'chop-ellipse' },
-  },
 });
+
+const initialState = {
+  nodes: [{ id: 'ping' }, { id: 'pong' }],
+  boxes: {
+    ping: { x: 200 - 15, y: 100 - 15, width: 30, height: 30 },
+    pong: { x: 400 - 15, y: 100 - 15, width: 30, height: 30 },
+  },
+  connections: [{ id: 'ping->pong', src: { id: 'ping' }, dst: { id: 'pong' } }],
+};
 
 const GraphEditor = editor({
   tools: tools.map(({ tool }) => tool),
   getEditPolicies,
-  initialState: {
-    nodes: [{ id: 'ping' }, { id: 'pong' }],
-    boxes: {
-      ping: { x: 200 - 15, y: 100 - 15, width: 30, height: 30 },
-      pong: { x: 400 - 15, y: 100 - 15, width: 30, height: 30 },
+  defaults: {
+    node: { type: Circle, 'data-target': 'node' },
+    connection: {
+      type: Line,
+      strokeWidth: 1,
+      src: { anchor: 'chop-ellipse' },
+      dst: { anchor: 'chop-ellipse', marker: <Triangle /> },
     },
-    connections: [
-      { id: 'ping->pong', src: { id: 'ping' }, dst: { id: 'pong' } },
-    ],
   },
+  initialState,
 });
 
 export default () => (

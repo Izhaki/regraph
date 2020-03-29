@@ -7,10 +7,10 @@ import commands from './commands';
 import tools from './tools';
 
 export const {
+  set: setConnections,
   add: addConnection,
   update: updateConnections,
   remove: removeConnections,
-  replace: replaceConnections,
 } = connections.actions;
 
 export const {

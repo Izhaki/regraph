@@ -5,6 +5,9 @@ export default createSlice({
   name: 'connections',
   initialState: [],
   reducers: {
+    set(_, action) {
+      return action.payload;
+    },
     add(connections, action) {
       const connection = action.payload;
       connections.push(connection);
@@ -18,9 +21,6 @@ export default createSlice({
       ids.forEach(id => {
         removeFromList(connections, id);
       });
-    },
-    replace(connections, action) {
-      return action.payload;
     },
   },
 });

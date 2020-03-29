@@ -5,12 +5,12 @@ export default createSlice({
   name: 'boxes',
   initialState: [],
   reducers: {
+    set(_, action) {
+      return action.payload;
+    },
     add(boxes, action) {
       const { id, box } = action.payload;
       boxes[id] = box;
-    },
-    set(_, action) {
-      return action.payload.boxes;
     },
     move(boxes, action) {
       const { id, delta } = action.payload;

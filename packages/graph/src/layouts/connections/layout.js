@@ -1,5 +1,5 @@
 import { isRect } from '@regraph/geo/rect';
-import { mergeConnections } from '../../utils'; // TODO: move to connections?
+import { mergeConnections } from '@regraph/core';
 import resolveAnchors from './resolveAnchors';
 import { endNeedsResolution } from './utils';
 
