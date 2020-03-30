@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import { graph } from '@regraph/graph';
+import connectionLayout from '@regraph/graph/layouts/connections';
 import { editor, connectGraph } from '@regraph/editor';
 import { Line } from '@regraph/connections';
 import { Triangle } from '@regraph/arrowheads';
@@ -38,7 +39,6 @@ const eventMapper = event => ({
 const Graph = graph({
   connector: connectGraph(),
   interactive: eventMapper,
-  layout: true,
   looms: true,
 });
 
@@ -54,6 +54,7 @@ const initialState = {
 const GraphEditor = editor({
   tools: tools.map(({ tool }) => tool),
   getEditPolicies,
+  layout: connectionLayout,
   defaults: {
     node: { type: Circle, 'data-target': 'node' },
     connection: {

@@ -1,12 +1,14 @@
-import { moveBox, setConnections } from '../actions';
+import { init, moveBox, setConnections } from '../actions';
 
-const layouter = layout => store => next => action => {
+const layouter = layout => ({ dispatch, getState }) => next => action => {
   const result = next(action);
+
   switch (action.type) {
+    case init.type:
     case moveBox.type: {
-      const state = store.getState();
+      const state = getState();
       const { connections } = layout(state);
-      store.dispatch(setConnections(connections));
+      dispatch(setConnections(connections));
       break;
     }
     default:
