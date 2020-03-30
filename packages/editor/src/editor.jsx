@@ -7,6 +7,8 @@ import toolRouter from './toolRouter';
 import { layouter, nodeDefaults, connectionDefaults } from './middlewares';
 import { init } from './actions';
 
+const isDefined = x => x !== undefined;
+
 export default ({
   initialState,
   tools,
@@ -24,19 +26,13 @@ export default ({
     immutableCheck: false,
   });
 
-  const middleware = [...defaultMiddleware, toolRouter(tools, getEditPolicies)];
-
-  if (defaults.node) {
-    middleware.push(nodeDefaults(defaults.node));
-  }
-
-  if (defaults.connection) {
-    middleware.push(connectionDefaults(defaults.connection));
-  }
-
-  if (layout) {
-    middleware.push(layouter(layout));
-  }
+  const middleware = [
+    ...defaultMiddleware,
+    toolRouter(tools, getEditPolicies),
+    defaults.node && nodeDefaults(defaults.node),
+    defaults.connection && connectionDefaults(defaults.connection),
+    layout && layouter(layout),
+  ].filter(isDefined);
 
   const store = configureStore({
     reducer,
