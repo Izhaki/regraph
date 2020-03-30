@@ -61,7 +61,9 @@ const editPolicies = {
         return updateConnections({
           ids: ['@@draggedConnection'],
           updates: {
-            dst: isValid ? getEnd(event.target) : event.position,
+            dst: isValid
+              ? getEnd(event.target)
+              : { ...event.position, id: undefined },
           },
         });
       },
