@@ -4,7 +4,12 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import reducer from './reducer';
 import toolRouter from './toolRouter';
-import { layouter, nodeDefaults, connectionDefaults } from './middlewares';
+import {
+  layouter,
+  nodeDefaults,
+  connectionDefaults,
+  loomer,
+} from './middlewares';
 import { init } from './actions';
 
 const isDefined = x => x !== undefined;
@@ -13,6 +18,7 @@ export default ({
   initialState,
   tools,
   getEditPolicies,
+  looms,
   layout,
   defaults = {},
 }) => {
@@ -31,7 +37,9 @@ export default ({
     toolRouter(tools, getEditPolicies),
     defaults.node && nodeDefaults(defaults.node),
     defaults.connection && connectionDefaults(defaults.connection),
+    // Below are post (reducers) middleware so order is inverted (looms will have before layout)
     layout && layouter(layout),
+    looms && loomer,
   ].filter(isDefined);
 
   const store = configureStore({

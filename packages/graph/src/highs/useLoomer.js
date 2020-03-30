@@ -47,7 +47,7 @@ const getUpdates = gap => groups =>
 const applyUpdates = connections => updates =>
   connections.map(connection => updates[connection.id] || connection);
 
-const loomify = (connections, gap = 12) =>
+export const loomify = (connections, gap = 12) =>
   pipe(
     getGroups,
     keepMultiGroups,
