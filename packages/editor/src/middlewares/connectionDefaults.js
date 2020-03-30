@@ -1,22 +1,29 @@
 import { mergeConnections } from '@regraph/core';
-import { addConnection } from '../actions';
+import { init, addConnection, setConnections } from '../actions';
 
-const connectionDefaults = defaults => () => next => action => {
+const connectionDefaults = defaults => ({
+  dispatch,
+  getState,
+}) => next => action => {
   switch (action.type) {
     case addConnection.type: {
       action.payload = mergeConnections(defaults, action.payload);
-      return next(action);
+      break;
     }
+
+    case init.type: {
+      const state = getState();
+      const connections = state.connections.map(connection =>
+        mergeConnections(defaults, connection)
+      );
+
+      dispatch(setConnections(connections));
+      break;
+    }
+
     default:
   }
   return next(action);
 };
-
-connectionDefaults.applyToState = defaults => state => ({
-  ...state,
-  connections: state.connections.map(connection =>
-    mergeConnections(defaults, connection)
-  ),
-});
 
 export default connectionDefaults;

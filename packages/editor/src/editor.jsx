@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import { pipe } from '@regraph/core';
 import reducer from './reducer';
 import toolRouter from './toolRouter';
 import { layouter, nodeDefaults, connectionDefaults } from './middlewares';
+import { init } from './actions';
 
 export default ({
   initialState,
@@ -26,30 +26,24 @@ export default ({
 
   const middleware = [...defaultMiddleware, toolRouter(tools, getEditPolicies)];
 
-  const mappers = [];
-
   if (defaults.node) {
-    mappers.push(nodeDefaults.applyToState(defaults.node));
     middleware.push(nodeDefaults(defaults.node));
   }
 
   if (defaults.connection) {
-    mappers.push(connectionDefaults.applyToState(defaults.connection));
     middleware.push(connectionDefaults(defaults.connection));
   }
 
   if (layout) {
-    mappers.push(layout);
     middleware.push(layouter(layout));
   }
 
-  const preloadedState = pipe(...mappers)(initialState);
-
   const store = configureStore({
     reducer,
-    preloadedState,
+    preloadedState: initialState,
     middleware,
   });
+  store.dispatch(init());
 
   const Editor = ({ children }) => (
     <Provider store={store}>{children}</Provider>
