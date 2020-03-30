@@ -1,5 +1,6 @@
-import update from './update';
+import { useMemo } from 'react';
 import { pipe } from '@regraph/core';
+import update from './update';
 
 const getEndId = end => end.id || `(${end.x},${end.y})`;
 
@@ -46,12 +47,15 @@ const getUpdates = gap => groups =>
 const applyUpdates = connections => updates =>
   connections.map(connection => updates[connection.id] || connection);
 
-export default (gap = 12) =>
+const loomify = (connections, gap = 12) =>
+  pipe(
+    getGroups,
+    keepMultiGroups,
+    getUpdates(gap),
+    applyUpdates(connections)
+  )(connections);
+
+export default gap =>
   update(({ connections }) => ({
-    connections: pipe(
-      getGroups,
-      keepMultiGroups,
-      getUpdates(gap),
-      applyUpdates(connections)
-    )(connections),
+    connections: useMemo(() => loomify(connections, gap), [connections]),
   }));
