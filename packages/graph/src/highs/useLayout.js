@@ -9,12 +9,13 @@ const requestMissingBoxes = (ends = {}, boxContext) => {
 
 export default layout => props => {
   const boxContext = useBoxContext();
-  return useMemo(
-    () => {
-      const { endsMissingBoxes, ...outProps } = layout(props);
-      requestMissingBoxes(endsMissingBoxes, boxContext);
-      return outProps;
-    },
-    layout.deps(props) // eslint-disable-line react-hooks/exhaustive-deps
-  );
+  const updates = useMemo(() => {
+    const { endsMissingBoxes, ...otherUpdates } = layout(props);
+    requestMissingBoxes(endsMissingBoxes, boxContext);
+    return otherUpdates;
+  }, layout.deps(props)); // eslint-disable-line react-hooks/exhaustive-deps
+  return {
+    ...props,
+    ...updates,
+  };
 };
