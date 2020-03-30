@@ -39,7 +39,6 @@ const eventMapper = event => ({
 const Graph = graph({
   connector: connectGraph(),
   interactive: eventMapper,
-  looms: true,
 });
 
 const initialState = {
@@ -54,6 +53,7 @@ const initialState = {
 const GraphEditor = editor({
   tools: tools.map(({ tool }) => tool),
   getEditPolicies,
+  looms: true,
   layout: connectionLayout,
   defaults: {
     node: { type: Circle, 'data-target': 'node' },
