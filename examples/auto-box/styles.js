@@ -12,5 +12,6 @@ export default {
 
   text: {
     whiteSpace: 'nowrap', // Narrow viewport may cause the text to wrap, yielding wrong box
+    pointerEvents: 'auto',
   },
 };
