@@ -13,10 +13,11 @@ const mapDispatchToProps = autoBox => dispatch => {
   return handlers;
 };
 
-const mapStateToProps = ({ nodes, boxes, connections }) => ({
+const mapStateToProps = ({ nodes, boxes, connections, boxRequests }) => ({
   nodes,
   boxes,
   connections,
+  ...(boxRequests.length && { boxRequests }),
 });
 
 export default ({ autoBox } = {}) =>

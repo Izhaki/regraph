@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useBoxContext } from './BoxContext';
 
-const requestMissingBoxes = (ends = {}, boxContext) => {
-  Object.values(ends).forEach(({ id, port }) => {
+const requestMissingBoxes = (ends, boxContext) => {
+  ends.forEach(({ id, port }) => {
     boxContext.requestBox({ id, port });
   });
 };

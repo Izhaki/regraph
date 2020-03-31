@@ -6,12 +6,17 @@ import { useForkRef } from './interaction/useMouseAway/refUtils';
 
 export default WraapedComponent => {
   const WithAutoBox = forwardRef(function WithAutoBox(
-    { boxes: inBoxes, onBoxes, ...props },
+    { boxes: inBoxes, onBoxes, boxRequests, ...props },
     ref
   ) {
     const boxerRef = useRef(null);
     const forkedRef = useForkRef(boxerRef, ref);
-    const { boxes, boxContext } = useAutoBox(inBoxes, onBoxes, boxerRef);
+    const { boxes, boxContext } = useAutoBox(
+      inBoxes,
+      boxRequests,
+      onBoxes,
+      boxerRef
+    );
 
     return (
       <BoxContext.Provider value={boxContext}>
@@ -22,6 +27,7 @@ export default WraapedComponent => {
 
   WithAutoBox.propTypes = {
     boxes: PropTypes.object,
+    boxRequests: PropTypes.array,
     onBoxes: PropTypes.func,
   };
 

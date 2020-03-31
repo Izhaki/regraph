@@ -2,7 +2,18 @@ import { useEffect, useState, useRef } from 'react';
 import { queryRelativeBox } from './boxQueries';
 import useForceUpdate from './useForceUpdate';
 
-export default (inBoxes, onBoxes, graphRef) => {
+const addRequest = requests => request => {
+  // Add the node
+  const { port, ...nodeRequest } = request;
+  requests.set(nodeRequest.id, nodeRequest);
+  // Add the port if needed
+  if (port) {
+    const portId = `${request.id}/${port}`;
+    requests.set(portId, request);
+  }
+};
+
+export default (inBoxes, boxRequests = [], onBoxes, graphRef) => {
   const forceUpdate = useForceUpdate();
   const [stateBoxes, setStateBoxes] = useState(inBoxes);
   const updateBoxes = onBoxes || setStateBoxes;
@@ -18,16 +29,13 @@ export default (inBoxes, onBoxes, graphRef) => {
 
   const requests = useRef(new Map()).current;
 
+  // Add box requests from parent components
+  boxRequests.forEach(addRequest(requests));
+
   const boxContext = useRef({
     requestBox: request => {
-      // Add the node
-      const { port, ...nodeRequest } = request;
-      requests.set(nodeRequest.id, nodeRequest);
-      // Add the port if needed
-      if (port) {
-        const portId = `${request.id}/${port}`;
-        requests.set(portId, request);
-      }
+      // Add box requests from child components
+      addRequest(requests)(request);
       forceUpdate();
     },
   }).current;

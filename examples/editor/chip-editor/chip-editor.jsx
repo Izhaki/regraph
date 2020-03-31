@@ -1,5 +1,6 @@
 import React from 'react';
 import { graph } from '@regraph/graph';
+import connectionLayout from '@regraph/graph/layouts/connections';
 import {
   editor,
   connectGraph,
@@ -26,15 +27,7 @@ const eventMapper = (event, props) => ({
 const Graph = graph({
   connector: connectGraph({ autoBox: true }),
   interactive: eventMapper,
-  layout: true,
   autoBox: true,
-  connection: {
-    type: Line,
-    strokeWidth: 1,
-  },
-  node: {
-    type: Chip,
-  },
 });
 
 const GraphEditor = editor({
@@ -42,6 +35,16 @@ const GraphEditor = editor({
     multiTool(multiTool(selectionTool, moveSelectionTool), connectionTool),
   ],
   getEditPolicies,
+  layout: connectionLayout,
+  defaults: {
+    node: {
+      type: Chip,
+    },
+    connection: {
+      type: Line,
+      strokeWidth: 1,
+    },
+  },
   initialState: {
     nodes: [
       { id: 'fader', ...fader },
