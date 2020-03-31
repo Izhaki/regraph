@@ -48,7 +48,7 @@ const layout = props => {
   });
   return {
     connections: outConnections,
-    endsMissingBoxes: allEndsMissingBoxes,
+    endsMissingBoxes: Object.values(allEndsMissingBoxes),
   };
 };
 
