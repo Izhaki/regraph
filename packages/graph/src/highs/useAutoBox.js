@@ -13,16 +13,33 @@ const addRequest = requests => request => {
   }
 };
 
+const getBoxReducer = (boxes, graphBox) => (newBoxes, request) => {
+  const { id, port } = request;
+
+  if (port) {
+    const portId = `${id}/${port}`;
+    const parentBox = newBoxes[id] || boxes[id];
+    const box = queryRelativeBox({ id: portId }, graphBox);
+    box.x -= parentBox.x;
+    box.y -= parentBox.y;
+    box.parent = id;
+    newBoxes[portId] = box;
+  } else {
+    newBoxes[id] = queryRelativeBox(request, graphBox);
+  }
+  return newBoxes;
+};
+
 export default (inBoxes, boxRequests = [], onBoxes, graphRef) => {
   const forceUpdate = useForceUpdate();
   const [stateBoxes, setStateBoxes] = useState(inBoxes);
 
-  const outBoxes = onBoxes ? inBoxes : stateBoxes;
-
-  const updateBoxes = newBoxes =>
-    onBoxes ? onBoxes(newBoxes) : setStateBoxes({ ...outBoxes, ...newBoxes });
+  const [boxes, updateBoxes] = onBoxes
+    ? [inBoxes, onBoxes]
+    : [stateBoxes, newBoxes => setStateBoxes({ ...boxes, ...newBoxes })];
 
   const originalBoxes = useRef(inBoxes).current;
+
   if (process.env.NODE_ENV !== 'production') {
     if (!onBoxes && inBoxes !== originalBoxes) {
       console.error(`Regraph: New boxes in props but no onBoxes.`);
@@ -34,42 +51,27 @@ export default (inBoxes, boxRequests = [], onBoxes, graphRef) => {
   // Add box requests from parent components
   boxRequests.forEach(addRequest(requests));
 
+  // Box context allows children to make requests
   const boxContext = useRef({
     requestBox: request => {
-      // Add box requests from child components
       addRequest(requests)(request);
       forceUpdate();
     },
   }).current;
 
+  // After rendering get the boxes for all requests
   useEffect(() => {
     if (requests.size) {
-      const graphElement = graphRef.current;
-      const graphBox = graphElement.getBoundingClientRect();
-
-      const newBoxes = {};
-      requests.forEach(request => {
-        const { id, port } = request;
-
-        if (port) {
-          const portId = `${id}/${port}`;
-          const parentBox = newBoxes[id] || outBoxes[id];
-          const box = queryRelativeBox({ id: portId }, graphBox);
-          box.x -= parentBox.x;
-          box.y -= parentBox.y;
-          box.parent = id;
-          newBoxes[portId] = box;
-        } else {
-          newBoxes[id] = queryRelativeBox(request, graphBox);
-        }
-      });
+      const graphBox = graphRef.current.getBoundingClientRect();
+      const requestsArray = Array.from(requests.values());
+      const newBoxes = requestsArray.reduce(getBoxReducer(boxes, graphBox), {});
       requests.clear();
       updateBoxes(newBoxes);
     }
   }); // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
-    boxes: outBoxes,
+    boxes,
     boxContext,
   };
 };
