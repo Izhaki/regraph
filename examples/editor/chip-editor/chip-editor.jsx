@@ -58,7 +58,7 @@ const GraphEditor = editor({
     },
     connections: [
       {
-        id: '1',
+        id: 'lfo/out->filter/cutoff',
         src: { id: 'lfo', port: 'out', anchor: 'right' },
         dst: { id: 'filter', port: 'cutoff', anchor: 'left' },
       },
