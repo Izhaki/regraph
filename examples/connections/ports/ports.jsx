@@ -7,7 +7,7 @@ import LfoChip from './LfoChip';
 const Graph = graph({
   extractBoxesFromNodes: true,
   layout: true,
-  autoBox: true,
+  boxer: true,
   connection: {
     type: Line,
     strokeWidth: 1,

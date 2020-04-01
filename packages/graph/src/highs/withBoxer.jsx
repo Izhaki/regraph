@@ -1,17 +1,17 @@
 import React, { useRef, forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import useAutoBox from './useAutoBox';
+import useBoxer from './useBoxer';
 import { BoxContext } from './BoxContext';
 import { useForkRef } from './interaction/useMouseAway/refUtils';
 
 export default WraapedComponent => {
-  const WithAutoBox = forwardRef(function WithAutoBox(
+  const WithBoxer = forwardRef(function WithBoxer(
     { boxes: inBoxes, onBoxes, boxRequests, ...props },
     ref
   ) {
     const boxerRef = useRef(null);
     const forkedRef = useForkRef(boxerRef, ref);
-    const { boxes, boxContext } = useAutoBox(
+    const { boxes, boxContext } = useBoxer(
       inBoxes,
       boxRequests,
       onBoxes,
@@ -25,11 +25,11 @@ export default WraapedComponent => {
     );
   });
 
-  WithAutoBox.propTypes = {
+  WithBoxer.propTypes = {
     boxes: PropTypes.object,
     boxRequests: PropTypes.array,
     onBoxes: PropTypes.func,
   };
 
-  return WithAutoBox;
+  return WithBoxer;
 };
