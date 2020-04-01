@@ -21,7 +21,11 @@ export const {
   remove: removeNodes,
 } = nodes.actions;
 
-export const { add: addBox, set: setBoxes, move: moveBox } = boxes.actions;
+export const {
+  add: addBox,
+  update: updateBoxes,
+  move: moveBox,
+} = boxes.actions;
 
 export const { select, clearSelection } = selected.actions;
 

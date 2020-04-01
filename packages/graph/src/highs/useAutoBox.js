@@ -16,9 +16,11 @@ const addRequest = requests => request => {
 export default (inBoxes, boxRequests = [], onBoxes, graphRef) => {
   const forceUpdate = useForceUpdate();
   const [stateBoxes, setStateBoxes] = useState(inBoxes);
-  const updateBoxes = onBoxes || setStateBoxes;
 
   const outBoxes = onBoxes ? inBoxes : stateBoxes;
+
+  const updateBoxes = newBoxes =>
+    onBoxes ? onBoxes(newBoxes) : setStateBoxes({ ...outBoxes, ...newBoxes });
 
   const originalBoxes = useRef(inBoxes).current;
   if (process.env.NODE_ENV !== 'production') {
@@ -45,13 +47,13 @@ export default (inBoxes, boxRequests = [], onBoxes, graphRef) => {
       const graphElement = graphRef.current;
       const graphBox = graphElement.getBoundingClientRect();
 
-      const newBoxes = { ...outBoxes };
+      const newBoxes = {};
       requests.forEach(request => {
         const { id, port } = request;
 
         if (port) {
           const portId = `${id}/${port}`;
-          const parentBox = newBoxes[id];
+          const parentBox = newBoxes[id] || outBoxes[id];
           const box = queryRelativeBox({ id: portId }, graphBox);
           box.x -= parentBox.x;
           box.y -= parentBox.y;

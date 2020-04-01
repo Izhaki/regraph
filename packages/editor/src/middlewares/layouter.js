@@ -1,7 +1,7 @@
 import {
   init,
   moveBox,
-  setBoxes,
+  updateBoxes,
   addConnection,
   updateConnections,
   setConnections,
@@ -13,7 +13,7 @@ const layouter = layout => ({ dispatch, getState }) => {
     const state = getState();
     const { connections, endsMissingBoxes } = layout(state, needsLayout);
 
-    if (handleMissingBoxes) {
+    if (endsMissingBoxes.length) {
       const boxRequests = endsMissingBoxes.map(({ id, port }) => ({
         id,
         port,
@@ -28,9 +28,16 @@ const layouter = layout => ({ dispatch, getState }) => {
     const result = next(action);
 
     switch (action.type) {
-      case init.type:
-      case setBoxes.type: {
+      case init.type: {
         preformLayout(true);
+        break;
+      }
+
+      case updateBoxes.type: {
+        const updatedBoxes = action.payload;
+        const needsLayout = connection =>
+          updatedBoxes[connection.src.id] || updatedBoxes[connection.dst.id];
+        preformLayout(true, needsLayout);
         break;
       }
 
