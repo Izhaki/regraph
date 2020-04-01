@@ -11,11 +11,13 @@ const Graph = graph({
   extractBoxesFromNodes: true,
   layout: true,
   autoViewportSize: true,
-  connection: {
-    type: Line,
-    strokeWidth: 1,
-    dst: { anchor: 'chop-ellipse', marker: <Triangle /> },
-    src: { anchor: 'chop-ellipse' },
+  defaults: {
+    connection: {
+      type: Line,
+      strokeWidth: 1,
+      dst: { anchor: 'chop-ellipse', marker: <Triangle /> },
+      src: { anchor: 'chop-ellipse' },
+    },
   },
 });
 

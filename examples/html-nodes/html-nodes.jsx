@@ -22,7 +22,9 @@ const Graph = graph({
   extractBoxesFromNodes: true,
   layout: true,
   autoViewportSize: true,
-  node: { type: Rect },
+  defaults: {
+    node: { type: Rect },
+  },
 });
 
 export default () => (

@@ -31,10 +31,12 @@ const Graph = graph({
   normalizeConnections: true,
   layout: true,
   autoViewportSize: true,
-  node: { type: TextRect },
-  connection: {
-    type: Line,
-    strokeWidth: 1,
+  defaults: {
+    node: { type: TextRect },
+    connection: {
+      type: Line,
+      strokeWidth: 1,
+    },
   },
 });
 

@@ -9,11 +9,13 @@ const Graph = graph({
   extractBoxesFromNodes: true,
   layout: true,
   autoViewportSize: true,
-  connection: {
-    type: Line,
-    strokeWidth: 2,
-    src: { marker: <Perp /> },
-    dst: { marker: <Triangle /> },
+  defaults: {
+    connection: {
+      type: Line,
+      strokeWidth: 2,
+      src: { marker: <Perp /> },
+      dst: { marker: <Triangle /> },
+    },
   },
 });
 

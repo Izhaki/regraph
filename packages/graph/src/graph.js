@@ -17,9 +17,8 @@ import {
 import connectionLayout from './layouts/connections';
 
 export default ({
-  node,
+  defaults = {},
   normalizeConnections,
-  connection,
   autoConnectionId,
   looms,
   extractBoxesFromNodes,
@@ -32,16 +31,16 @@ export default ({
 }) => {
   const features = [];
 
-  if (node) {
-    features.push(useNodeDefaults(node));
+  if (defaults.node) {
+    features.push(useNodeDefaults(defaults.node));
   }
 
   if (normalizeConnections) {
     features.push(useNormaliseConnections);
   }
 
-  if (connection) {
-    features.push(useConnectionDefaults(connection));
+  if (defaults.connection) {
+    features.push(useConnectionDefaults(defaults.connection));
   }
 
   if (autoConnectionId) {

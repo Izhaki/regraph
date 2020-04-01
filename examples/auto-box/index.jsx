@@ -14,7 +14,9 @@ const Graph = graph({
   boxer: true,
   extractBoxesFromNodes: true,
   layout: true,
-  node: { type: Rect },
+  defaults: {
+    node: { type: Rect },
+  },
 });
 
 export default () => (

@@ -10,8 +10,10 @@ const Graph = graph({
   extractBoxesFromNodes: true,
   layout: true,
   autoViewportSize: true,
-  node: { type: Rect },
-  connection: { type: Line },
+  defaults: {
+    node: { type: Rect },
+    connection: { type: Line },
+  },
 });
 
 export default () => (

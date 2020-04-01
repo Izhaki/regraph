@@ -8,9 +8,11 @@ const Graph = graph({
   extractBoxesFromNodes: true,
   layout: true,
   boxer: true,
-  connection: {
-    type: Line,
-    strokeWidth: 1,
+  defaults: {
+    connection: {
+      type: Line,
+      strokeWidth: 1,
+    },
   },
 });
 

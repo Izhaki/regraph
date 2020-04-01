@@ -24,7 +24,9 @@ const eventMapper = event => ({
 const Graph = graph({
   connector: connectGraph(),
   interactive: eventMapper,
-  node: { type: Circle, 'data-target': 'node' },
+  defaults: {
+    node: { type: Circle, 'data-target': 'node' },
+  },
 });
 
 const GraphEditor = editor({

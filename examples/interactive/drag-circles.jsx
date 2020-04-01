@@ -12,12 +12,14 @@ const Circle = ({ id, box }) => (
 const Graph = graph({
   interactive: true,
   layout: true,
-  node: { type: Circle },
-  connection: {
-    type: Line,
-    strokeWidth: 1,
-    dst: { anchor: 'chop-ellipse', marker: <Triangle /> },
-    src: { anchor: 'chop-ellipse' },
+  defaults: {
+    node: { type: Circle },
+    connection: {
+      type: Line,
+      strokeWidth: 1,
+      dst: { anchor: 'chop-ellipse', marker: <Triangle /> },
+      src: { anchor: 'chop-ellipse' },
+    },
   },
 });
 

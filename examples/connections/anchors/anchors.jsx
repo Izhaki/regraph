@@ -17,12 +17,14 @@ const Graph = graph({
   extractBoxesFromNodes: true,
   layout: true,
   autoViewportSize: true,
-  node: { type: Rect },
-  connection: {
-    type: Line,
-    strokeWidth: 1,
-    src: { marker: <Triangle /> },
-    dst: { marker: <Triangle /> },
+  defaults: {
+    node: { type: Rect },
+    connection: {
+      type: Line,
+      strokeWidth: 1,
+      src: { marker: <Triangle /> },
+      dst: { marker: <Triangle /> },
+    },
   },
 });
 
