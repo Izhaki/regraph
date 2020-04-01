@@ -25,9 +25,9 @@ const eventMapper = (event, props) => ({
 });
 
 const Graph = graph({
-  connector: connectGraph({ autoBox: true }),
+  connector: connectGraph({ boxer: true }),
   interactive: eventMapper,
-  autoBox: true,
+  boxer: true,
 });
 
 const GraphEditor = editor({

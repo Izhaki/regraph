@@ -11,7 +11,7 @@ const Rect = withHtmlPosition(({ id }) => (
 ));
 
 const Graph = graph({
-  autoBox: true,
+  boxer: true,
   extractBoxesFromNodes: true,
   layout: true,
   node: { type: Rect },

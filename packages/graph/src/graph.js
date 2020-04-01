@@ -11,7 +11,7 @@ import {
   useHideFirstRender,
   useLayout,
   useAutoViewportSize,
-  withAutoBox,
+  withBoxer,
   withInteraction,
 } from './highs';
 import connectionLayout from './layouts/connections';
@@ -23,7 +23,7 @@ export default ({
   autoConnectionId,
   looms,
   extractBoxesFromNodes,
-  autoBox,
+  boxer,
   hideFirstRender,
   layout,
   autoViewportSize,
@@ -56,7 +56,7 @@ export default ({
     features.push(useBoxExtractor);
   }
 
-  if (hideFirstRender || autoBox) {
+  if (hideFirstRender || boxer) {
     features.push(useHideFirstRender);
   }
 
@@ -81,8 +81,8 @@ export default ({
     const eventMapper = interactive === true ? undefined : interactive;
     hocs.push(withInteraction(eventMapper));
   }
-  if (autoBox) {
-    hocs.push(withAutoBox);
+  if (boxer) {
+    hocs.push(withBoxer);
   }
 
   return compose(...hocs)(Graph);

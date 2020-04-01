@@ -27,7 +27,7 @@ const TextRect = withHtmlPosition(({ id, title }) => {
 });
 
 const Graph = graph({
-  autoBox: true,
+  boxer: true,
   normalizeConnections: true,
   layout: true,
   autoViewportSize: true,
