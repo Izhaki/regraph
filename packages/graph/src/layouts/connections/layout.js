@@ -3,15 +3,14 @@ import { mergeConnections } from '@regraph/core';
 import resolveAnchors from './resolveAnchors';
 import { endNeedsResolution } from './utils';
 
-// Temporary return true so layouts work with editors
-const needsResolution = () => true;
+const allConnections = () => true;
 
 // TODO: core?
 const getEndId = end => (end.port ? `${end.id}/${end.port}` : end.id);
 
 const ignore = connection => ({ ...connection, ignore: true });
 
-const layout = props => {
+const layout = (props, needsLayout = allConnections) => {
   const { connections = [], boxes } = props;
   const missingBox = end => !isRect(boxes[getEndId(end)]);
   const getEndsMissingBox = connection =>
@@ -22,7 +21,7 @@ const layout = props => {
   const allEndsMissingBoxes = {};
 
   const outConnections = connections.map(connection => {
-    if (needsResolution(connection)) {
+    if (needsLayout(connection)) {
       const endsMissingBoxes = getEndsMissingBox(connection);
       endsMissingBoxes.forEach(end => {
         allEndsMissingBoxes[getEndId(end)] = end;
