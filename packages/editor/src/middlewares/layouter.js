@@ -8,8 +8,20 @@ import {
   setBoxRequests,
 } from '../actions';
 
+// action.payload → connection → boolean
+const actionNeedLayout = {
+  [init]: () => () => true, // All connections need layout
+  [updateBoxes]: updatedBoxes => ({ src, dst }) =>
+    updatedBoxes[src.id] || updatedBoxes[dst.id],
+  [updateConnections]: ({ ids }) => connection => ids.includes(connection.id),
+  [addConnection]: ({ id: connectionId }) => connection =>
+    connection.id === connectionId,
+  [moveBox]: ({ id: boxId }) => ({ src, dst }) =>
+    src.id === boxId || dst.id === boxId,
+};
+
 const layouter = layout => ({ dispatch, getState }) => {
-  const preformLayout = (handleMissingBoxes, needsLayout) => {
+  const preformLayout = needsLayout => {
     const state = getState();
     const { connections, endsMissingBoxes } = layout(state, needsLayout);
 
@@ -27,43 +39,11 @@ const layouter = layout => ({ dispatch, getState }) => {
   return next => action => {
     const result = next(action);
 
-    switch (action.type) {
-      case init.type: {
-        preformLayout(true);
-        break;
-      }
-
-      case updateBoxes.type: {
-        const updatedBoxes = action.payload;
-        const needsLayout = connection =>
-          updatedBoxes[connection.src.id] || updatedBoxes[connection.dst.id];
-        preformLayout(true, needsLayout);
-        break;
-      }
-
-      case updateConnections.type: {
-        const { ids } = action.payload;
-        const needsLayout = connection => ids.includes(connection.id);
-        preformLayout(true, needsLayout);
-        break;
-      }
-
-      case addConnection.type: {
-        const connectionId = action.payload.id;
-        const needsLayout = connection => connection.id === connectionId;
-        preformLayout(true, needsLayout);
-        break;
-      }
-
-      case moveBox.type: {
-        const boxId = action.payload.id;
-        const needsLayout = connection =>
-          connection.src.id === boxId || connection.dst.id === boxId;
-        preformLayout(true, needsLayout);
-        break;
-      }
-      default:
+    const needsLayout = actionNeedLayout[action.type];
+    if (needsLayout) {
+      preformLayout(needsLayout(action.payload));
     }
+
     return result;
   };
 };
