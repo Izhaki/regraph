@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setBoxes } from '../actions';
+import { updateBoxes } from '../actions';
 
 const mapDispatchToProps = autoBox => dispatch => {
   const handlers = {
@@ -8,7 +8,7 @@ const mapDispatchToProps = autoBox => dispatch => {
     onMouseUp: event => dispatch({ type: 'mouseUp', event }),
   };
   if (autoBox) {
-    handlers.onBoxes = boxes => dispatch(setBoxes(boxes));
+    handlers.onBoxes = boxes => dispatch(updateBoxes(boxes));
   }
   return handlers;
 };
