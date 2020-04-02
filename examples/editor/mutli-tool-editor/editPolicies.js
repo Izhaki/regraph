@@ -17,10 +17,10 @@ const getEnd = ({ id }) => ({ id });
 
 const editPolicies = {
   background: {
-    create(event) {
+    create: dispatch => event => {
       const id = uuid();
       const { position } = event;
-      return [
+      [
         addBox({
           id,
           box: {
@@ -31,49 +31,54 @@ const editPolicies = {
           },
         }),
         addNode({ id }),
-      ];
+      ].map(dispatch);
     },
   },
   node: {
-    move: {
-      drag: event =>
-        moveBox({
-          id: event.source.id,
-          delta: event.delta,
-        }),
-    },
-    connection: {
-      start(event) {
+    move: dispatch => ({
+      drag: event => {
+        dispatch(
+          moveBox({
+            id: event.source.id,
+            delta: event.delta,
+          })
+        );
+      },
+    }),
+    connection: (dispatch, getState) => ({
+      start: event => {
         const { source, target } = event;
         const isValid = isValidConnection(source, target);
         const src = getEnd(target);
 
-        return [
+        dispatch(
           addConnection({
             id: '@@draggedConnection',
             src,
             dst: isValid ? src : event.position,
-          }),
-        ];
+          })
+        );
       },
-      drag(event) {
+      drag: event => {
         const isValid = isValidConnection(event.source, event.target);
-        return updateConnections({
-          ids: ['@@draggedConnection'],
-          updates: {
-            dst: isValid
-              ? getEnd(event.target)
-              : { ...event.position, id: undefined },
-          },
-        });
+        dispatch(
+          updateConnections({
+            ids: ['@@draggedConnection'],
+            updates: {
+              dst: isValid
+                ? getEnd(event.target)
+                : { ...event.position, id: undefined },
+            },
+          })
+        );
       },
-      end(event, state) {
+      end: event => {
         const isValid = isValidConnection(event.source, event.target);
-        const actions = [];
         if (isValid) {
+          const state = getState();
           const connection = getConnectionById(state, '@@draggedConnection');
 
-          actions.push(
+          dispatch(
             updateConnections({
               ids: ['@@draggedConnection'],
               updates: {
@@ -82,16 +87,14 @@ const editPolicies = {
             })
           );
         } else {
-          actions.push(
+          dispatch(
             removeConnections({
               ids: ['@@draggedConnection'],
             })
           );
         }
-
-        return actions;
       },
-    },
+    }),
   },
 };
 

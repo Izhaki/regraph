@@ -1,16 +1,13 @@
-import { ensureArray } from '../utils';
-
 const creationTool = getEditPolicies => ({ getState, dispatch }) => {
   return action => {
     switch (action.type) {
       case 'mouseUp': {
         const { target } = action.event;
 
-        const policies = getEditPolicies(target);
-        const createPolicy = policies.create;
+        const policy = getEditPolicies(target).create;
 
-        if (createPolicy) {
-          ensureArray(createPolicy(action.event, getState)).forEach(dispatch);
+        if (policy) {
+          policy(dispatch, getState)(action.event, getState);
         }
         break;
       }

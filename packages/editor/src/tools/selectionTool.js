@@ -1,19 +1,12 @@
 import { select, clearSelection } from '../actions';
-import { ensureArray } from '../utils';
-
-const isEmpty = collection => collection.length === 0;
 
 const isEqual = a => b => JSON.stringify(a) === JSON.stringify(b);
 
-const deselectAll = (getEditPolicies, dispatch, selected) => {
-  if (isEmpty(selected)) {
-    return false;
-  }
-
+const deselectAll = (getEditPolicies, dispatch, getState, selected) => {
   selected.forEach(target => {
-    const { deselect: deselectPolicy } = getEditPolicies(target);
-    if (deselectPolicy) {
-      dispatch(deselectPolicy(target));
+    const policy = getEditPolicies(target).deselect;
+    if (policy) {
+      policy(dispatch, getState)(target);
     }
   });
 
@@ -28,19 +21,17 @@ const selectionTool = getEditPolicies => ({ getState, dispatch }) => {
         const { target, shiftKey } = action.event;
         action.event.source = target;
 
-        const policies = getEditPolicies(target);
-
         const alreadySelected = selected.some(isEqual(target));
 
         if (!alreadySelected) {
           if (!shiftKey) {
-            deselectAll(getEditPolicies, dispatch, selected);
+            deselectAll(getEditPolicies, dispatch, getState, selected);
           }
 
-          if (policies.select) {
-            ensureArray(
-              policies.select(target, action.event, getState())
-            ).forEach(dispatch);
+          const policy = getEditPolicies(target).select;
+          if (policy) {
+            policy(dispatch, getState)(target);
+
             dispatch(select({ targets: [target] }));
           }
         }

@@ -1,49 +1,38 @@
-import { isFunction } from '@regraph/core/';
-import { ensureArray } from '../utils';
-
 const moveTool = getEditPolicies => ({ getState, dispatch }) => {
-  let current;
-  let movePolicy;
+  let source;
+  let policy;
   return action => {
     switch (action.type) {
       case 'mouseDown': {
         const { target } = action.event;
         action.event.source = target;
 
-        const policies = getEditPolicies(target);
-        movePolicy = policies.move;
-        if (isFunction(movePolicy)) {
-          movePolicy = movePolicy();
-        }
+        policy = getEditPolicies(target).move;
 
-        if (movePolicy && movePolicy.start) {
-          ensureArray(movePolicy.start(action.event, getState())).forEach(
-            dispatch
-          );
-        }
-
-        if (movePolicy) {
-          current = target;
+        if (policy) {
+          policy = policy(dispatch, getState);
+          if (policy.start) {
+            policy.start(action.event);
+          }
+          source = target;
         }
         break;
       }
       case 'mouseMove': {
-        if (current && movePolicy) {
-          action.event.source = current;
-          dispatch(movePolicy.drag(action.event));
+        if (policy) {
+          action.event.source = source;
+          policy.drag(action.event);
         }
         break;
       }
 
       case 'mouseUp': {
-        if (current && movePolicy && movePolicy.end) {
-          action.event.source = current;
-          ensureArray(movePolicy.end(action.event, getState())).forEach(
-            dispatch
-          );
+        if (policy && policy.end) {
+          action.event.source = source;
+          policy.end(action.event);
         }
 
-        current = null;
+        policy = null;
         break;
       }
 

@@ -1,6 +1,3 @@
-import { isFunction } from '@regraph/core/';
-import { ensureArray } from '../utils';
-
 const connectionTool = getEditPolicies => ({ dispatch, getState }) => {
   let source = null;
   let policy = null;
@@ -10,12 +7,10 @@ const connectionTool = getEditPolicies => ({ dispatch, getState }) => {
         const { target } = action.event;
         action.event.source = target;
         policy = getEditPolicies(target).connection;
-        if (isFunction(policy)) {
-          policy = policy();
-        }
         if (policy) {
+          policy = policy(dispatch, getState);
           source = target;
-          ensureArray(policy.start(action.event, getState())).forEach(dispatch);
+          policy.start(action.event);
         }
         break;
       }
@@ -23,7 +18,7 @@ const connectionTool = getEditPolicies => ({ dispatch, getState }) => {
       case 'mouseMove': {
         if (policy) {
           action.event.source = source;
-          dispatch(policy.drag(action.event, getState()));
+          policy.drag(action.event);
         }
         break;
       }
@@ -31,7 +26,7 @@ const connectionTool = getEditPolicies => ({ dispatch, getState }) => {
       case 'mouseUp': {
         if (policy) {
           action.event.source = source;
-          ensureArray(policy.end(action.event, getState())).forEach(dispatch);
+          policy.end(action.event);
           policy = null;
         }
         break;

@@ -1,9 +1,6 @@
-import { isFunction } from '@regraph/core/';
-import { ensureArray } from '../utils';
-
 const moveSelectionTool = getEditPolicies => ({ getState, dispatch }) => {
   let selected = null;
-  let movePolicy;
+  let policy;
   return action => {
     switch (action.type) {
       case 'mouseDown': {
@@ -13,42 +10,37 @@ const moveSelectionTool = getEditPolicies => ({ getState, dispatch }) => {
           const { target } = action.event;
           action.event.source = target;
 
-          const policies = getEditPolicies(target);
-          movePolicy = policies.move;
-          if (isFunction(movePolicy)) {
-            movePolicy = movePolicy();
-          }
+          policy = getEditPolicies(target).move;
 
-          if (movePolicy && movePolicy.start) {
-            ensureArray(movePolicy.start(action.event, getState())).forEach(
-              dispatch
-            );
+          if (policy) {
+            policy = policy(dispatch, getState);
+            if (policy.start) {
+              policy.start(action.event);
+            }
           }
         }
 
         break;
       }
       case 'mouseMove': {
-        if (movePolicy) {
+        if (policy) {
           selected.forEach(target => {
             action.event.source = target;
-            dispatch(movePolicy.drag(action.event));
+            policy.drag(action.event);
           });
         }
         break;
       }
 
       case 'mouseUp': {
-        if (movePolicy && movePolicy.end) {
+        if (policy && policy.end) {
           selected.forEach(target => {
             action.event.source = target;
-            ensureArray(movePolicy.end(action.event, getState())).forEach(
-              dispatch
-            );
+            policy.end(action.event);
           });
         }
 
-        movePolicy = null;
+        policy = null;
         break;
       }
 

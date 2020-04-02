@@ -24,8 +24,9 @@ import { targetifyNode, targetifyConnection } from './targetify';
 const getEndId = end => `${end.id}/${end.port}`;
 const generateId = ({ src, dst }) => `${getEndId(src)}->${getEndId(dst)}`;
 
-const setSelection = (action, selected) => target =>
-  action({ ids: [target.id], updates: { selected } });
+const setSelection = (action, selected) => dispatch => target => {
+  dispatch(action({ ids: [target.id], updates: { selected } }));
+};
 
 const getEnd = ({ id, port, type }) => ({
   id,
@@ -34,10 +35,11 @@ const getEnd = ({ id, port, type }) => ({
 });
 
 const port = {
-  connection: () => {
+  connection: (dispatch, getState) => {
     let beforeState;
     return {
-      start: (event, state) => {
+      start: event => {
+        const state = getState();
         beforeState = state;
         const { connections } = state;
         const { source, target } = event;
@@ -47,30 +49,34 @@ const port = {
           target.type === 'output' ? ['src', 'dst'] : ['dst', 'src'];
         const end = getEnd(target);
 
-        return [
+        [
           setNodes(nextNodes),
           addConnection({
             id: '@@draggedConnection',
             [from]: end,
             [to]: isValid ? end : event.position,
           }),
-        ];
+        ].map(dispatch);
       },
-      drag: (event, { connections }) => {
+      drag: event => {
+        const { connections } = getState();
         const isValid = isValidConnection(
           event.source,
           event.target,
           connections
         );
         const end = event.source.type === 'output' ? 'dst' : 'src';
-        return updateConnections({
-          ids: ['@@draggedConnection'],
-          updates: {
-            [end]: isValid ? getEnd(event.target) : event.position,
-          },
-        });
+        dispatch(
+          updateConnections({
+            ids: ['@@draggedConnection'],
+            updates: {
+              [end]: isValid ? getEnd(event.target) : event.position,
+            },
+          })
+        );
       },
-      end: (event, state) => {
+      end: event => {
+        const state = getState();
         const { connections, nodes } = state;
         const isValid = isValidConnection(
           event.source,
@@ -78,10 +84,10 @@ const port = {
           connections
         );
         const nextNodes = unmarkValidPorts(nodes);
-        const actions = [setNodes(nextNodes)];
+        dispatch(setNodes(nextNodes));
         if (isValid) {
           const connection = getConnectionById(state, '@@draggedConnection');
-          actions.push(
+          [
             updateConnections({
               ids: ['@@draggedConnection'],
               updates: targetifyConnection({
@@ -91,10 +97,10 @@ const port = {
             addCommand({
               title: 'New Connection',
               beforeState,
-            })
-          );
+            }),
+          ].map(dispatch);
         } else {
-          actions.push(
+          dispatch(
             removeConnections({
               ids: ['@@draggedConnection'],
             })
@@ -102,7 +108,6 @@ const port = {
         }
 
         beforeState = null;
-        return actions;
       },
     };
   },
@@ -112,49 +117,59 @@ const editPolicies = {
   connection: {
     select: setSelection(updateConnections, true),
     deselect: setSelection(updateConnections, false),
-    delete: target => removeConnections({ ids: [target.id] }),
+    delete: dispatch => target => {
+      dispatch(removeConnections({ ids: [target.id] }));
+    },
   },
   node: {
-    new: (node, state) => {
+    new: (dispatch, getState) => node => {
       const newNode = targetifyNode({
         ...node,
         id: node.id || uuid(),
       });
-      return [
+      [
         addBox({ id: newNode.id, box: { x: 20, y: 20 } }),
         addNode(newNode),
         addCommand({
           title: 'New Node',
-          beforeState: state,
+          beforeState: getState(),
         }),
-      ];
+      ].map(dispatch);
     },
     select: setSelection(updateNodes, true),
     deselect: setSelection(updateNodes, false),
-    delete: (target, state) => [
-      removeNodes({ ids: [target.id] }),
-      removeConnections({ ids: getNodeConnectionsIds(state, target.id) }),
-    ],
-    move: () => {
+    delete: (dispatch, getState) => target => {
+      [
+        removeNodes({ ids: [target.id] }),
+        removeConnections({
+          ids: getNodeConnectionsIds(getState(), target.id),
+        }),
+      ].map(dispatch);
+    },
+    move: (dispatch, getState) => {
       let beforeState;
       let hasMoved = false;
       return {
-        start: (event, state) => {
-          beforeState = state;
+        start: () => {
+          beforeState = getState();
         },
         drag: event => {
           hasMoved = true;
-          return moveBox({
-            id: event.source.id,
-            delta: event.delta,
-          });
+          dispatch(
+            moveBox({
+              id: event.source.id,
+              delta: event.delta,
+            })
+          );
         },
         end: () => {
           if (hasMoved) {
-            return addCommand({
-              title: 'Move',
-              beforeState,
-            });
+            dispatch(
+              addCommand({
+                title: 'Move',
+                beforeState,
+              })
+            );
           }
           return undefined;
         },
