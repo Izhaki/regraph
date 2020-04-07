@@ -1,4 +1,5 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
@@ -11,6 +12,13 @@ import {
   connectionTool,
 } from '@regraph/editor';
 
+const useStyles = makeStyles(theme => ({
+  toolbar: {
+    flexDirection: 'column',
+    borderRight: `1px solid ${theme.palette.divider}`,
+  },
+}));
+
 export const tools = [
   {
     tool: multiTool(moveTool, creationTool),
@@ -20,8 +28,9 @@ export const tools = [
 ];
 
 const ToolsPane = ({ currentTool, setCurrentTool }) => {
+  const classes = useStyles();
   return (
-    <Toolbar disableGutters style={{ flexDirection: 'column' }}>
+    <Toolbar disableGutters className={classes.toolbar}>
       {tools.map(({ icon, tool }, index) => (
         <Button
           key={tool.name}

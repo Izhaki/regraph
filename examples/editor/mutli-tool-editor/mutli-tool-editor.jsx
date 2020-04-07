@@ -70,12 +70,7 @@ const GraphEditor = editor({
 export default () => (
   <GraphEditor>
     <Box display="flex">
-      <Box>
-        <ToolsPane />
-      </Box>
-      <Box>
-        <Divider orientation="vertical" />
-      </Box>
+      <ToolsPane />
       <Box flexGrow={1}>
         <Graph width={600} height={200} />
       </Box>
