@@ -1,14 +1,17 @@
-const creationTool = getEditPolicies => ({ getState, dispatch }) => {
+const creationTool = getEditPolicies => () => {
   return action => {
     switch (action.type) {
       case 'mouseUp': {
         const { target } = action.event;
 
-        const policy = getEditPolicies(target).create;
+        const policies = getEditPolicies(target, 'create');
 
-        if (policy) {
-          policy(dispatch, getState)(action.event, getState);
+        if (policies) {
+          policies.forEach(policy => {
+            policy(action.event);
+          });
         }
+
         break;
       }
 

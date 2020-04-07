@@ -11,6 +11,7 @@ import {
   loomer,
 } from './middlewares';
 import { init } from './actions';
+import getPoliciesFactory from './getPolicies';
 
 const isDefined = x => x !== undefined;
 
@@ -22,9 +23,11 @@ export default ({
   layout,
   defaults = {},
 }) => {
+  const { getPolicies, enablePolicies } = getPoliciesFactory(getEditPolicies);
+
   const defaultMiddleware = getDefaultMiddleware({
     thunk: {
-      extraArgument: getEditPolicies,
+      extraArgument: getPolicies,
     },
     // We disable these as they choke even a modern MacBook.
     // We should enable in Test mode only.
@@ -34,7 +37,7 @@ export default ({
 
   const middleware = [
     ...defaultMiddleware,
-    toolRouter(tools, getEditPolicies),
+    toolRouter(tools, getPolicies),
     defaults.node && nodeDefaults(defaults.node),
     defaults.connection && connectionDefaults(defaults.connection),
     // Below are post (reducers) middleware so order is inverted (looms will have before layout)
@@ -47,6 +50,9 @@ export default ({
     preloadedState: initialState,
     middleware,
   });
+
+  enablePolicies(store);
+
   store.dispatch(init());
 
   const Editor = ({ children }) => (

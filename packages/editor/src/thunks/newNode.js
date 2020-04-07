@@ -1,6 +1,9 @@
 export default node => (dispatch, getState, getEditPolicies) => {
-  const policy = getEditPolicies({ type: 'node' }).new;
-  if (policy) {
-    policy(dispatch, getState)(node);
+  const policies = getEditPolicies({ type: 'node' }, 'new');
+
+  if (policies) {
+    policies.forEach(policy => {
+      policy(node);
+    });
   }
 };

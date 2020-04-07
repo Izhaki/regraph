@@ -1,4 +1,3 @@
-import isValidConnection from './isValidConnection';
 import { createDraft, finishDraft } from 'immer';
 
 const forEachPort = (nodes, callback) => {
@@ -22,7 +21,11 @@ const enableAllPorts = nodes => {
   });
 };
 
-export const markValidPorts = ({ nodes, connections }, source) => {
+export const markValidPorts = (
+  { nodes, connections },
+  source,
+  isValidConnection
+) => {
   const nextNodes = createDraft(nodes);
   forEachPort(nextNodes, target => {
     target.port.disabled = !isValidConnection(source, target, connections);

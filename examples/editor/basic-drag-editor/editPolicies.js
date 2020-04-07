@@ -15,4 +15,4 @@ const editPolicies = {
   },
 };
 
-export default target => editPolicies[target.type] || {};
+export default target => editPolicies[target.type];

@@ -17,7 +17,7 @@ import {
   getNodeConnectionsIds,
 } from '@regraph/editor/selectors';
 
-import isValidConnection from './isValidConnection';
+import isValidConnectionConnectionBase from './isValidConnection';
 import { markValidPorts, unmarkValidPorts } from './markValidPorts';
 import { targetifyNode, targetifyConnection } from './targetify';
 
@@ -34,82 +34,127 @@ const getEnd = ({ id, port, type }) => ({
   anchor: type === 'input' ? 'left' : 'right',
 });
 
-const port = {
-  connection: (dispatch, getState) => {
-    let beforeState;
-    return {
-      start: event => {
-        const state = getState();
-        beforeState = state;
-        const { connections } = state;
-        const { source, target } = event;
-        const nextNodes = markValidPorts(state, source);
-        const isValid = isValidConnection(source, target, connections);
-        const [from, to] =
-          target.type === 'output' ? ['src', 'dst'] : ['dst', 'src'];
-        const end = getEnd(target);
+const newConnectionPolicy = (dispatch, getState, isValidConnection) => ({
+  start: event => {
+    const { source, target } = event;
+    const [from, to] =
+      target.type === 'output' ? ['src', 'dst'] : ['dst', 'src'];
+    const end = getEnd(target);
 
-        [
-          setNodes(nextNodes),
-          addConnection({
-            id: '@@draggedConnection',
-            [from]: end,
-            [to]: isValid ? end : event.position,
+    dispatch(
+      addConnection({
+        id: '@@draggedConnection',
+        [from]: end,
+        [to]: isValidConnection(source, target) ? end : event.position,
+      })
+    );
+  },
+  drag: event => {
+    const end = event.source.type === 'output' ? 'dst' : 'src';
+    dispatch(
+      updateConnections({
+        ids: ['@@draggedConnection'],
+        updates: {
+          [end]: isValidConnection(event.source, event.target)
+            ? getEnd(event.target)
+            : event.position,
+        },
+      })
+    );
+  },
+  end: event => {
+    const state = getState();
+    const { source, target } = event;
+    if (isValidConnection(source, target)) {
+      const connection = getConnectionById(state, '@@draggedConnection');
+      dispatch(
+        updateConnections({
+          ids: ['@@draggedConnection'],
+          updates: targetifyConnection({
+            id: generateId(connection),
           }),
-        ].map(dispatch);
-      },
-      drag: event => {
-        const { connections } = getState();
-        const isValid = isValidConnection(
-          event.source,
-          event.target,
-          connections
-        );
-        const end = event.source.type === 'output' ? 'dst' : 'src';
+        })
+      );
+    } else {
+      dispatch(
+        removeConnections({
+          ids: ['@@draggedConnection'],
+        })
+      );
+    }
+  },
+});
+
+const markValidPortsPolicy = (dispatch, getState, isValidConnection) => ({
+  start: event => {
+    const state = getState();
+    const { source } = event;
+    const nextNodes = markValidPorts(state, source, isValidConnection);
+    dispatch(setNodes(nextNodes));
+  },
+  end: () => {
+    const { nodes } = getState();
+    const nextNodes = unmarkValidPorts(nodes);
+    dispatch(setNodes(nextNodes));
+  },
+});
+
+const undoConnectionPolicy = (dispatch, beforeState, isValidConnection) => ({
+  end: event => {
+    const { source, target } = event;
+    if (isValidConnection(source, target)) {
+      dispatch(
+        addCommand({
+          title: 'New Connection',
+          beforeState,
+        })
+      );
+    }
+  },
+});
+
+const moveBoxPolicy = dispatch => ({
+  drag: event => {
+    dispatch(
+      moveBox({
+        id: event.source.id,
+        delta: event.delta,
+      })
+    );
+  },
+});
+
+const undoMoveBoxPolicy = (dispatch, beforeState) => {
+  let hasMoved = false;
+  return {
+    drag: () => {
+      hasMoved = true;
+    },
+    end: () => {
+      if (hasMoved) {
         dispatch(
-          updateConnections({
-            ids: ['@@draggedConnection'],
-            updates: {
-              [end]: isValid ? getEnd(event.target) : event.position,
-            },
+          addCommand({
+            title: 'Move',
+            beforeState,
           })
         );
-      },
-      end: event => {
-        const state = getState();
-        const { connections, nodes } = state;
-        const isValid = isValidConnection(
-          event.source,
-          event.target,
-          connections
-        );
-        const nextNodes = unmarkValidPorts(nodes);
-        dispatch(setNodes(nextNodes));
-        if (isValid) {
-          const connection = getConnectionById(state, '@@draggedConnection');
-          [
-            updateConnections({
-              ids: ['@@draggedConnection'],
-              updates: targetifyConnection({
-                id: generateId(connection),
-              }),
-            }),
-            addCommand({
-              title: 'New Connection',
-              beforeState,
-            }),
-          ].map(dispatch);
-        } else {
-          dispatch(
-            removeConnections({
-              ids: ['@@draggedConnection'],
-            })
-          );
-        }
+      }
+    },
+  };
+};
 
-        beforeState = null;
-      },
-    };
+const port = {
+  connection: (dispatch, getState) => {
+    const beforeState = getState();
+    const { connections } = beforeState;
+
+    const isValidConnection = (source, target) =>
+      isValidConnectionConnectionBase(source, target, connections);
+    return [
+      markValidPortsPolicy(dispatch, getState, isValidConnection),
+      newConnectionPolicy(dispatch, getState, isValidConnection),
+      undoConnectionPolicy(dispatch, beforeState, isValidConnection),
+    ];
   },
 };
 
@@ -147,37 +192,15 @@ const editPolicies = {
       ].map(dispatch);
     },
     move: (dispatch, getState) => {
-      let beforeState;
-      let hasMoved = false;
-      return {
-        start: () => {
-          beforeState = getState();
-        },
-        drag: event => {
-          hasMoved = true;
-          dispatch(
-            moveBox({
-              id: event.source.id,
-              delta: event.delta,
-            })
-          );
-        },
-        end: () => {
-          if (hasMoved) {
-            dispatch(
-              addCommand({
-                title: 'Move',
-                beforeState,
-              })
-            );
-          }
-          return undefined;
-        },
-      };
+      const beforeState = getState();
+      return [
+        moveBoxPolicy(dispatch),
+        undoMoveBoxPolicy(dispatch, beforeState),
+      ];
     },
   },
   output: port,
   input: port,
 };
 
-export default target => editPolicies[target.type] || {};
+export default target => editPolicies[target.type];

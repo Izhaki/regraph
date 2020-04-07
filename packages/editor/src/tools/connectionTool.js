@@ -1,36 +1,44 @@
-const connectionTool = getEditPolicies => ({ dispatch, getState }) => {
+const connectionTool = getEditPolicies => () => {
   let source = null;
-  let policy = null;
+  let policies = null;
   return action => {
     switch (action.type) {
       case 'mouseDown': {
         const { target } = action.event;
-        action.event.source = target;
-        policy = getEditPolicies(target).connection;
-        if (policy) {
-          policy = policy(dispatch, getState);
-          source = target;
-          policy.start(action.event);
+        source = target;
+
+        policies = getEditPolicies(target, 'connection');
+
+        if (policies && policies.start) {
+          action.event.source = source;
+          policies.start.forEach(start => {
+            start(action.event);
+          });
         }
         break;
       }
 
       case 'mouseMove': {
-        if (policy) {
+        if (policies && policies.drag) {
           action.event.source = source;
-          policy.drag(action.event);
+          policies.drag.forEach(drag => {
+            drag(action.event);
+          });
         }
         break;
       }
 
       case 'mouseUp': {
-        if (policy) {
+        if (policies && policies.end) {
           action.event.source = source;
-          policy.end(action.event);
-          policy = null;
+          policies.end.forEach(end => {
+            end(action.event);
+          });
         }
+        policies = null;
         break;
       }
+
       default:
     }
   };

@@ -4,9 +4,12 @@ const isEqual = a => b => JSON.stringify(a) === JSON.stringify(b);
 
 const deselectAll = (getEditPolicies, dispatch, getState, selected) => {
   selected.forEach(target => {
-    const policy = getEditPolicies(target).deselect;
-    if (policy) {
-      policy(dispatch, getState)(target);
+    const policies = getEditPolicies(target, 'deselect');
+
+    if (policies) {
+      policies.forEach(policy => {
+        policy(target);
+      });
     }
   });
 
@@ -28,10 +31,12 @@ const selectionTool = getEditPolicies => ({ getState, dispatch }) => {
             deselectAll(getEditPolicies, dispatch, getState, selected);
           }
 
-          const policy = getEditPolicies(target).select;
-          if (policy) {
-            policy(dispatch, getState)(target);
+          const policies = getEditPolicies(target, 'select');
 
+          if (policies) {
+            policies.forEach(policy => {
+              policy(target);
+            });
             dispatch(select({ targets: [target] }));
           }
         }

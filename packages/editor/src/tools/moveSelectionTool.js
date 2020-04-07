@@ -1,46 +1,48 @@
 const moveSelectionTool = getEditPolicies => ({ getState, dispatch }) => {
   let selected = null;
-  let policy;
+  let policies;
   return action => {
     switch (action.type) {
       case 'mouseDown': {
         selected = getState().selected;
 
         if (selected.length) {
-          const { target } = action.event;
-          action.event.source = target;
+          policies = getEditPolicies(action.event.target, 'move');
 
-          policy = getEditPolicies(target).move;
-
-          if (policy) {
-            policy = policy(dispatch, getState);
-            if (policy.start) {
-              policy.start(action.event);
-            }
+          if (policies && policies.start) {
+            selected.forEach(target => {
+              action.event.source = target;
+              policies.start.forEach(start => {
+                start(action.event);
+              });
+            });
           }
         }
 
         break;
       }
       case 'mouseMove': {
-        if (policy) {
+        if (policies && policies.drag) {
           selected.forEach(target => {
             action.event.source = target;
-            policy.drag(action.event);
+            policies.drag.forEach(drag => {
+              drag(action.event);
+            });
           });
         }
         break;
       }
 
       case 'mouseUp': {
-        if (policy && policy.end) {
+        if (policies && policies.end) {
           selected.forEach(target => {
             action.event.source = target;
-            policy.end(action.event);
+            policies.end.forEach(end => {
+              end(action.event);
+            });
           });
         }
-
-        policy = null;
+        policies = null;
         break;
       }
 

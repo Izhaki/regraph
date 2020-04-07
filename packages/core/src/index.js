@@ -7,3 +7,4 @@ export { default as uuid } from './uuidv4';
 export { default as mergeConnections } from './mergeConnections';
 export { default as pipe } from './pipe';
 export { default as compose } from './compose';
+export { default as ensureArray } from './ensureArray';
